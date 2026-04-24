@@ -1,0 +1,232 @@
+{
+  "format": "video",
+  "background": "static/template_media/Pink Floral Modern Wedding Invitation.mp4",
+  "output": "output/pink-floral-invitation.mp4",
+  "width": 396,
+  "height": 558,
+  "fps": 30,
+  "duration": 6,
+
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "modern": "static/fonts/Montserrat-Regular.ttf",
+      "gujarati":"fonts/AnekGujarati_Expanded-Regular.ttf"
+    }
+  },
+
+  "animation_presets": {
+    "fade_in": {
+      "property": "opacity",
+      "from": 0,
+      "to": 1,
+      "duration": 0.45,
+      "easing": "ease-out"
+    },
+    "fade_out": {
+      "property": "opacity",
+      "from": 1,
+      "to": 0,
+      "duration": 0.5,
+      "easing": "ease-in"
+    },
+    "scale_in": {
+      "property": "scale",
+      "from": 0.85,
+      "to": 1.0,
+      "duration": 0.45,
+      "easing": "ease-out"
+    }
+  },
+
+  "global_animations": [
+    {
+      "preset": "fade_out",
+      "start": 5,
+      "targets": "all"
+    }
+  ],
+
+  "layers": [
+    {
+      "id": "join_us",
+      "type": "text",
+      "value": "JOIN US",
+      "font": "serif",
+      "font_size": 30,
+      "color": "#4a4a4a",
+      "x": "(w-text_w)/2",
+      "y": 60,
+      "animations": [
+        { "preset": "fade_in", "start": 0 },
+        { "preset": "scale_in", "start": 0.005 }
+      ]
+    },
+    {
+      "id": "wedding_line",
+      "type": "text",
+      "value": "FOR",
+      "font": "modern",
+      "font_size": 15,
+      "letter_spacing": 2,
+      "color": "#6b6b6b",
+      "x": "(w-text_w)/2-75",
+      "y": 100,
+      "animations": [
+        { "preset": "fade_in", "start": 0.3 }
+      ]
+    },
+        {
+      "id": "wedding_line",
+      "type": "text",
+      "value": "THE",
+      "font": "modern",
+      "font_size": 15,
+      "letter_spacing": 2,
+      "color": "#6b6b6b",
+      "x": "(w-text_w)/2 - 40",
+      "y": 100,
+      "animations": [
+        { "preset": "fade_in", "start": 0.4 }
+      ]
+    },
+        {
+      "id": "wedding_line",
+      "type": "text",
+      "value": "WEDDING",
+      "font": "modern",
+      "font_size": 15,
+      "letter_spacing": 2,
+      "color": "#6b6b6b",
+      "x": "(w-text_w)/2 + 20",
+      "y": 100,
+      "animations": [
+        { "preset": "fade_in", "start": 0.5 }
+      ]
+    },
+            {
+      "id": "wedding_line",
+      "type": "text",
+      "value": "OF",
+      "font": "modern",
+      "font_size": 15,
+      "letter_spacing": 2,
+      "color": "#6b6b6b",
+      "x": "(w-text_w)/2 + 73",
+      "y": 100,
+      "animations": [
+        { "preset": "fade_in", "start": 0.6 }
+      ]
+    },
+    {
+      "id": "bride_name",
+      "type": "text",
+      "key": "bride_name",
+      "font": "gujarati",
+      "font_size": 26,
+      "color": "#2f2f2f",
+      "x": "(w-text_w)/2 - 100",
+      "y": 350,
+      "animations": [
+        { "preset": "fade_in", "start": 1 }
+    
+      ]
+    },
+    {
+      "id": "ampersand",
+      "type": "text",
+      "value": "&",
+      "font": "serif",
+      "font_size": 26,
+      "color": "#2f2f2f",
+      "x": "(w-text_w)/2",
+      "y": 350,
+      "animations": [
+        { "preset": "fade_in", "start": 1.3 }
+
+      ]
+    },
+    {
+      "id": "groom_name",
+      "type": "text",
+      "key": "groom_name",
+      "font": "gujarati",
+      "font_size": 26,
+      "color": "#2f2f2f",
+      "x": "(w-text_w)/2 + 110",
+      "y": 350,
+      "animations": [
+        { "preset": "fade_in", "start": 1.5 }
+      ]
+    },
+    {
+      "id": "date",
+      "type": "text",
+      "key": "wedding_date",
+      "format": {
+        "type": "date",
+        "pattern": "dd"
+      },
+      "font": "gujarati",
+      "font_size": 18,
+      "letter_spacing": 2,
+      "color": "#4a4a4a",
+      "x": "(w-text_w)/2 - 50",
+      "y": 400,
+      "animations": [
+         { "preset": "fade_in", "start": 1.35 }
+      ]
+    },
+        {
+      "id": "date",
+      "type": "text",
+      "key": "wedding_date",
+      "format": {
+        "type": "date",
+        "pattern": "MMMM"
+      },
+      "font": "gujarati",
+      "font_size": 18,
+      "letter_spacing": 2,
+      "color": "#4a4a4a",
+      "x": "(w-text_w)/2",
+      "y": 400,
+      "animations": [
+         { "preset": "fade_in", "start": 1.6 }
+      ]
+    },
+        {
+      "id": "date",
+      "type": "text",
+      "key": "wedding_date",
+      "format": {
+        "type": "date",
+        "pattern": "yyyy"
+      },
+      "font": "gujarati",
+      "font_size": 18,
+      "letter_spacing": 2,
+      "color": "#4a4a4a",
+      "x": "(w-text_w)/2 + 62",
+      "y": 400,
+      "animations": [
+         { "preset": "fade_in", "start": 1.7 }
+      ]
+    },
+    {
+      "id": "address",
+      "type": "text",
+      "key": "venue_address",
+      "font": "gujarati",
+      "font_size": 13,
+      "letter_spacing": 1,
+      "color": "#6b6b6b",
+      "x": "(w-text_w)/2",
+      "y": 430,
+      "animations": [
+        { "preset": "fade_in", "start": 1.65 }
+      ]
+    }
+  ]
+}

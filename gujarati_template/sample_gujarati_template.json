@@ -1,0 +1,171 @@
+{
+  "background": "gujarati_template/template_media/1004.png",
+  "assets": {
+    "fonts": {
+      "serif": "fonts/PlayfairDisplay-Regular.ttf",
+      "script": "fonts/GreatVibes-Regular.ttf",
+      "sans": "fonts/NotoSansGujarati-VariableFont_wdth,wght.ttf",
+      "gujarati": "fonts/AnekGujarati_Expanded-Regular.ttf",
+      "fancy": "fonts/TiroDevanagariHindi-Regular.ttf"
+    }
+  },
+  "data": {
+    "personName": "ચિ. પાર્થ",
+    "partnerName": "ચિ. સાક્ષી",
+    "month": "ફેબ્રુઆરી",
+    "date": "12",
+    "venue": "ધ ગ્રાન્ડ પેલેસ",
+    "venueAddress": "123 રોયલ સ્ટ્રીટ, સુરત",
+    "message": "અમારી નવી સફરની શરૂઆત માટે આપ સૌને આમંત્રણ છે.",
+    "rsvpDate": "01 ફેબ્રુઆરી 2027"
+  },
+  "layers": [
+    {
+      "type": "text",
+      "value": "श्री और श्रीमती मनीष वर्मा",
+      "y": 550,
+      "font": "fancy",
+      "font_size": 50,
+      "color": "#5A2D0C",
+      "align": "center",
+      "max_width": 700
+    },
+    {
+      "type": "text",
+      "value": "અમે તમને અમારા પુત્રના લગ્ન પ્રસંગે ભાવભર્યું આમંત્રણ પાઠવીએ છીએ.",
+      "y": 640,
+      "font": "sans",
+      "font_size": 30,
+      "color": "#7C4A1F",
+      "align": "center",
+      "max_width": 700
+    },
+
+    {
+      "type": "text",
+      "key": "personName",
+      "y": 750,
+      "font": "sans",
+      "font_size": 110,
+      "color": "#7A1F0F",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "value": "ના શુભ લગ્ન",
+      "y": 900,
+      "font": "sans",
+      "font_size": 40,
+      "color": "#D4A437",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "partnerName",
+      "y": 1000,
+      "font": "sans",
+      "font_size": 110,
+      "color": "#7A1F0F",
+      "align": "center"
+    },
+
+    {
+      "type": "text",
+      "value": "કન્યા",
+      "y": 1150,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#7C4A1F",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "value": "શ્રી અને શ્રીમતી રમેશ શર્મા",
+      "y": 1200,
+      "font": "sans",
+      "font_size": 50,
+      "color": "#5A2D0C",
+      "align": "center",
+      "max_width": 700
+    },
+
+    {
+      "type": "text",
+      "value": "લગ્ન તારીખ",
+      "y": 1300,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#7C4A1F",
+      "align": "center"
+    },
+
+    {
+      "type": "text",
+      "key": "month",
+      "y": 1350,
+      "font": "sans",
+      "font_size": 42,
+      "color": "#5A2D0C",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "date",
+      "y": 1450,
+      "font": "sans",
+      "font_size": 60,
+      "color": "#3E1400",
+      "align": "center"
+    },
+
+    {
+      "type": "text",
+      "key": "venue",
+      "y": 1550,
+      "font": "sans",
+      "font_size": 40,
+      "color": "#5A2D0C",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "venueAddress",
+      "y": 1600,
+      "font": "sans",
+      "font_size": 38,
+      "color": "#7C4A1F",
+      "align": "center",
+      "max_width": 800
+    },
+
+    {
+      "type": "text",
+      "key": "message",
+      "y": 1700,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#5A2D0C",
+      "align": "center",
+      "max_width": 1200
+    },
+
+    {
+      "type": "text",
+      "value": "આર.એસ.વી.પી.",
+      "y": 1820,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#8B0000",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "rsvpDate",
+      "y": 1870,
+      "font": "sans",
+      "font_size": 40,
+      "color": "#3E1400",
+      "align": "center"
+    }
+  ]
+}

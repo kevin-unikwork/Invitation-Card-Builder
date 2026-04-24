@@ -1,0 +1,199 @@
+{
+  "format": "pdf",
+  "pdf_dpi": 300,
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "sans": "static/fonts/NotoSansGujarati-VariableFont_wdth,wght.ttf"
+    }
+  },
+  "pages": [
+    {
+      "background": "static/template_media/1004.png",
+      "layers": [
+        {
+          "type": "text",
+          "key": "parentname",
+          "required": true,
+          "y": 550,
+          "font": "serif",
+          "font_size": 50,
+          "color": "#5A2D0C",
+          "align": "center",
+          "max_width": 600
+        },
+        {
+          "type": "text",
+          "value": "cordially invite you to the wedding of their {relation}",
+          "y": 620,
+          "font": "sans",
+          "font_size": 36,
+          "color": "#7C4A1F",
+          "align": "center",
+          "max_width": 700
+        },
+        {
+          "type": "text",
+          "key": "personName",
+          "required": true,
+          "y": 750,
+          "font": "script",
+          "font_size": 120,
+          "color": "#7A1F0F",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "value": "&",
+          "y": 900,
+          "font": "serif",
+          "font_size": 60,
+          "color": "#D4A437",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "partnerName",
+          "required": true,
+          "y": 1000,
+          "font": "script",
+          "font_size": 120,
+          "color": "#7A1F0F",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "value": "{partnerRelation} of",
+          "y": 1150,
+          "font": "sans",
+          "font_size": 36,
+          "color": "#7C4A1F",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "partnerParentName",
+          "required": true,
+          "skip_if_empty": true,
+          "y": 1200,
+          "font": "serif",
+          "font_size": 50,
+          "color": "#5A2D0C",
+          "align": "center",
+          "max_width": 700
+        },
+        {
+          "type": "text",
+          "value": "which will be conducted on",
+          "y": 1300,
+          "font": "sans",
+          "font_size": 36,
+          "color": "#7C4A1F",
+          "align": "center",
+          "max_width": 700
+        },
+        {
+          "type": "text",
+          "key": "event_date",
+          "format": { "type": "date", "pattern": "MMMM" },
+          "y": 1400,
+          "font": "sans",
+          "font_size": 42,
+          "color": "#5A2D0C",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "event_date",
+          "format": { "type": "date", "pattern": "dd" },
+          "y": 1450,
+          "font": "serif",
+          "font_size": 60,
+          "color": "#3E1400",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "venue",
+          "required": false,
+          "skip_if_empty": true,
+          "link_key": "link",
+          "y": 1550,
+          "font": "sans",
+          "font_size": 40,
+          "color": "#5A2D0C",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "venueAddress",
+          "required": false,
+          "skip_if_empty": true,
+          "link_key": "link",
+          "y": 1610,
+          "font": "sans",
+          "font_size": 38,
+          "color": "#5A2D0C",
+          "align": "center",
+          "max_width": 800
+        },
+        {
+          "type": "text",
+          "value": "લોકેશન માટે અહીં ટચ કરો",
+          "skip_if_key_empty": "link",
+          "y": 1670,
+          "font": "sans",
+          "font_size": 38,
+          "color": "#5A2D0C",
+          "align": "center",
+          "link_key": "link"
+        },
+        {
+          "type": "text",
+          "key": "link",
+          "hidden": true,
+          "required": false,
+          "skip_if_empty": true,
+          "y": 1670,
+          "font": "sans",
+          "font_size": 38,
+          "color": "#1565C0",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "message",
+          "required": false,
+          "skip_if_empty": true,
+          "y": 1740,
+          "font": "serif",
+          "font_size": 36,
+          "color": "#5A2D0C",
+          "align": "center",
+          "max_width": 1200
+        },
+        {
+          "type": "text",
+          "value": "RSVP by",
+          "y": 1860,
+          "font": "sans",
+          "font_size": 36,
+          "color": "#8B0000",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "key": "rsvpDate",
+          "required": false,
+          "skip_if_empty": true,
+          "y": 1900,
+          "font": "sans",
+          "font_size": 40,
+          "color": "#3E1400",
+          "align": "center"
+        }
+      ]
+    }
+  ]
+}

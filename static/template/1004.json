@@ -1,0 +1,206 @@
+
+{
+  "background": "static/template_media/1004.png",
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "sans": "static/fonts/NotoSansGujarati-VariableFont_wdth,wght.ttf"
+    }
+  },
+  "layers": [
+    {
+      "type": "text",
+      "key": "parentname",
+      "required": true,
+      "y": 550,
+      "font": "serif",
+      "font_size": 50,
+      "color": "#5A2D0C",
+      "align": "center",
+      "max_width": 600
+    },
+    {
+      "type": "text",
+      "value": "cordially invite you to the wedding of our {relation}",
+      "y": 620,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#7C4A1F",
+      "align": "center",
+      "max_width": 700
+    },
+
+    {
+      "type": "text",
+      "key": "personName",
+      "required": true,
+      "y": 750,
+      "font": "script",
+      "font_size": 120,
+      "color": "#7A1F0F",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "value": "&",
+      "y": 900,
+      "font": "serif",
+      "font_size": 60,
+      "color": "#D4A437",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "partnerName",
+      "required": true,
+      "y": 1000,
+      "font": "script",
+      "font_size": 120,
+      "color": "#7A1F0F",
+      "align": "center"
+    },
+
+    {
+      "type": "text",
+      "value": "{partnerRelation} of",
+      "y": 1150,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#7C4A1F",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "partnerParentName",
+      "required": true,
+      "skip_if_empty": true,
+      "y": 1200,
+      "font": "serif",
+      "font_size": 50,
+      "color": "#5A2D0C",
+      "align": "center",
+      "max_width": 700
+    },
+
+    {
+      "type": "text",
+      "value": "which will be conducted on",
+      "y": 1300,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#7C4A1F",
+      "align": "center",
+      "max_width": 700
+    },
+
+    {
+      "type": "text",
+      "key": "event_date",
+      "format": {
+        "type": "date",
+        "pattern": "MMMM"
+      },
+      "y": 1400,
+      "font": "sans",
+      "font_size": 42,
+      "color": "#5A2D0C",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "event_date",
+      "format": {
+        "type": "date",
+        "pattern": "dd"
+      },
+      "y": 1450,
+      "font": "serif",
+      "font_size": 60,
+      "color": "#3E1400",
+      "align": "center"
+    },
+
+    {
+      "type": "text",
+      "key": "venue",
+      "required": false,
+      "skip_if_empty": true,
+      "link_key": "link",
+      "y": 1550,
+      "font": "sans",
+      "font_size": 40,
+      "color": "#5A2D0C",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "venueAddress",
+      "required": false,
+      "skip_if_empty": true,
+      "link_key": "link",
+      "y": 1600,
+      "font": "sans",
+      "font_size": 38,
+      "color": "#7C4A1F",
+      "align": "center",
+      "max_width": 800
+    },
+    {
+      "type": "text",
+      "key": "message",
+      "required": false,
+      "skip_if_empty": true,
+      "y": 1700,
+      "font": "serif",
+      "font_size": 36,
+      "color": "#5A2D0C",
+      "align": "center",
+      "max_width": 1200
+    },
+
+    {
+      "type": "text",
+      "value": "RSVP by",
+      "y": 1820,
+      "font": "sans",
+      "font_size": 36,
+      "color": "#8B0000",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "rsvpDate",
+      "required": false,
+      "skip_if_empty": true,
+      "y": 1870,
+      "font": "sans",
+      "font_size": 40,
+      "color": "#3E1400",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "value": "RSVP Date",
+      "y": 1930,
+      "font": "sans",
+      "font_size": 32,
+      "color": "#8B0000",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "key": "rsvp_date",
+      "format": {
+        "type": "date",
+        "pattern": "MMMM dd"
+      },
+      "y": 1980,
+      "font": "serif",
+      "font_size": 42,
+      "color": "#3E1400",
+      "align": "center"
+    }
+
+  ]
+}

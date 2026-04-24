@@ -1,0 +1,124 @@
+{
+  "background": "static/template_media/1002.png",
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/CormorantGaramond-Light.ttf",
+      "display": "static/fonts/Cinzel-Regular.ttf",
+      "sc": "static/fonts/CormorantSC-Regular.ttf"
+    }
+  },
+  "layers": [
+    {
+      "type": "text",
+      "value": "WEDDING INVITATION",
+      "x": "(w-text_w)/2",
+      "y": 60,
+      "font": "display",
+      "font_size": 18,
+      "color": "#b8964a",
+      "max_width": 900
+    },
+    {
+      "type": "text",
+      "value": "Together with your families",
+      "x": "(w-text_w)/2",
+      "y": 120,
+      "font": "serif",
+      "font_size": 28,
+      "color": "#d4b87a",
+      "max_width": 900
+    },
+    {
+      "type": "text",
+      "key": "personName",
+      "required": true,
+      "x": "(w-text_w)/2",
+      "y": 260,
+      "font": "serif",
+      "font_size": 90,
+      "color": "#f0dfa0"
+    },
+    {
+      "type": "text",
+      "value": "&",
+      "x": "(w-text_w)/2",
+      "y": 370,
+      "font": "serif",
+      "font_size": 50,
+      "color": "#b8964a"
+    },
+    {
+      "type": "text",
+      "key": "partnerName",
+      "required": true,
+      "x": "(w-text_w)/2",
+      "y": 500,
+      "font": "serif",
+      "font_size": 90,
+      "color": "#f0dfa0"
+    },
+    {
+      "type": "text",
+      "value": "invite you to celebrate their wedding",
+      "x": "(w-text_w)/2",
+      "y": 620,
+      "font": "serif",
+      "font_size": 26,
+      "color": "#9a8060",
+      "max_width": 800
+    },
+    {
+      "type": "text",
+      "key": "date",
+      "required": true,
+      "x": "(w-text_w)/2",
+      "y": 720,
+      "font": "serif",
+      "font_size": 52,
+      "color": "#f0dfa0"
+    },
+    {
+      "type": "text",
+      "key": "venue",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 810,
+      "font": "sc",
+      "font_size": 32,
+      "color": "#f0dfa0"
+    },
+    {
+      "type": "text",
+      "key": "vanueaddress",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 860,
+      "font": "serif",
+      "font_size": 24,
+      "color": "#7a6a50"
+    },
+    {
+      "type": "text",
+      "value": "KINDLY RESPOND BY",
+      "x": "(w-text_w)/2",
+      "y": 930,
+      "font": "display",
+      "font_size": 16,
+      "color": "#b8964a",
+      "max_width": 900
+    },
+    {
+      "type": "text",
+      "key": "rsvpdate",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 970,
+      "font": "serif",
+      "font_size": 28,
+      "color": "#c8a85c"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+    "format": "pdf",
+  "pdf_dpi": 100,
+  "background": "static/template_media/1003.png",
+  "assets": {
+    "fonts": {
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "sans": "static/fonts/Montserrat-Regular.ttf"
+    }
+  },
+  "layers": [
+    {
+      "type": "text",
+      "value": "SHUBH VIVAH",
+      "x": "(w-text_w)/2",
+      "y": 102,
+      "font": "sans",
+      "font_size": 18,
+      "color": "#8B0A2A"
+    },
+    {
+      "type": "text",
+      "value": "Together with their families",
+      "x": "(w-text_w)/2",
+      "y": 170,
+      "font": "serif",
+      "font_size": 26,
+      "color": "#6B0F1A"
+    },
+    {
+      "type": "text",
+      "key": "personName",
+      "x": "(w-text_w)/2",
+      "y": 230,
+      "font": "script",
+      "font_size": 70,
+      "color": "#8B0A2A"
+    },
+    {
+      "type": "text",
+      "value": "&",
+      "x": "(w-text_w)/2",
+      "y": 320,
+      "font": "serif",
+      "font_size": 30,
+      "color": "#C9912A"
+    },
+    {
+      "type": "text",
+      "key": "partnerName",
+      "x": "(w-text_w)/2",
+      "y": 380,
+      "font": "script",
+      "font_size": 70,
+      "color": "#8B0A2A"
+    },
+    {
+      "type": "text",
+      "value": "invite you to celebrate their wedding",
+      "x": "(w-text_w)/2",
+      "y": 470,
+      "font": "serif",
+      "font_size": 24,
+      "color": "#6B0F1A"
+    },
+    {
+      "type": "text",
+      "key": "date",
+      "x": "(w-text_w)/2",
+      "y": 520,
+      "font": "serif",
+      "font_size": 30,
+      "color": "#4A0614"
+    },
+
+   
+    {
+      "type": "text",
+      "key": "time",
+      "x": "(w-text_w)/2",
+      "y": 570,
+      "font": "sans",
+      "font_size": 22,
+      "color": "#C9912A"
+    },
+
+    {
+      "type": "text",
+      "key": "venue",
+      "x": "(w-text_w)/2",
+      "y": 620,
+      "font": "serif",
+      "font_size": 30,
+      "color": "#6B0F1A"
+    },
+    {
+      "type": "text",
+      "key": "city",
+      "x": "(w-text_w)/2",
+      "y": 660,
+      "font": "sans",
+      "font_size": 20,
+      "color": "#8B0A2A"
+    },
+
+    {
+      "type": "text",
+      "key": "rsvpPhone",
+      "x": "(w-text_w)/2",
+      "y": 720,
+      "font": "sans",
+      "font_size": 28,
+      "color": "#4A0614"
+    },
+
+    {
+      "type": "text",
+      "key": "message",
+      "x": "center",
+      "y": 800,
+      "max_width": 420,
+      "align": "center",
+      "font": "sans",
+      "font_size": 26,
+      "color": "#4A0614"
+    }
+  ]
+}

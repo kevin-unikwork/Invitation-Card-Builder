@@ -1,0 +1,163 @@
+{
+  "background": "static/template_media/1001.png",
+
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "sans": "static/fonts/Montserrat-Regular.ttf"
+    }
+  },
+
+  "layers": [
+
+    {
+      "type": "text",
+      "value": "Together with your family",
+      "x": "(w-text_w)/2",
+      "y": 100,
+      "font": "serif",
+      "font_size": 30,
+      "color": "#444444"
+    },
+
+    {
+      "type": "text",
+      "key": "personName",
+      "required": true,
+      "x": "(w-text_w)/2",
+      "y": 180,
+      "font": "script",
+      "font_size": 80,
+      "color": "#5A7FA3"
+    },
+
+    {
+      "type": "text",
+      "value": "&",
+      "x": "(w-text_w)/2",
+      "y": 280,
+      "font": "serif",
+      "font_size": 40,
+      "color": "#999999"
+    },
+
+    {
+      "type": "text",
+      "key": "partnerName",
+      "required": true,
+      "x": "(w-text_w)/2",
+      "y": 340,
+      "font": "script",
+      "font_size": 80,
+      "color": "#5A7FA3"
+    },
+
+    {
+      "type": "text",
+      "value": "invite you to celebrate their wedding",
+      "x": "(w-text_w)/2",
+      "y": 450,
+      "font": "serif",
+      "font_size": 25,
+      "color": "#444444"
+    },
+
+    {
+      "type": "text",
+      "key": "date",
+      "required": true,
+      "x": "(w-text_w)/2",
+      "y": 520,
+      "font": "serif",
+      "font_size": 20,
+      "color": "#000000"
+    },
+
+    {
+      "type": "text",
+      "key": "venue",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 600,
+      "font": "sans",
+      "font_size": 30,
+      "color": "#333333"
+    },
+
+    {
+      "type": "text",
+      "key": "venueAddress",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 650,
+      "font": "sans",
+      "font_size": 25,
+      "color": "#555555"
+    },
+
+    {
+      "type": "text",
+      "key": "message",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "center",
+      "y": 700,
+      "max_width": 400,
+      "line_height": 22,
+      "align": "center",
+      "font": "serif",
+      "font_size": 15,
+      "color": "#666666"
+    },
+
+    {
+      "type": "text",
+      "value": "RSVP by",
+      "x": "(w-text_w)/2",
+      "y": 750,
+      "font": "sans",
+      "font_size": 23,
+      "color": "#444444"
+    },
+
+    {
+      "type": "text",
+      "key": "rsvpDate",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 785,
+      "font": "sans",
+      "font_size": 25,
+      "color": "#000000"
+    },
+
+    {
+      "type": "text",
+      "key": "phone",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 850,
+      "font": "sans",
+      "font_size": 28,
+      "color": "#333333"
+    },
+
+    {
+      "type": "text",
+      "key": "email",
+      "required": false,
+      "skip_if_empty": true,
+      "x": "(w-text_w)/2",
+      "y": 900,
+      "font": "sans",
+      "font_size": 28,
+      "color": "#333333"
+    }
+
+  ]
+}

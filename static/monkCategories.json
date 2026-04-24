@@ -1,0 +1,2437 @@
+[
+  {
+    "id": 1,
+    "name": "Wedding",
+    "image": "heart.fill",
+    "subcategories": [
+      {
+        "id": 101,
+        "name": "Save the Date",
+        "image": "calendar.badge.clock",
+        "templates": [
+          {
+            "id": 1001,
+            "name": "Floral Romance",
+            "description": "Soft petals & script",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "personName",
+                "label": "Your Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "partnerName",
+                "label": "Partner's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter partner's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Wedding Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select your wedding date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue Name",
+                "fieldType": "textField",
+                "placeholder": "e.g. The Grand Ballroom",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venueAddress",
+                "label": "Venue Address",
+                "fieldType": "textArea",
+                "placeholder": "Enter full venue address including city and zip",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Personal Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a short message to your guests",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpDate",
+                "label": "RSVP By Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select RSVP deadline",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "phone",
+                "label": "Contact Number",
+                "fieldType": "textField",
+                "placeholder": "Enter your contact number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "email",
+                "label": "Email Address",
+                "fieldType": "textField",
+                "placeholder": "Enter your email address",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 1002,
+            "name": "Golden Script",
+            "description": "Luxury typography",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "personName",
+                "label": "Your Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "partnerName",
+                "label": "Partner's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter partner's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textArea",
+                "placeholder": "Enter venue name and address",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Wedding Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select your wedding date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Ceremony Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 4:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "dressCode",
+                "label": "Dress Code",
+                "fieldType": "textField",
+                "placeholder": "e.g. Black Tie, Formal, Casual",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "hashtag",
+                "label": "Wedding Hashtag",
+                "fieldType": "textField",
+                "placeholder": "e.g. #SmithAndJones2025",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Special Note",
+                "fieldType": "textArea",
+                "placeholder": "Any special instructions or notes for guests",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "websiteUrl",
+                "label": "Wedding Website URL",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.ourlove.com",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 1003,
+            "name": "Minimal Ink",
+            "description": "Black & white",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "personName",
+                "label": "Your Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "partnerName",
+                "label": "Partner's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter partner's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Wedding Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select your wedding date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "city",
+                "label": "City",
+                "fieldType": "textField",
+                "placeholder": "Enter city name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 6:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpPhone",
+                "label": "RSVP Phone",
+                "fieldType": "textField",
+                "placeholder": "Enter phone number for RSVP",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Message",
+                "fieldType": "textArea",
+                "placeholder": "Enter a short message for guests",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 102,
+        "name": "Wedding Invite",
+        "image": "heart.fill",
+        "templates": [
+          {
+            "id": 1101,
+            "name": "Royal Blue",
+            "description": "Elegant invite",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "bride",
+                "label": "Bride's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter bride's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "groom",
+                "label": "Groom's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter groom's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Wedding Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select wedding date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Ceremony Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 5:00 PM",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue Name",
+                "fieldType": "textField",
+                "placeholder": "Enter venue name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venueAddress",
+                "label": "Venue Address",
+                "fieldType": "textArea",
+                "placeholder": "Enter complete venue address",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "receptionTime",
+                "label": "Reception Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 7:00 PM onwards",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpDate",
+                "label": "RSVP By",
+                "fieldType": "datePicker",
+                "placeholder": "Select RSVP deadline",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpContact",
+                "label": "RSVP Contact",
+                "fieldType": "textField",
+                "placeholder": "Enter phone or email for RSVP",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 1102,
+            "name": "Classic Gold",
+            "description": "Traditional theme",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "bride",
+                "label": "Bride's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter bride's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "groom",
+                "label": "Groom's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter groom's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textArea",
+                "placeholder": "Enter full venue name and address",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Wedding Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select your wedding date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Ceremony Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 4:30 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "dressCode",
+                "label": "Dress Code",
+                "fieldType": "textField",
+                "placeholder": "e.g. Traditional / Formal",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Invitation Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a warm invitation message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpPhone",
+                "label": "RSVP Phone",
+                "fieldType": "textField",
+                "placeholder": "Enter RSVP contact number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "websiteUrl",
+                "label": "Wedding Website",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.ourlove.com",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 1103,
+            "name": "Modern Love",
+            "description": "Trendy invite",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "bride",
+                "label": "Bride's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter bride's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "groom",
+                "label": "Groom's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter groom's full name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select wedding date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 7:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a personal message to your guests",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "hashtag",
+                "label": "Hashtag",
+                "fieldType": "textField",
+                "placeholder": "e.g. #ModernLove2025",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpEmail",
+                "label": "RSVP Email",
+                "fieldType": "textField",
+                "placeholder": "Enter RSVP email address",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 103,
+        "name": "Anniversary",
+        "image": "heart.circle.fill",
+        "templates": [
+          {
+            "id": 1201,
+            "name": "Silver Jubilee",
+            "description": "25 years celebration",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "couple",
+                "label": "Couple Name",
+                "fieldType": "textField",
+                "placeholder": "e.g. John & Jane Smith",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "years",
+                "label": "Years Together",
+                "fieldType": "numberField",
+                "placeholder": "Enter number of years",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Anniversary Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select anniversary date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Celebration Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue or location",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Event Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 7:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Anniversary Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a heartfelt message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpContact",
+                "label": "RSVP Contact",
+                "fieldType": "textField",
+                "placeholder": "Enter phone or email",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "weddingYear",
+                "label": "Wedding Year",
+                "fieldType": "textField",
+                "placeholder": "e.g. 2000",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 1202,
+            "name": "Golden Moments",
+            "description": "50th anniversary",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "couple",
+                "label": "Couple Name",
+                "fieldType": "textField",
+                "placeholder": "e.g. Robert & Mary Johnson",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "years",
+                "label": "Years Together",
+                "fieldType": "numberField",
+                "placeholder": "Enter number of years (e.g. 50)",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Anniversary Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select the anniversary date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Golden Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a golden message for this milestone",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Couple Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "weddingYear",
+                "label": "Year of Marriage",
+                "fieldType": "textField",
+                "placeholder": "e.g. 1975",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpPhone",
+                "label": "RSVP Phone",
+                "fieldType": "textField",
+                "placeholder": "Enter RSVP contact number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Event Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 6:30 PM",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 1203,
+            "name": "Memory Reel",
+            "description": "Video slideshow",
+            "isVideo": true,
+            "image": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "couple",
+                "label": "Couple Name",
+                "fieldType": "textField",
+                "placeholder": "e.g. Tom & Susan",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "years",
+                "label": "Years Together",
+                "fieldType": "numberField",
+                "placeholder": "Enter number of years",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "images",
+                "label": "Memory Photos",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Anniversary Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select anniversary date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Reel Caption",
+                "fieldType": "textArea",
+                "placeholder": "Write a caption for your memory reel",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "song",
+                "label": "Background Song Title",
+                "fieldType": "textField",
+                "placeholder": "Enter your favourite song title",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "hashtag",
+                "label": "Hashtag",
+                "fieldType": "textField",
+                "placeholder": "e.g. #ForeverUs",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Party",
+    "image": "party.popper.fill",
+    "subcategories": [
+      {
+        "id": 201,
+        "name": "Birthday",
+        "image": "birthday.cake.fill",
+        "templates": [
+          {
+            "id": 2001,
+            "name": "Confetti Pop",
+            "description": "Fun birthday",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "name",
+                "label": "Birthday Person's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter the birthday person's name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "age",
+                "label": "Age",
+                "fieldType": "numberField",
+                "placeholder": "Enter age (e.g. 25)",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Birthday Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select birthday date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Party Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 6:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Party Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue or location name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venueAddress",
+                "label": "Venue Address",
+                "fieldType": "textArea",
+                "placeholder": "Enter full address of the party venue",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Birthday Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a fun birthday message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpPhone",
+                "label": "RSVP Phone",
+                "fieldType": "textField",
+                "placeholder": "Enter RSVP contact number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "theme",
+                "label": "Party Theme",
+                "fieldType": "textField",
+                "placeholder": "e.g. Tropical, Superhero, Glow",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 2002,
+            "name": "Neon Night",
+            "description": "Party vibe",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "name",
+                "label": "Birthday Person's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter the birthday person's name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "age",
+                "label": "Age",
+                "fieldType": "numberField",
+                "placeholder": "Enter age turning (e.g. 30)",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Party Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select party date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Party Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 9:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "dresscode",
+                "label": "Dress Code",
+                "fieldType": "textField",
+                "placeholder": "e.g. Neon, Glow in the Dark",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Shoutout Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a hype message for the night",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpContact",
+                "label": "RSVP Contact",
+                "fieldType": "textField",
+                "placeholder": "Enter phone or Instagram handle",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 2003,
+            "name": "Birthday Reel",
+            "description": "Video wish",
+            "isVideo": true,
+            "image": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "name",
+                "label": "Birthday Person's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter the birthday person's name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "age",
+                "label": "Age",
+                "fieldType": "numberField",
+                "placeholder": "Enter the age",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Birthday Wish",
+                "fieldType": "textArea",
+                "placeholder": "Write a heartfelt birthday wish",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Birthday Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Birthday Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select birthday date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "sender",
+                "label": "From (Sender Name)",
+                "fieldType": "textField",
+                "placeholder": "Enter your name or family name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "song",
+                "label": "Favourite Song",
+                "fieldType": "textField",
+                "placeholder": "Enter a favourite song title",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 202,
+        "name": "Farewell",
+        "image": "airplane.departure",
+        "templates": [
+          {
+            "id": 2201,
+            "name": "Bon Voyage",
+            "description": "Travel theme",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "person",
+                "label": "Person's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter the farewell person's name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Farewell Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select farewell event date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Event Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 5:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue or location",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "destination",
+                "label": "Destination",
+                "fieldType": "textField",
+                "placeholder": "Enter destination city or country",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Farewell Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a warm farewell message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "rsvpContact",
+                "label": "RSVP Contact",
+                "fieldType": "textField",
+                "placeholder": "Enter RSVP phone or email",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "organizer",
+                "label": "Organized By",
+                "fieldType": "textField",
+                "placeholder": "Enter organizer's name or team",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 2202,
+            "name": "Farewell Stars",
+            "description": "Night theme",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "person",
+                "label": "Person's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter the farewell person's name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Farewell Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select date",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "time",
+                "label": "Event Time",
+                "fieldType": "textField",
+                "placeholder": "e.g. 8:00 PM",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "venue",
+                "label": "Venue",
+                "fieldType": "textField",
+                "placeholder": "Enter venue name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a personal farewell note",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "quote",
+                "label": "Inspirational Quote",
+                "fieldType": "textField",
+                "placeholder": "Enter a quote or wish for their journey",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "organizer",
+                "label": "Organized By",
+                "fieldType": "textField",
+                "placeholder": "Enter team or organizer name",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 2203,
+            "name": "Journey Reel",
+            "description": "Video memory",
+            "isVideo": true,
+            "image": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "person",
+                "label": "Person's Name",
+                "fieldType": "textField",
+                "placeholder": "Enter the farewell person's name",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Farewell Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a heartfelt message for the reel",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Memory Photos",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select farewell date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "destination",
+                "label": "Destination",
+                "fieldType": "textField",
+                "placeholder": "Enter destination city or country",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "song",
+                "label": "Background Song",
+                "fieldType": "textField",
+                "placeholder": "Enter favourite song title for the reel",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "sender",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter team or sender's name",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Business",
+    "image": "building.2.fill",
+    "subcategories": [
+      {
+        "id": 301,
+        "name": "Poster",
+        "image": "doc.richtext.fill",
+        "templates": [
+          {
+            "id": 3001,
+            "name": "Corporate Clean",
+            "description": "Professional",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Poster Title",
+                "fieldType": "textField",
+                "placeholder": "Enter main title of the poster",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "Enter a supporting subtitle",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "companyName",
+                "label": "Company Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your company or brand name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "tagline",
+                "label": "Tagline",
+                "fieldType": "textField",
+                "placeholder": "Enter your brand tagline or slogan",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Event / Offer Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select relevant date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "contactPhone",
+                "label": "Contact Phone",
+                "fieldType": "textField",
+                "placeholder": "Enter contact phone number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "contactEmail",
+                "label": "Contact Email",
+                "fieldType": "textField",
+                "placeholder": "Enter contact email address",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "website",
+                "label": "Website",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.yourcompany.com",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "logo",
+                "label": "Company Logo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "description",
+                "label": "Description",
+                "fieldType": "textArea",
+                "placeholder": "Enter a short description or body text",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 3002,
+            "name": "Sale Splash",
+            "description": "Sale banner",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Sale Title",
+                "fieldType": "textField",
+                "placeholder": "e.g. MEGA SALE, FLASH DEAL",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "discount",
+                "label": "Discount",
+                "fieldType": "textField",
+                "placeholder": "e.g. 50% OFF or Buy 1 Get 1",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "e.g. Limited Time Only!",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "validUntil",
+                "label": "Valid Until",
+                "fieldType": "datePicker",
+                "placeholder": "Select offer expiry date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "companyName",
+                "label": "Brand / Store Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your brand or store name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "contactPhone",
+                "label": "Phone Number",
+                "fieldType": "textField",
+                "placeholder": "Enter contact or order phone number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "website",
+                "label": "Website / Link",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.yourstore.com",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "description",
+                "label": "Offer Description",
+                "fieldType": "textArea",
+                "placeholder": "Describe the offer or terms and conditions",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "logo",
+                "label": "Brand Logo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "productImage",
+                "label": "Product Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 3003,
+            "name": "Promo Reel",
+            "description": "Video promo",
+            "isVideo": true,
+            "image": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Promo Title",
+                "fieldType": "textField",
+                "placeholder": "Enter promo video title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "tagline",
+                "label": "Tagline",
+                "fieldType": "textField",
+                "placeholder": "Enter your tagline or hook",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "companyName",
+                "label": "Company Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your company or brand name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "description",
+                "label": "Promo Description",
+                "fieldType": "textArea",
+                "placeholder": "Describe what this promo is about",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Product/Brand Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "website",
+                "label": "Website",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.yourbrand.com",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "contactPhone",
+                "label": "Contact Number",
+                "fieldType": "textField",
+                "placeholder": "Enter contact number",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "offerText",
+                "label": "Offer Text",
+                "fieldType": "textField",
+                "placeholder": "e.g. Get 20% off today!",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Social Media",
+    "image": "rectangle.on.rectangle",
+    "subcategories": [
+      {
+        "id": 401,
+        "name": "Instagram Post",
+        "image": "camera.fill",
+        "templates": [
+          {
+            "id": 4001,
+            "name": "Aesthetic Grid",
+            "description": "Clean feed post",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Post Title",
+                "fieldType": "textField",
+                "placeholder": "Enter a catchy post title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "Enter a supporting subtitle or date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "caption",
+                "label": "Caption",
+                "fieldType": "textArea",
+                "placeholder": "Write your Instagram caption here",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "hashtags",
+                "label": "Hashtags",
+                "fieldType": "textField",
+                "placeholder": "e.g. #aesthetic #lifestyle #vibes",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "username",
+                "label": "Instagram Handle",
+                "fieldType": "textField",
+                "placeholder": "e.g. @yourhandle",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Post Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "cta",
+                "label": "Call to Action",
+                "fieldType": "textField",
+                "placeholder": "e.g. Shop Now, Link in Bio",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "website",
+                "label": "Website / Link",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.yourpage.com",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 4002,
+            "name": "Story Glow",
+            "description": "Bright story",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Story Title",
+                "fieldType": "textField",
+                "placeholder": "Enter a bold story title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "Enter subtitle or supporting text",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Story Message",
+                "fieldType": "textArea",
+                "placeholder": "Write your story message or caption",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "cta",
+                "label": "Call to Action",
+                "fieldType": "textField",
+                "placeholder": "e.g. Swipe Up, Tap to Learn More",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "username",
+                "label": "Instagram Handle",
+                "fieldType": "textField",
+                "placeholder": "e.g. @yourhandle",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Background Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "hashtags",
+                "label": "Hashtags",
+                "fieldType": "textField",
+                "placeholder": "e.g. #story #trending",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "link",
+                "label": "Story Link",
+                "fieldType": "textField",
+                "placeholder": "Enter story link or promo URL",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 4003,
+            "name": "Reel Cover",
+            "description": "Thumbnail design",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Reel Title",
+                "fieldType": "textField",
+                "placeholder": "Enter a scroll-stopping reel title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "Enter a teaser line for the reel",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "username",
+                "label": "Instagram Handle",
+                "fieldType": "textField",
+                "placeholder": "e.g. @yourchannel",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "category",
+                "label": "Content Category",
+                "fieldType": "textField",
+                "placeholder": "e.g. Travel, Food, Fitness, Tech",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Cover Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "cta",
+                "label": "Call to Action",
+                "fieldType": "textField",
+                "placeholder": "e.g. Watch Now, Don't Miss!",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "hashtags",
+                "label": "Hashtags",
+                "fieldType": "textField",
+                "placeholder": "e.g. #reels #viral #explore",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 402,
+        "name": "YouTube Thumb",
+        "image": "play.rectangle.fill",
+        "templates": [
+          {
+            "id": 4101,
+            "name": "Clickbait Gold",
+            "description": "High CTR",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Thumbnail Title",
+                "fieldType": "textField",
+                "placeholder": "Enter a high-impact clickbait title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle / Hook",
+                "fieldType": "textField",
+                "placeholder": "Add a curiosity hook e.g. You Won't Believe This!",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "channelName",
+                "label": "Channel Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your YouTube channel name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "episodeNumber",
+                "label": "Episode / Part Number",
+                "fieldType": "textField",
+                "placeholder": "e.g. EP 5, Part 2",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Thumbnail Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "faceImage",
+                "label": "Face / Reaction Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "cta",
+                "label": "Badge Text",
+                "fieldType": "textField",
+                "placeholder": "e.g. NEW, HOT, EXCLUSIVE",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 4102,
+            "name": "Dark Drama",
+            "description": "Dark theme",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Thumbnail Title",
+                "fieldType": "textField",
+                "placeholder": "Enter a dramatic, bold title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "Enter a suspenseful subtitle",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "channelName",
+                "label": "Channel Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your YouTube channel name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Main Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "category",
+                "label": "Video Category",
+                "fieldType": "textField",
+                "placeholder": "e.g. Horror, Thriller, Mystery",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "views",
+                "label": "Milestone Badge",
+                "fieldType": "textField",
+                "placeholder": "e.g. 1M Views, Trending",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "cta",
+                "label": "Call to Action",
+                "fieldType": "textField",
+                "placeholder": "e.g. Watch Now, Subscribe",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 4103,
+            "name": "Vlog Vibes",
+            "description": "Casual style",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Vlog Title",
+                "fieldType": "textField",
+                "placeholder": "Enter a casual, friendly vlog title",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "e.g. Day in my Life, Weekend Vlog",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "channelName",
+                "label": "Channel Name",
+                "fieldType": "textField",
+                "placeholder": "Enter your channel name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "location",
+                "label": "Location",
+                "fieldType": "textField",
+                "placeholder": "e.g. Bali, Tokyo, New York",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Vlog Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select vlog date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Thumbnail Image",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "episodeTag",
+                "label": "Episode Tag",
+                "fieldType": "textField",
+                "placeholder": "e.g. Ep. 12, Week 3",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "cta",
+                "label": "Subscribe CTA",
+                "fieldType": "textField",
+                "placeholder": "e.g. Don't Forget to Subscribe!",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Festival",
+    "image": "sparkles",
+    "subcategories": [
+      {
+        "id": 501,
+        "name": "Christmas",
+        "image": "snowflake",
+        "templates": [
+          {
+            "id": 5001,
+            "name": "Winter Wonderland",
+            "description": "Snow theme",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Card Title",
+                "fieldType": "textField",
+                "placeholder": "e.g. Merry Christmas!",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "recipientName",
+                "label": "Recipient Name",
+                "fieldType": "textField",
+                "placeholder": "Enter recipient's name or family",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "senderName",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter your name or family name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Christmas Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a warm Christmas message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select Christmas date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Family / Personal Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "quote",
+                "label": "Christmas Quote",
+                "fieldType": "textField",
+                "placeholder": "Enter a favourite Christmas quote",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "website",
+                "label": "Website / Social Link",
+                "fieldType": "textField",
+                "placeholder": "e.g. www.yourchurch.com",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 5002,
+            "name": "Santa Special",
+            "description": "Classic card",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Greeting Title",
+                "fieldType": "textField",
+                "placeholder": "e.g. Wishing You a Merry Christmas",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "recipientName",
+                "label": "To",
+                "fieldType": "textField",
+                "placeholder": "Enter recipient's name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "senderName",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter your name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Personal Message",
+                "fieldType": "textArea",
+                "placeholder": "Write your Christmas wishes here",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "phone",
+                "label": "Contact Number",
+                "fieldType": "textField",
+                "placeholder": "Enter contact number (optional)",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 5003,
+            "name": "Holiday Reel",
+            "description": "Video greeting",
+            "isVideo": true,
+            "image": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Reel Title",
+                "fieldType": "textField",
+                "placeholder": "e.g. Happy Holidays from Our Family!",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "senderName",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter your name or family name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Holiday Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a joyful holiday message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Holiday Photos",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "song",
+                "label": "Background Song",
+                "fieldType": "textField",
+                "placeholder": "Enter your favourite holiday song title",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select holiday date",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 502,
+        "name": "Eid",
+        "image": "moon.stars.fill",
+        "templates": [
+          {
+            "id": 5101,
+            "name": "Crescent Gold",
+            "description": "Elegant Eid",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": false,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Eid Greeting",
+                "fieldType": "textField",
+                "placeholder": "e.g. Eid Mubarak!",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "recipientName",
+                "label": "To",
+                "fieldType": "textField",
+                "placeholder": "Enter recipient's name or family",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "senderName",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter your name or family name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Eid Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a warm Eid greeting message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Eid Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select Eid date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Family Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "arabicGreeting",
+                "label": "Arabic Greeting",
+                "fieldType": "textField",
+                "placeholder": "e.g. \u0639\u064a\u062f \u0645\u0628\u0627\u0631\u0643",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "phone",
+                "label": "Contact Number",
+                "fieldType": "textField",
+                "placeholder": "Enter contact number (optional)",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 5102,
+            "name": "Star Night",
+            "description": "Modern style",
+            "isVideo": false,
+            "image": "https://picsum.photos/800/600",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Main Title",
+                "fieldType": "textField",
+                "placeholder": "e.g. Eid Mubarak to All!",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "subtitle",
+                "label": "Subtitle",
+                "fieldType": "textField",
+                "placeholder": "Enter a tagline or short wish",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "senderName",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter sender name or family",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "recipientName",
+                "label": "To",
+                "fieldType": "textField",
+                "placeholder": "Enter recipient name (optional)",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Special Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a personal Eid message",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Eid Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select Eid date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "photo",
+                "label": "Photo",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "arabicText",
+                "label": "Arabic Text",
+                "fieldType": "textField",
+                "placeholder": "e.g. \u062a\u0642\u0628\u0644 \u0627\u0644\u0644\u0647 \u0645\u0646\u0627 \u0648\u0645\u0646\u0643\u0645",
+                "required": false,
+                "options": null
+              }
+            ]
+          },
+          {
+            "id": 5103,
+            "name": "Eid Reel",
+            "description": "Video greeting",
+            "isVideo": true,
+            "image": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "isPro": true,
+            "isFavorite": false,
+            "inputs": [
+              {
+                "key": "title",
+                "label": "Reel Title",
+                "fieldType": "textField",
+                "placeholder": "e.g. Eid Mubarak from Our Family!",
+                "required": true,
+                "options": null
+              },
+              {
+                "key": "senderName",
+                "label": "From",
+                "fieldType": "textField",
+                "placeholder": "Enter your name or family name",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "message",
+                "label": "Eid Message",
+                "fieldType": "textArea",
+                "placeholder": "Write a joyful Eid message for the reel",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "image",
+                "label": "Eid Photos",
+                "fieldType": "imagePicker",
+                "placeholder": "",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "date",
+                "label": "Eid Date",
+                "fieldType": "datePicker",
+                "placeholder": "Select Eid date",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "arabicGreeting",
+                "label": "Arabic Greeting",
+                "fieldType": "textField",
+                "placeholder": "e.g. \u0639\u064a\u062f \u0645\u0628\u0627\u0631\u0643",
+                "required": false,
+                "options": null
+              },
+              {
+                "key": "song",
+                "label": "Background Nasheed / Song",
+                "fieldType": "textField",
+                "placeholder": "Enter a nasheed or song title for background",
+                "required": false,
+                "options": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
