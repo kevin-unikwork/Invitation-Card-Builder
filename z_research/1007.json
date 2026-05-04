@@ -1,0 +1,257 @@
+{
+  "format": "video",
+  "background": "static/template_media/White Watercolor Elegant Wedding Invitation Video.mp4",
+  "width": 396,
+  "height": 558,
+  "fps": 60,
+  "duration": 5,
+
+  "animation_presets": {
+    "fade_in": {
+      "property": "opacity",
+      "from": 0,
+      "to": 1,
+      "duration": 0.45,
+      "easing": "ease-out"
+    },
+    "fade_out": {
+      "property": "opacity",
+      "from": 1,
+      "to": 0,
+      "duration": 0.5,
+      "easing": "ease-in"
+    },
+      "scale_in": {
+        "property": "scale",
+        "from": 0.92,
+        "to": 1.2,
+        "duration": 3.5,
+        "easing": "easeOutCubic"
+      }
+  },
+
+  "global_animations": [
+    {
+      "preset": "fade_out",
+      "start": 4,
+      "targets": "all"
+    }
+  ],
+
+  "layers": [
+    {
+      "type": "text",
+      "value": "TOGETHER",
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 15,
+      "color": "#444444",
+      "x": "(w-text_w)/2",
+      "y": 90,
+      "animations": [
+        { "preset": "fade_in", "start": 0.3 },
+        { "preset": "scale_in", "start": 0.32 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "value": "WITH OUR FAMILIES",
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 15,
+      "color": "#444444",
+      "x": "(w-text_w)/2",
+      "y": 112,
+     "animations": [
+        { "preset": "fade_in", "start": 0.36 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "personName",
+      "required": true,
+      "font": "static/fonts/GreatVibes-Regular.ttf",
+      "font_size": 46,
+      "color": "#5f84a2",
+      "x": "(w-text_w)/2",
+      "y": 162,
+          "animations": [
+        { "preset": "fade_in", "start": 0.37 },
+         { "preset": "scale_in", "start": 0.39 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "value": "&",
+      "font": "static/fonts/GreatVibes-Regular.ttf",
+      "font_size": 34,
+      "color": "#5f84a2",
+      "x": "(w-text_w)/2",
+      "y": 213,
+           "animations": [
+        { "preset": "fade_in", "start": 0.37 },
+         { "preset": "scale_in", "start": 0.39 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "partnerName",
+      "required": true,
+      "font": "static/fonts/GreatVibes-Regular.ttf",
+      "font_size": 46,
+      "color": "#5f84a2",
+      "x": "(w-text_w)/2",
+      "y": 245,
+           "animations": [
+        { "preset": "fade_in", "start": 0.37 },
+         { "preset": "scale_in", "start": 0.39 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "value": "INVITE YOU TO OUR WEDDING",
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 13,
+      "color": "#444444",
+      "x": "(w-text_w)/2",
+      "y": 315,
+           "animations": [
+        { "preset": "fade_in", "start": 0.39 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "value": "CELEBRATION",
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 13,
+      "color": "#444444",
+      "x": "(w-text_w)/2",
+      "y": 336,
+           "animations": [
+        { "preset": "fade_in", "start": 0.5 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "event_date",
+      "format": { "type": "date", "pattern": "MMMM" },
+      "required": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 18,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 365,
+          "animations": [
+        { "preset": "fade_in", "start": 0.6}
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "event_date",
+      "format": { "type": "date", "pattern": "dd" },
+      "required": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 15,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 397,
+          "animations": [
+        { "preset": "fade_in", "start": 0.7 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "time",
+      "required": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 15,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 425,
+          "animations": [
+        { "preset": "fade_in", "start": 0.8 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "event_date",
+      "format": { "type": "date", "pattern": "yyyy" },
+      "required": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 16,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 440,
+          "animations": [
+        { "preset": "fade_in", "start": 0.9 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "venue",
+      "required": false,
+      "skip_if_empty": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 11,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 460,
+           "animations": [
+        { "preset": "fade_in", "start": 1 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "venueAddress",
+      "required": false,
+      "skip_if_empty": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 10,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 480,
+          "animations": [
+        { "preset": "fade_in", "start": 1.1 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "value": "RSVP",
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 10,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 504,
+           "animations": [
+        { "preset": "fade_in", "start": 1.2 }
+      ]
+    },
+
+    {
+      "type": "text",
+      "key": "phone",
+      "required": false,
+      "skip_if_empty": true,
+      "font": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "font_size": 10,
+      "color": "#333333",
+      "x": "(w-text_w)/2",
+      "y": 518,
+          "animations": [
+        { "preset": "fade_in", "start": 1.3 }
+      ]
+    }
+
+  ]
+}

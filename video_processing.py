@@ -238,10 +238,16 @@ def _apply_easing(expr: str, easing: str) -> str:
     name = str(easing or "linear").strip().lower().replace("-", "_")
     if name in {"ease_out", "easeout", "out"}:
         return f"(1-pow(1-({expr}),2))"
+    if name in {"ease_out_cubic", "easeoutcubic", "out_cubic"}:
+        return f"(1-pow(1-({expr}),3))"
     if name in {"ease_in", "easein", "in"}:
         return f"pow(({expr}),2)"
+    if name in {"ease_in_cubic", "easeincubic", "in_cubic"}:
+        return f"pow(({expr}),3)"
     if name in {"ease_in_out", "easeinout", "in_out"}:
         return f"if(lt(({expr}),0.5),2*pow(({expr}),2),1-pow(-2*({expr})+2,2)/2)"
+    if name in {"ease_in_out_cubic", "easeinoutcubic", "in_out_cubic"}:
+        return f"if(lt(({expr}),0.5),4*pow(({expr}),3),1-pow(-2*({expr})+2,3)/2)"
     return expr  # linear
 
 
@@ -647,6 +653,19 @@ def _render_text_to_png_bytes(text: str, layer: dict, font_family: str, font_pat
     return buf.getvalue()
 
 
+def _scale_text_render_layer(layer: dict, factor: int) -> dict:
+    """Return a copy of a text layer rendered at higher pixel density."""
+    if factor <= 1:
+        return layer
+
+    scaled = dict(layer)
+    for key in ("font_size", "padding", "line_spacing", "max_width"):
+        value = scaled.get(key)
+        if isinstance(value, (int, float)):
+            scaled[key] = int(round(value * factor))
+    return scaled
+
+
 # ---------------------------------------------------------------------------
 # Position translation: drawtext → overlay
 # ---------------------------------------------------------------------------
@@ -679,6 +698,7 @@ def _translate_pos_expr(expr: str | int | float, video_w: int, video_h: int, png
 
 def _build_pango_layer_filter(
     layer_idx: int, input_idx: int, png_w: int, png_h: int,
+    display_png_w: int, display_png_h: int,
     layer: dict, template: dict, video_w: int, video_h: int
 ) -> tuple[list[str], str, str, str]:
     """
@@ -701,18 +721,34 @@ def _build_pango_layer_filter(
 
     # ── Step 1: convert to RGBA immediately so subsequent filters see alpha ──
     rgba_label = f"rgba{layer_idx}"
-    steps.append(f"{current}format=rgba[{rgba_label}]")
+    steps.append(f"{current}fps=60,format=rgba[{rgba_label}]")
     current = f"[{rgba_label}]"
 
     # ── Step 2: scale (if animated or non-unit) ───────────────────────────
-    scale_is_static_one = exprs["scale_expr"].strip() == "1.0"
-    if not scale_is_static_one:
+    scale_expr = exprs["scale_expr"].strip()
+
+    render_scale = max(png_w / max(display_png_w, 1), png_h / max(display_png_h, 1), 1.0)
+    needs_display_scale = abs(render_scale - 1.0) > 0.001
+
+    # Detect if visual scale is static.
+    scale_is_static_one = scale_expr == "1.0"
+
+    # 🔥 Ensure smooth time-based scaling (avoid jerky IF-based expressions)
+    # If expression does NOT depend on time `t`, force smooth zoom
+    if "t" not in scale_expr and not scale_is_static_one:
+        duration = float(template.get("duration", 5))
+        scale_expr = f"(1 + (0.15*t/{duration}))"  # smooth zoom-in
+
+    filter_scale_expr = f"(({scale_expr})/{render_scale:.6f})" if needs_display_scale else scale_expr
+
+    if not scale_is_static_one or needs_display_scale:
         scaled_label = f"sc{layer_idx}"
         steps.append(
             f"{current}scale="
-            f"w='iw*({exprs['scale_expr']})':"
-            f"h='ih*({exprs['scale_expr']})':"
-            f"eval=frame[{scaled_label}]"
+            f"w='iw*({filter_scale_expr})':"
+            f"h='ih*({filter_scale_expr})':"
+            f"eval=frame:"
+            f"flags=lanczos[{scaled_label}]"
         )
         current = f"[{scaled_label}]"
 
@@ -789,8 +825,25 @@ def _build_pango_layer_filter(
     if exprs["has_rotation"]:
         ov_x, ov_y = "0", "0"
     else:
-        ov_x = _translate_pos_expr(exprs["x_expr"], video_w, video_h, png_w, png_h, 'x')
-        ov_y = _translate_pos_expr(exprs["y_expr"], video_w, video_h, png_h, png_h, 'y')
+        base_ov_x = _translate_pos_expr(exprs["x_expr"], video_w, video_h, display_png_w, display_png_h, 'x')
+        base_ov_y = _translate_pos_expr(exprs["y_expr"], video_w, video_h, display_png_w, display_png_h, 'y')
+        if scale_is_static_one:
+            ov_x = base_ov_x
+            ov_y = base_ov_y
+        else:
+            # Expressions using overlay w/h, such as centered text, already
+            # account for the scaled overlay size. Fixed positions need an
+            # offset so the visual scale anchor is the original text center.
+            ov_x = (
+                base_ov_x
+                if re.search(r"\b[Ww]\b", base_ov_x)
+                else f"({base_ov_x})-({display_png_w}*(({scale_expr})-1)/2)"
+            )
+            ov_y = (
+                base_ov_y
+                if re.search(r"\b[Hh]\b", base_ov_y)
+                else f"({base_ov_y})-({display_png_h}*(({scale_expr})-1)/2)"
+            )
 
     return steps, out_label, ov_x, ov_y
 
@@ -831,7 +884,9 @@ def render_timed_json_video_template(
     width    = int(template.get("width")    or 396)
     height   = int(template.get("height")   or 558)
     fps      = int(template.get("fps")      or 30)
+    render_fps = max(fps, 60)
     duration = float(template.get("duration") or 5)
+    text_render_scale = max(1, int(template.get("text_render_scale") or 4))
     output_path = (
         _resolve_path(output_override or template.get("output"))
         or (DEFAULT_OUTPUT_DIR / "output.mp4")
@@ -841,7 +896,7 @@ def render_timed_json_video_template(
     layers = template.get("layers") or template.get("texts", [])
 
     # ── Render each text layer to PNG ────────────────────────────────────────
-    layer_pngs: dict[int, tuple[bytes, int, int]] = {}
+    layer_pngs: dict[int, tuple[bytes, int, int, int, int]] = {}
 
     for idx, layer in enumerate(layers):
         text = resolve_text(layer, data)
@@ -852,11 +907,14 @@ def render_timed_json_video_template(
             continue
 
         font_family, font_path = _resolve_video_font_spec(layer, template)
-        png_bytes = _render_text_to_png_bytes(text, layer, font_family, font_path)
+        render_layer = _scale_text_render_layer(layer, text_render_scale)
+        png_bytes = _render_text_to_png_bytes(text, render_layer, font_family, font_path)
         if png_bytes:
             try:
                 img = _PILImage.open(io.BytesIO(png_bytes))
-                layer_pngs[idx] = (png_bytes, img.width, img.height)
+                display_w = max(1, int(round(img.width / text_render_scale)))
+                display_h = max(1, int(round(img.height / text_render_scale)))
+                layer_pngs[idx] = (png_bytes, img.width, img.height, display_w, display_h)
             except:
                 pass
 
@@ -867,18 +925,22 @@ def render_timed_json_video_template(
         input_offset = 1
 
         layer_input_map: dict[int, int] = {}
-        for layer_idx, (png_bytes, png_w, png_h) in layer_pngs.items():
+        for layer_idx, (png_bytes, png_w, png_h, display_w, display_h) in layer_pngs.items():
             ttmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
             ttmp.write(png_bytes)
             ttmp.close()
             temp_files.append(Path(ttmp.name))
-            cmd.extend(["-loop", "1", "-i", ttmp.name])
+            cmd.extend([
+    "-loop", "1",
+    "-t", str(duration),   # 🔥 IMPORTANT
+    "-i", ttmp.name
+])
             layer_input_map[layer_idx] = input_offset
             input_offset += 1
 
         # ── Build filter_complex ─────────────────────────────────────────
         filter_parts: list[str] = [
-            f"[0:v]fps={fps},scale={width}:{height},setsar=1,format=yuv420p[base]"
+            f"[0:v]fps={render_fps},scale={width}:{height},setsar=1,format=yuv420p[base]"
         ]
         current_label = "base"
 
@@ -887,19 +949,24 @@ def render_timed_json_video_template(
                 continue
             input_idx = layer_input_map[layer_idx]
             png_w, png_h = layer_pngs[layer_idx][1], layer_pngs[layer_idx][2]
+            display_w, display_h = layer_pngs[layer_idx][3], layer_pngs[layer_idx][4]
 
             steps, label, ov_x, ov_y = _build_pango_layer_filter(
-                layer_idx, input_idx, png_w, png_h, layer, template, width, height
+                layer_idx, input_idx, png_w, png_h, display_w, display_h, layer, template, width, height
             )
             filter_parts.extend(steps)
 
             next_label = f"mix{layer_idx}"
+
             filter_parts.append(
                 f"[{current_label}][{label}]overlay="
                 f"x='{ov_x}':y='{ov_y}':"
+                f"eval=frame:"
                 f"format=auto:"
-                f"shortest=1[{next_label}]"
+                f"shortest=1"
+                f"[{next_label}]"
             )
+
             current_label = next_label
 
         # Final output: convert back to yuv420p for H.264 compatibility

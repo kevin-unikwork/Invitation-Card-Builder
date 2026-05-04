@@ -1,0 +1,56 @@
+
+{
+  "template_id": 1003,
+  "filled_data": {
+    "personName": "Rahul Sharma",
+    "partnerName": "Priya Verma",
+    "date": "25 December 2026",
+    "time": "08:00 am",
+    "venue": "Royal Palace Banquet",
+    "city": "Surat",
+    "rsvpPhone": "+91 9876543210",
+    "message": "We request the pleasure of your gracious presence at our wedding celebration."
+  }
+}
+
+1004
+
+{
+  "template_id": 1004,
+  "filled_data": {
+    "parentname": "Mr. and Mrs. Sharma",
+    "relation": "son",
+    "personName": "Rahul Sharma",
+    "partnerName": "Priya Verma",
+    "partnerRelation": "daughter",
+    "partnerParentName": "Mr. and Mrs. Verma",
+    "date": "2026-12-25",
+    "rsvpDate": "2026-12-20",
+    "venue": "Royal Palace Banquet",
+    "venueAddress": "Surat, Gujarat",
+    "message": "We request the pleasure of your gracious presence at our wedding celebration."
+  }
+}
+
+{
+  "template_id": 1007,
+  "filled_data": {
+    "personName": "kavya",
+    "partnerName": "kishan",
+    "event_date": "2026-02-14",
+    "time": "2027-02-02",
+    "venue":"Shree Swaminarayan Mandir",
+    "venueAddress":"Shree Swaminarayan Mandir, Kiran Chowk, Yogi chowk",
+    "phone":"080000 58503"
+ }
+}
+
+{
+  "template_id": 1008,
+  "filled_data": {
+    "bride_name": "કાવ્યા",
+    "groom_name": "જય",
+    "wedding_date": "2026-02-14",
+    "venue_address": "શ્રી સ્વામિનારાયણ મંદિર, સુરત"
+  }
+}
