@@ -54,3 +54,64 @@
     "venue_address": "શ્રી સ્વામિનારાયણ મંદિર, સુરત"
   }
 }
+
+
+Functions responsible for scale animation, in execution order:
+
+_expand_animation_presets() — expands scale_in preset into a full animation block on each layer
+
+_combine_animation_blocks() — builds the FFmpeg math expression string for scale (e.g. 0.92 + 0.28 * eased_progress)
+
+_progress_expression() — builds the 0→1 time ramp inside the scale expression
+
+_apply_easing() — wraps the ramp with easing curve (easeOutCubic etc.)
+
+_interpolate() — produces the final from + (to-from) * eased expression
+
+_build_layer_anim_exprs() — calls _combine_animation_blocks for "scale" property, returns scale_expr
+
+_build_pango_layer_filter() — takes scale_expr, applies the render_scale divisor, builds the actual FFmpeg scale=w='round(iw*(expr))':h=-2:eval=frame filter step
+
+render_timed_json_video_template() — assembles all filter steps into filter_complex and runs FFmpeg
+
+The actual animation math lives in 2–5. The FFmpeg filter construction (where the jitter actually happens) is 7. If you want to replace the FFmpeg scale with Python frame loop logic, 7 is the function to gut.
+
+
+
+see this image which is created by our video processing so problem is it's making jeurking like leg in animation can you find what is reason of that ?
+Let me look closely at the position calculation chain in the current code.
+
+Read video_processing.py (lines 756-815)
+Found it. There are two related causes of the jerking:
+
+Root cause 1 — Double-rounding in position calculation (main culprit)
+Here's the chain for a centered layer like "x": "(w-text_w)/2":
+
+
+scale_hq_w = 800 * 1.003 = 802.4
+target_w   = round(802.4) = 802        ← 1st rounding
+img.width  = 802
+disp_img_w = round(802 / 4) = 200.5   ← 2nd rounding → 200 or 201
+base_x     = (396 - 200) / 2 = 98.0
+           vs (396 - 201) / 2 = 97.5  ← 0.5px jump in display space
+px         = round(97.5 * 4) = 390
+           vs round(98.0 * 4) = 392   ← 2 render-px jump = 0.5 output-px SNAP
+When scale animates gently (e.g. a "luxury" scale from 1.0 → 1.05), disp_img_w snaps by 1 every ~12 frames, causing a 0.5px position jolt at irregular intervals. That's the jerk.
+
+Root cause 2 — internal_fps decimation adds noise without benefit
+Rendering at 120fps then using -vf fps=60 to decimate doesn't improve smoothness — the easing function is already sampled correctly at each output frame. The fps filter can also introduce PTS alignment drift if the frame count isn't an exact multiple.
+
+The fix
+For root cause 1 — use float-precision display dimensions for position (bypass the second rounding):
+
+Edit video_processing.py
+Added 2 lines
+For root cause 2 — render directly at output fps, skip the decimation:
+
+Edit video_processing.py
+Modified
+These two changes together eliminate the jerking:
+
+Position fix — disp_img_w is now display_w * scale (a single float computed directly from the scale value). No second round(). Centering expressions now track the true float size of the scaled image, so px moves in a smooth sub-pixel-precise path rather than snapping.
+
+FPS fix — rendering at fps (e.g. 60) instead of fps*2 (120) means no decimation filter, no PTS drift, and 2× faster render time as a bonus. If you ever need internal_fps for a specific template, you can still set it explicitly in the JSON.

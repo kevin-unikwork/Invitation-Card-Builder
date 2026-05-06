@@ -55,6 +55,8 @@ Global animations:
 import argparse
 import io
 import json
+import math
+import os
 import logging
 import re
 import subprocess
@@ -86,10 +88,51 @@ except (ImportError, ValueError):
 PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "static" / "output"
 
+# ── Logging switch ────────────────────────────────────────────────────────────
+# Set to False to silence all video_processing logs completely.
+# Set to True  to see INFO-level progress in the terminal.
+# To also see DEBUG detail (per-frame values, font resolution, etc.) run with:
+#   logging.getLogger("video_processing").setLevel(logging.DEBUG)
+VIDEO_PROCESSING_LOGGING = True
+
 logger = logging.getLogger(__name__)
+logger.propagate = False  # Don't double-print if root logger is also configured.
+if VIDEO_PROCESSING_LOGGING:
+    _ch = logging.StreamHandler()
+    _ch.setFormatter(logging.Formatter(
+        "%(asctime)s  [VP] %(levelname)-7s  %(message)s", datefmt="%H:%M:%S"
+    ))
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(_ch)
+else:
+    logger.addHandler(logging.NullHandler())
 
 FONT_FAMILY_CACHE = {}
 PANGO_FONT_FAMILY_CACHE = None
+
+FONTCONFIG_FILE = Path('/tmp/invitation-fontconfig.xml')
+FONTCONFIG_CACHE = Path('/tmp/fontconfig-cache')
+FONTCONFIG_CACHE.mkdir(exist_ok=True)
+FONT_DIR = PROJECT_ROOT / "static" / "fonts"
+
+
+fontconfig_xml = f"""<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <include ignore_missing="yes">/etc/fonts/fonts.conf</include>
+  <dir>{FONT_DIR}</dir>
+  <cachedir>{FONTCONFIG_CACHE}</cachedir>
+</fontconfig>
+"""
+FONTCONFIG_FILE.write_text(fontconfig_xml)
+os.environ['FONTCONFIG_FILE'] = str(FONTCONFIG_FILE)
+
+subprocess.run(
+    ['fc-cache', '-f', str(FONT_DIR)],
+    check=False,
+    stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -127,39 +170,6 @@ def _to_float(value, default: float) -> float:
         return default
 
 
-def _clamp_opacity_blocks(blocks: list[dict]) -> None:
-    """
-    Clamp all opacity from/to values to [0.0, 1.0] at Python level,
-    before any FFmpeg expression is built. This avoids needing max()/min()
-    in the FFmpeg expression, which colorchannelmixer does NOT support.
-    """
-    for block in blocks:
-        if block.get("property") == "opacity":
-            if "from" in block:
-                block["from"] = max(0.0, min(1.0, float(block["from"])))
-            if "to" in block:
-                block["to"] = max(0.0, min(1.0, float(block["to"])))
-
-
-# ---------------------------------------------------------------------------
-# Pango/Cairo font helpers
-# ---------------------------------------------------------------------------
-
-def _get_pango_font_families() -> set:
-    """Return and cache the set of font families available to Pango."""
-    global PANGO_FONT_FAMILY_CACHE
-    if PANGO_FONT_FAMILY_CACHE is not None:
-        return PANGO_FONT_FAMILY_CACHE
-    if not _PANGO_AVAILABLE:
-        return set()
-    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1, 1)
-    ctx = cairo.Context(surface)
-    layout = PangoCairo.create_layout(ctx)
-    families = layout.get_context().get_font_map().list_families()
-    PANGO_FONT_FAMILY_CACHE = {family.get_name() for family in families}
-    return PANGO_FONT_FAMILY_CACHE
-
-
 def _font_family_from_file(path: Path) -> str:
     """Read and cache the font family name from a font file using Pillow."""
     if not _PIL_AVAILABLE:
@@ -167,12 +177,15 @@ def _font_family_from_file(path: Path) -> str:
     resolved = path.resolve()
     cache_key = str(resolved).lower()
     if cache_key in FONT_FAMILY_CACHE:
+        logger.debug("font cache hit: %s → %r", path.name, FONT_FAMILY_CACHE[cache_key])
         return FONT_FAMILY_CACHE[cache_key]
     try:
         family = _PILFont.truetype(str(resolved), size=16).getname()[0]
         FONT_FAMILY_CACHE[cache_key] = family
+        logger.debug("font loaded: %s → family %r", path.name, family)
         return family
-    except:
+    except Exception as exc:
+        logger.warning("could not read font family from %s (%s) — using Monospace", path.name, exc)
         return "Monospace"
 
 
@@ -180,6 +193,7 @@ def _resolve_video_font_spec(layer: dict, template: dict) -> tuple[str, Path | N
     """Resolve a layer's font config into a family name and optional file path."""
     font_ref = layer.get("font")
     if not font_ref:
+        logger.debug("layer has no font key — using Sans")
         return "Sans", None
 
     assets = template.get("assets") or {}
@@ -191,7 +205,9 @@ def _resolve_video_font_spec(layer: dict, template: dict) -> tuple[str, Path | N
             resolved_path = _resolve_path(font_config)
             if resolved_path and resolved_path.exists():
                 family = _font_family_from_file(resolved_path)
+                logger.debug("font %r → file %s  family=%r", font_ref, resolved_path.name, family)
                 return family, resolved_path
+            logger.warning("font %r → path %r not found — using ref as family name", font_ref, font_config)
             return font_ref, None
         elif isinstance(font_config, dict):
             font_file = font_config.get("file")
@@ -200,100 +216,170 @@ def _resolve_video_font_spec(layer: dict, template: dict) -> tuple[str, Path | N
                 resolved_path = _resolve_path(font_file)
                 if resolved_path and resolved_path.exists():
                     family = _font_family_from_file(resolved_path)
+                    logger.debug("font %r → file %s  family=%r", font_ref, resolved_path.name, family)
                     return family, resolved_path
+            logger.debug("font %r → no file found, using family=%r", font_ref, font_family or "Sans")
             return font_family or "Sans", None
 
     resolved_path = _resolve_path(font_ref)
     if resolved_path and resolved_path.exists() and resolved_path.suffix.lower() in {".ttf", ".otf", ".ttc"}:
         family = _font_family_from_file(resolved_path)
+        logger.debug("font %r resolved directly → %s  family=%r", font_ref, resolved_path.name, family)
         return family, resolved_path
 
+    logger.debug("font %r not in assets and not a file — treating as family name", font_ref)
     return font_ref, None
 
 
 # ---------------------------------------------------------------------------
-# ─────────────────────────  ANIMATION ENGINE  ──────────────────────────
+# ─────────────────────────  ANIMATION ENGINE (Python - per-frame)  ──────────
+#
+# Flow overview:
+#   render loop
+#     └─ for each layer
+#          └─ for each property (scale, opacity, x, y, rotation, blur)
+#               └─ _compute_property(pre-filtered blocks, default, t)
+#                    ├─ walks blocks in order; each block has a [start, end) window
+#                    ├─ if t is before a block → hold from-value and stop
+#                    ├─ if t is inside a block → interpolate via _ease_value
+#                    └─ if t is past a block   → take to-value and try next block
+#
+# Preprocessing (runs once per render, before the frame loop):
+#   _expand_animation_presets
+#     ├─ expands opacity shorthand dict → animation blocks
+#     ├─ replaces preset refs with full block dicts
+#     └─ appends global_animations blocks to every layer
 # ---------------------------------------------------------------------------
 
-def _progress_expression(start: float, duration: float, loop: bool = False) -> str:
-    """
-    Build a 0→1 progress ramp in FFmpeg timeline math.
-
-    If loop=True the ramp repeats every `duration` seconds after `start`.
-    """
+def _compute_progress(t: float, start: float, duration: float, loop: bool = False) -> float:
+    # Returns a 0.0–1.0 progress value for a block window [start, start+duration].
+    # Called once per active block per property per frame.
     safe_dur = max(duration, 0.001)
+    if t < start:
+        # Current time is before this block's window — not started yet.
+        return 0.0
+    elapsed = t - start
     if loop:
-        return (
-            f"if(lt(t,{start:.3f}),0,"
-            f"mod(t-{start:.3f},{safe_dur:.3f})/{safe_dur:.3f})"
-        )
-    end = start + safe_dur
-    return (
-        f"if(lt(t,{start:.3f}),0,"
-        f"if(lt(t,{end:.3f}),(t-{start:.3f})/{safe_dur:.3f},1))"
-    )
+        # Wrap elapsed time so the animation cycles continuously.
+        return (elapsed % safe_dur) / safe_dur
+    # Clamp at 1.0 so the block holds its final value after it ends.
+    return min(elapsed / safe_dur, 1.0)
 
 
-def _apply_easing(expr: str, easing: str) -> str:
-    name = str(easing or "linear").strip().lower().replace("-", "_")
+_EASING_NAME_CACHE: dict[str, str] = {}
+
+def _ease_value(progress: float, easing: str) -> float:
+    # Normalise the easing name once and cache it — this is called every frame
+    # for every active animation block, so avoiding repeated string ops matters.
+    name = _EASING_NAME_CACHE.get(easing)
+    if name is None:
+        name = str(easing or "linear").strip().lower().replace("-", "_")
+        _EASING_NAME_CACHE[easing] = name
+        logger.debug("easing curve registered: %r → %r", easing, name)
+
+    # Clamp progress to [0, 1] before applying the curve.
+    p = max(0.0, min(1.0, progress))
+
+    # Each branch maps linear progress p → curved output in [0, 1].
     if name in {"ease_out", "easeout", "out"}:
-        return f"(1-pow(1-({expr}),2))"
+        return 1 - (1 - p) ** 2
     if name in {"ease_out_cubic", "easeoutcubic", "out_cubic"}:
-        return f"(1-pow(1-({expr}),3))"
+        return 1 - (1 - p) ** 3
     if name in {"ease_in", "easein", "in"}:
-        return f"pow(({expr}),2)"
+        return p ** 2
     if name in {"ease_in_cubic", "easeincubic", "in_cubic"}:
-        return f"pow(({expr}),3)"
+        return p ** 3
     if name in {"ease_in_out", "easeinout", "in_out"}:
-        return f"if(lt(({expr}),0.5),2*pow(({expr}),2),1-pow(-2*({expr})+2,2)/2)"
+        return 2 * p**2 if p < 0.5 else 1 - (-2*p + 2)**2 / 2
     if name in {"ease_in_out_cubic", "easeinoutcubic", "in_out_cubic"}:
-        return f"if(lt(({expr}),0.5),4*pow(({expr}),3),1-pow(-2*({expr})+2,3)/2)"
-    return expr  # linear
+        return 4 * p**3 if p < 0.5 else 1 - (-2*p + 2)**3 / 2
+    if name in {"bounce_out", "bounceout"}:
+        if p < 1/2.75:    return 7.5625 * p * p
+        if p < 2/2.75:    p -= 1.5/2.75;   return 7.5625*p*p + 0.75
+        if p < 2.5/2.75:  p -= 2.25/2.75;  return 7.5625*p*p + 0.9375
+        p -= 2.625/2.75;  return 7.5625*p*p + 0.984375
+    if name in {"elastic_out", "elasticout"}:
+        if p in (0.0, 1.0): return p
+        return pow(2, -10*p) * math.sin((p*10 - 0.75) * (2*math.pi/3)) + 1
+    # Unknown easing name — fall through to linear.
+    if name != "linear":
+        logger.warning("unknown easing %r — falling back to linear", easing)
+    return p
 
 
-def _interpolate(from_val: float, to_val: float, eased_expr: str) -> str:
-    """
-    Linear interpolation expression: from + (to - from) * eased_progress
-    """
-    diff = to_val - from_val
-    if diff == 0:
-        return f"{from_val:.6f}"
-    return f"({from_val:.6f}+({diff:.6f})*({eased_expr}))"
+def _compute_property(prop_blocks: list[dict], default: float, t: float) -> float:
+    """Walk pre-filtered same-property blocks and return the interpolated value at time t.
 
-
-def _combine_animation_blocks(blocks: list[dict], prop: str, default_value: str) -> str:
+    Block state machine (executed in order):
+      FINISHED  → t >= block.end   : take to_val, continue to next block
+      ACTIVE    → t >= block.start : interpolate, stop
+      PENDING   → t < block.start  : keep current value, stop
     """
-    Combine all animation blocks for a given property into one FFmpeg expression.
-    Blocks are applied in order; later blocks override earlier ones via nested if().
-    """
-    prop_blocks = [b for b in blocks if b.get("property") == prop]
     if not prop_blocks:
-        return default_value
+        return default
 
-    expr = default_value
+    # Hold the first block's from-value before its window opens.
+    # This keeps e.g. a fade-in layer invisible before its start time
+    # instead of flashing at the generic default (1.0).
+    value = _to_float(prop_blocks[0].get("from"), default)
+
     for block in prop_blocks:
-        from_val = _to_float(block.get("from"), _to_float(default_value, 0.0))
+        from_val = _to_float(block.get("from"), value)
         to_val   = _to_float(block.get("to"),   from_val)
-        start    = _to_float(block.get("start"), 0.0)
-        duration = _to_float(block.get("duration"), 0.5)
+        start    = _to_float(block.get("start"),    0.0)
+        dur      = _to_float(block.get("duration"), 0.5)
         loop     = bool(block.get("loop", False))
         easing   = str(block.get("easing") or "linear")
+        end      = start + max(dur, 0.001)
 
-        end = start + max(duration, 0.001)
-        progress = _progress_expression(start, duration, loop=loop)
-        eased    = _apply_easing(progress, easing)
-        interp   = _interpolate(from_val, to_val, eased)
-
-        if loop:
-            expr = f"if(lt(t,{start:.3f}),{expr},{interp})"
+        if not loop and t >= end:
+            # FINISHED: this block is done; latch its final value and check next block.
+            value = to_val
+        elif t >= start:
+            # ACTIVE: we are inside this block's time window — interpolate.
+            p     = _compute_progress(t, start, dur, loop)
+            value = from_val + (to_val - from_val) * _ease_value(p, easing)
+            break
         else:
-            expr = (
-                f"if(lt(t,{start:.3f}),{expr},"
-                f"if(lt(t,{end:.3f}),{interp},"
-                f"{to_val:.6f}))"
-            )
+            # PENDING: haven't reached this block yet — keep the accumulated value.
+            break
 
-    return expr
+    return value
+
+
+def _eval_pos(expr, video_w: int, video_h: int, img_w: int, img_h: int) -> float:
+    """Evaluate a position expression — numeric or string like '(w-text_w)/2'.
+
+    Available variables inside the expression:
+      w / W   → video width   h / H   → video height
+      text_w  → layer display width   text_h  → layer display height
+    """
+    if isinstance(expr, (int, float)):
+        return float(expr)
+    try:
+        result = float(eval(str(expr), {"__builtins__": {}}, {
+            "w": video_w, "h": video_h,
+            "W": video_w, "H": video_h,
+            "text_w": img_w, "text_h": img_h,
+        }))
+        logger.debug("eval_pos %r → %.2f  (video=%dx%d  img=%dx%d)",
+                     expr, result, video_w, video_h, img_w, img_h)
+        return result
+    except Exception as exc:
+        logger.warning("eval_pos failed for expr %r — defaulting to 0.0 (%s)", expr, exc)
+        return 0.0
+
+
+def _apply_layer_opacity(img: "_PILImage.Image", opacity: float) -> "_PILImage.Image":
+    """Multiply the alpha channel of every pixel by opacity in-place on a copy."""
+    if opacity >= 1.0:
+        return img  # Fast-path: nothing to do.
+    opacity = max(0.0, min(1.0, opacity))
+    # Split → scale alpha → merge back.  A point() LUT is faster than numpy here
+    # because PIL's C layer processes all pixels without Python overhead.
+    r, g, b, a = img.split()
+    a = a.point(lambda x: round(x * opacity))
+    return _PILImage.merge("RGBA", (r, g, b, a))
 
 
 # ---------------------------------------------------------------------------
@@ -301,51 +387,68 @@ def _combine_animation_blocks(blocks: list[dict], prop: str, default_value: str)
 # ---------------------------------------------------------------------------
 
 def _expand_opacity_shorthand(layer: dict) -> None:
-    """
-    Expand a top-level "opacity" dict into the layer's animations list.
+    """Convert a top-level "opacity" dict on a layer into concrete animation blocks.
 
-    Supports:
+    The shorthand lets template authors write a single compact dict instead of
+    manually constructing animation blocks.  This function normalises it into the
+    same format that _compute_property understands.
+
+    Input shape:
         { "opacity": { "initial": 0, "animate": true,
                        "from": 0, "to": 1, "start": 0.0,
                        "duration": 0.5, "easing": "easeOut" } }
 
-    Rules:
-      - "initial" sets the pre-animation opacity (default 1).
-      - If animate=false or missing, only static initial opacity is used.
-      - Opacity values are always clamped to [0, 1].
-      - The generated animation block is prepended so explicit animations still win.
+    Output: one or two blocks prepended to layer["animations"]:
+        1. (optional) static pre-block  → holds `initial` opacity until `start`
+        2. animation block              → fades from→to over [start, start+duration]
+
+    If animate=false, only a single static block at `initial` is injected.
+    All opacity values are clamped to [0, 1] here so downstream code never
+    needs to guard against out-of-range values.
     """
     opacity_cfg = layer.get("opacity")
     if not isinstance(opacity_cfg, dict):
-        return  # No shorthand to expand
+        return  # No shorthand — nothing to expand.
 
+    layer_id = layer.get("id") or layer.get("text", "?")[:20]
     initial  = max(0.0, min(1.0, _to_float(opacity_cfg.get("initial"), 1.0)))
     animate  = bool(opacity_cfg.get("animate", False))
 
     animations = layer.setdefault("animations", [])
 
     if not animate:
-        # Static opacity — inject a constant block spanning the entire video
-        # (start=0, long duration, from=initial, to=initial)
+        # Static opacity: inject a constant block that spans the whole video duration.
+        # duration=3600 acts as "infinity" — it will never finish during a normal render.
         block = {
             "property": "opacity",
             "from": initial,
             "to": initial,
             "start": 0.0,
-            "duration": 3600.0,  # effectively infinite
+            "duration": 3600.0,
             "easing": "linear",
         }
         animations.insert(0, block)
+        logger.debug("[%s] opacity shorthand → static block initial=%.2f", layer_id, initial)
         return
 
-    # Animated opacity — clamp all values at Python level
+    # Animated opacity: build the transition block, clamping all values at Python
+    # level to avoid out-of-range values reaching FFmpeg expressions.
     from_val = max(0.0, min(1.0, _to_float(opacity_cfg.get("from"), initial)))
     to_val   = max(0.0, min(1.0, _to_float(opacity_cfg.get("to"),   from_val)))
     start    = _to_float(opacity_cfg.get("start"),    0.0)
     duration = _to_float(opacity_cfg.get("duration"), 0.5)
     easing   = str(opacity_cfg.get("easing") or "linear")
 
-    # If initial differs from from_val, inject a pre-animation static block
+    logger.debug(
+        "[%s] opacity shorthand → animate  initial=%.2f  from=%.2f→%.2f  "
+        "start=%.2fs  dur=%.2fs  easing=%s",
+        layer_id, initial, from_val, to_val, start, duration, easing,
+    )
+
+    # If initial opacity differs from the animation's from-value, insert a
+    # static pre-block so the layer holds `initial` opacity before `start`.
+    # Example: initial=0, from=0, to=1 at start=1s → layer is invisible for
+    # the first second, then fades in.
     if abs(initial - from_val) > 1e-6:
         pre_block = {
             "property": "opacity",
@@ -356,6 +459,8 @@ def _expand_opacity_shorthand(layer: dict) -> None:
             "easing": "linear",
         }
         animations.insert(0, pre_block)
+        logger.debug("[%s] opacity shorthand → pre-block initial=%.2f until start=%.2fs",
+                     layer_id, initial, start)
 
     anim_block = {
         "property": "opacity",
@@ -365,123 +470,36 @@ def _expand_opacity_shorthand(layer: dict) -> None:
         "duration": max(duration, 0.001),
         "easing": easing,
     }
-    # Insert after any pre-block (at index 1 if pre_block exists, else 0)
+    # Place the animation block after the optional pre-block.
     insert_pos = 1 if abs(initial - from_val) > 1e-6 else 0
     animations.insert(insert_pos, anim_block)
-
-
-# ---------------------------------------------------------------------------
-# Global fade-out multiplier
-# ---------------------------------------------------------------------------
-
-def _global_fade_out_multiplier(template: dict) -> str:
-    """Return global fade-out multiplier expression."""
-    global_anims = template.get("global_animations")
-    if isinstance(global_anims, list):
-        return "1"  # Array format handled in _expand_animation_presets
-    if not isinstance(global_anims, dict):
-        return "1"
-    fade_out = global_anims.get("fade_out") or {}
-    start    = _to_float(fade_out.get("start"),    -1.0)
-    duration = _to_float(fade_out.get("duration"),  0.0)
-    end      = start + duration
-    if start < 0 or duration <= 0:
-        return "1"
-    safe_dur = max(duration, 0.001)
-    return (
-        f"if(lt(t,{start:.3f}),1,"
-        f"if(lt(t,{end:.3f}),({end:.3f}-t)/{safe_dur:.3f},0))"
-    )
-
-
-# ---------------------------------------------------------------------------
-# Build layer animation expressions
-# ---------------------------------------------------------------------------
-
-def _build_layer_anim_exprs(layer: dict, template: dict) -> dict:
-    """Build animation expressions for a pango-rendered layer."""
-    blocks = layer.get("animations") or []
-
-    # ── Opacity ─────────────────────────────────────────────────────────────
-    # Clamp all opacity from/to values at Python level BEFORE building expressions.
-    # colorchannelmixer's eval does NOT support max()/min(), so we never emit those.
-    _clamp_opacity_blocks(blocks)
-
-    # Determine layer's default/initial opacity (1.0 unless shorthand says otherwise)
-    opacity_cfg = layer.get("opacity")
-    if isinstance(opacity_cfg, dict):
-        default_alpha = f"{max(0.0, min(1.0, _to_float(opacity_cfg.get('initial'), 1.0))):.6f}"
-    elif isinstance(opacity_cfg, (int, float)):
-        default_alpha = f"{max(0.0, min(1.0, float(opacity_cfg))):.6f}"
-    else:
-        default_alpha = "1.0"
-
-    alpha = _combine_animation_blocks(blocks, "opacity", default_alpha)
-
-    # Only apply global fade-out multiplier if this layer has NO explicit opacity animations.
-    # If the layer already defines its own opacity timeline (fade in + fade out blocks),
-    # the global multiplier would double-apply the fade and produce invalid expressions.
-    has_explicit_opacity = any(b.get("property") == "opacity" for b in blocks)
-    global_fo = _global_fade_out_multiplier(template)
-    if global_fo != "1" and not has_explicit_opacity:
-        alpha = f"({alpha})*({global_fo})"
-
-    # ── Scale ────────────────────────────────────────────────────────────────
-    scale_expr = _combine_animation_blocks(blocks, "scale", "1.0")
-
-    # ── Position ─────────────────────────────────────────────────────────────
-    base_x = str(layer.get("x", "0"))
-    base_y = str(layer.get("y", "0"))
-
-    x_blocks = [b for b in blocks if b.get("property") == "x"]
-    y_blocks = [b for b in blocks if b.get("property") == "y"]
-
-    x_expr = _combine_animation_blocks(blocks, "x", base_x) if x_blocks else base_x
-    y_expr = _combine_animation_blocks(blocks, "y", base_y) if y_blocks else base_y
-
-    # ── Rotation ─────────────────────────────────────────────────────────────
-    rot_blocks = [b for b in blocks if b.get("property") == "rotation"]
-    if rot_blocks:
-        rotation_expr = _combine_animation_blocks(blocks, "rotation", "0.0")
-        has_rotation = True
-    else:
-        rotation_expr = "0"
-        has_rotation = False
-
-    # ── Unsupported: letter_spacing ──────────────────────────────────────────
-    ls_blocks = [b for b in blocks if b.get("property") == "letter_spacing"]
-    if ls_blocks:
-        warnings.warn(
-            "letter_spacing animation is not supported. "
-            "Opacity/scale/position will animate; letter spacing is ignored.",
-            UserWarning,
-            stacklevel=4,
-        )
-
-    return {
-        "alpha":          alpha,
-        "scale_expr":     scale_expr,
-        "x_expr":         x_expr,
-        "y_expr":         y_expr,
-        "rotation_expr":  rotation_expr,
-        "has_rotation":   has_rotation,
-    }
-
 
 # ---------------------------------------------------------------------------
 # Template preprocessing: animation presets & global animations
 # ---------------------------------------------------------------------------
 
 def _expand_animation_presets(template: dict) -> None:
-    """
-    Expand preset references and apply global animations to all layers.
-    Also expands opacity shorthands per layer before other processing.
-    """
-    presets = template.get("animation_presets") or {}
-    global_anims = template.get("global_animations")
-    layers = template.get("layers") or template.get("texts", [])
+    """Normalise all animation config on every layer into flat animation block lists.
 
-    global_blocks = []
+    This runs ONCE before the frame loop.  After it returns, every layer has a
+    plain list in layer["animations"] — no shorthand dicts, no preset refs.
+
+    Processing order (matters: later steps see earlier results):
+      1. Opacity shorthand  → _expand_opacity_shorthand injects blocks into animations
+      2. Preset refs        → each {"preset": "name", ...} block is replaced by
+                              the preset's block dict, with any overrides merged in
+      3. Global animations  → blocks that target "all" layers are appended last
+    """
+    presets     = template.get("animation_presets") or {}
+    global_anims = template.get("global_animations")
+    layers      = template.get("layers") or template.get("texts", [])
+
+    logger.debug("expand_animation_presets: %d preset(s) defined, %d layer(s)",
+                 len(presets), len(layers))
+
+    # ── Step 3 prep: collect global blocks that apply to all layers ───────────
+    # These are resolved once and appended to every layer at the end.
+    global_blocks: list[dict] = []
     if isinstance(global_anims, list):
         for anim in global_anims:
             if anim.get("targets") == "all" and "preset" in anim:
@@ -490,24 +508,41 @@ def _expand_animation_presets(template: dict) -> None:
                     block = dict(presets[preset_name])
                     block["start"] = anim.get("start", 0)
                     global_blocks.append(block)
+                    logger.debug("global animation: preset %r resolved, start=%.2f",
+                                 preset_name, block["start"])
+                else:
+                    logger.warning("global animation references unknown preset %r — skipped",
+                                   preset_name)
 
     for layer in layers:
-        # ── Expand opacity shorthand first ────────────────────────────────
+        layer_id = layer.get("id") or layer.get("text", "?")[:20]
+
+        # ── Step 1: expand opacity shorthand → injects blocks at front of list ──
         _expand_opacity_shorthand(layer)
 
-        # ── Expand preset references in animations array ──────────────────
+        # ── Step 2: inline any preset references in the animations array ─────────
         animations = layer.get("animations") or []
-        expanded = []
+        expanded: list[dict] = []
         for block in animations:
             if "preset" in block and block["preset"] in presets:
+                # Merge: start with preset defaults, then layer-level overrides win
+                # (everything except the "preset" key itself).
                 merged = dict(presets[block["preset"]])
                 merged.update({k: v for k, v in block.items() if k != "preset"})
                 expanded.append(merged)
+                logger.debug("[%s] preset ref %r inlined → property=%s",
+                             layer_id, block["preset"], merged.get("property"))
             else:
                 expanded.append(block)
 
+        # ── Step 3: append global blocks so they run after per-layer animations ──
         expanded.extend(global_blocks)
+
         layer["animations"] = expanded
+        logger.debug("[%s] final animation blocks: %d  properties: %s",
+                     layer_id,
+                     len(expanded),
+                     sorted({b.get("property") for b in expanded if b.get("property")}))
 
 
 # ---------------------------------------------------------------------------
@@ -518,12 +553,6 @@ def _render_text_to_pil(text: str, layer: dict, font_family: str, font_path: Pat
     """Render text to PIL Image using pango/cairo or Pillow."""
     if not font_family:
         font_family = "Sans"
-
-    if not _PANGO_AVAILABLE or (font_path and font_family not in _get_pango_font_families()):
-        return _render_text_with_pillow(text, layer, font_path)
-
-    if not _PANGO_AVAILABLE:
-        return _render_text_with_pillow(text, layer, font_path)
 
     padding = int(layer.get("padding", 6))
     color = _parse_color(layer.get("color", "#000000"))
@@ -585,6 +614,7 @@ def _configure_pango_layout(ctx, layer: dict, text: str, font_family: str):
     description.set_family(font_family)
     description.set_size(int(layer.get("font_size") or 18) * Pango.SCALE)
     layout.set_font_description(description)
+    logger.debug("Pango requested font: %s | resolved: %s", font_family, layout.get_font_description().get_family())
 
     line_spacing = layer.get("line_spacing")
     if line_spacing is not None:
@@ -601,46 +631,6 @@ def _parse_color(value: str) -> tuple[int, int, int]:
     return (0, 0, 0)
 
 
-def _render_text_with_pillow(text: str, layer: dict, font_path: Path | None) -> "_PILImage.Image | None":
-    """Fallback text rendering using Pillow."""
-    if not _PIL_AVAILABLE or not font_path:
-        return None
-
-    padding = int(layer.get("padding", 6))
-    color = _parse_color(layer.get("color", "#000000"))
-
-    try:
-        font = _PILFont.truetype(str(font_path), size=int(layer.get("font_size", 18)))
-    except:
-        return None
-
-    lines = text.split("\n")
-    bboxes = [font.getbbox(line) if line else (0, 0, 0, 0) for line in lines]
-    line_heights = [box[3] - box[1] if (box[3] - box[1]) > 0 else 20 for box in bboxes]
-    line_widths  = [box[2] - box[0] if line else 0 for line, box in zip(lines, bboxes)]
-    text_width   = max(line_widths, default=0)
-    line_spacing = int(layer.get("line_spacing", 0))
-    text_height  = sum(line_heights) + max(0, len(lines) - 1) * line_spacing
-
-    width  = max(1, text_width  + padding * 2)
-    height = max(1, text_height + padding * 2)
-
-    image = _PILImage.new("RGBA", (width, height), (0, 0, 0, 0))
-    draw  = _PILDraw.Draw(image)
-
-    align = layer.get("align", "left").lower()
-    y = padding
-    for line, line_width, line_height, bbox in zip(lines, line_widths, line_heights, bboxes):
-        if align == "center":
-            x = padding + (text_width - line_width) // 2
-        elif align == "right":
-            x = padding + (text_width - line_width)
-        else:
-            x = padding
-        draw.text((x - bbox[0], y - bbox[1]), line, font=font, fill=(*color, 255))
-        y += line_height + line_spacing
-
-    return image
 
 
 def _render_text_to_png_bytes(text: str, layer: dict, font_family: str, font_path: Path | None) -> bytes | None:
@@ -666,186 +656,6 @@ def _scale_text_render_layer(layer: dict, factor: int) -> dict:
     return scaled
 
 
-# ---------------------------------------------------------------------------
-# Position translation: drawtext → overlay
-# ---------------------------------------------------------------------------
-
-def _translate_pos_expr(expr: str | int | float, video_w: int, video_h: int, png_w: int, png_h: int, axis: str = 'x') -> str:
-    """Translate a drawtext position expression to FFmpeg overlay context."""
-    if isinstance(expr, (int, float)):
-        return str(int(expr))
-
-    s = str(expr).strip()
-
-    if "text_w" in s or "text_h" in s:
-        # Variable translation: text_w/text_h → overlay w/h ; w/h → main_w/main_h
-        s_temp = s.replace("text_w", "__TW__").replace("text_h", "__TH__")
-        s_temp = re.sub(r'\bw\b', 'W', s_temp)
-        s_temp = re.sub(r'\bh\b', 'H', s_temp)
-        s_temp = s_temp.replace("__TW__", "w").replace("__TH__", "h")
-        return s_temp
-
-    try:
-        result = eval(s, {}, {'w': video_w, 'h': video_h, 'text_w': png_w, 'text_h': png_h})
-        return str(int(result))
-    except:
-        return s
-
-
-# ---------------------------------------------------------------------------
-# Per-layer FFmpeg filter builder
-# ---------------------------------------------------------------------------
-
-def _build_pango_layer_filter(
-    layer_idx: int, input_idx: int, png_w: int, png_h: int,
-    display_png_w: int, display_png_h: int,
-    layer: dict, template: dict, video_w: int, video_h: int
-) -> tuple[list[str], str, str, str]:
-    """
-    Build FFmpeg filter steps for one pango-rendered text layer.
-
-    Key fixes vs original:
-      - colorchannelmixer is applied BEFORE format=rgba to avoid filter ordering issues.
-      - scale uses a separate named output label to avoid label collisions.
-      - All alpha expressions are clamped to [0,1].
-      - overlay x/y expressions with 'W'/'H' variable refs are safe for FFmpeg eval.
-
-    Returns: (filter_steps, out_label, overlay_x, overlay_y)
-    """
-    blocks = layer.get("animations") or []
-    exprs = _build_layer_anim_exprs(layer, template)
-    steps: list[str] = []
-
-    # Each intermediate label must be unique to avoid FFmpeg graph conflicts.
-    current = f"[{input_idx}:v]"
-
-    # ── Step 1: convert to RGBA immediately so subsequent filters see alpha ──
-    rgba_label = f"rgba{layer_idx}"
-    steps.append(f"{current}fps=60,format=rgba[{rgba_label}]")
-    current = f"[{rgba_label}]"
-
-    # ── Step 2: scale (if animated or non-unit) ───────────────────────────
-    scale_expr = exprs["scale_expr"].strip()
-
-    render_scale = max(png_w / max(display_png_w, 1), png_h / max(display_png_h, 1), 1.0)
-    needs_display_scale = abs(render_scale - 1.0) > 0.001
-
-    # Detect if visual scale is static.
-    scale_is_static_one = scale_expr == "1.0"
-
-    # 🔥 Ensure smooth time-based scaling (avoid jerky IF-based expressions)
-    # If expression does NOT depend on time `t`, force smooth zoom
-    if "t" not in scale_expr and not scale_is_static_one:
-        duration = float(template.get("duration", 5))
-        scale_expr = f"(1 + (0.15*t/{duration}))"  # smooth zoom-in
-
-    filter_scale_expr = f"(({scale_expr})/{render_scale:.6f})" if needs_display_scale else scale_expr
-
-    if not scale_is_static_one or needs_display_scale:
-        scaled_label = f"sc{layer_idx}"
-        steps.append(
-            f"{current}scale="
-            f"w='iw*({filter_scale_expr})':"
-            f"h='ih*({filter_scale_expr})':"
-            f"eval=frame:"
-            f"flags=lanczos[{scaled_label}]"
-        )
-        current = f"[{scaled_label}]"
-
-    # ── Step 3: rotation ─────────────────────────────────────────────────
-    if exprs["has_rotation"]:
-        rot_label = f"rt{layer_idx}"
-        rot_rad = f"({exprs['rotation_expr']})*PI/180"
-        steps.append(
-            f"{current}rotate="
-            f"angle='{rot_rad}':"
-            f"fillcolor=none:"
-            f"ow={video_w}:oh={video_h}:"
-            f"eval=frame[{rot_label}]"
-        )
-        current = f"[{rot_label}]"
-
-    # ── Step 4: opacity via fade filter ─────────────────────────────────
-    # NOTE: colorchannelmixer's aa parameter only accepts static float values.
-    # Use FFmpeg's fade filter for opacity animations (linear fades only).
-    # WARNING: fade filter fades between 0→1 or 1→0. For arbitrary from/to values,
-    # we apply the "from" value statically and use fade to transition.
-    opacity_blocks = [b for b in blocks if b.get("property") == "opacity"]
-    if opacity_blocks:
-        for block_num, block in enumerate(opacity_blocks):
-            from_val = _to_float(block.get("from"), _to_float(exprs["alpha"], 0.0))
-            to_val   = _to_float(block.get("to"),   from_val)
-            start    = _to_float(block.get("start"), 0.0)
-            duration = _to_float(block.get("duration"), 0.5)
-            
-            alpha_label = f"al{layer_idx}_{block_num}"
-            
-            # Check if this is a standard fade-in or fade-out
-            is_fade_in = (from_val < 0.1 and to_val > 0.9)
-            is_fade_out = (from_val > 0.9 and to_val < 0.1)
-            
-            if is_fade_in:
-                # Standard fade-in: use fade filter with linear progression
-                steps.append(
-                    f"{current}fade=t=in:st={start:.3f}:d={duration:.3f}[{alpha_label}]"
-                )
-            elif is_fade_out:
-                # Standard fade-out: use fade filter with linear progression
-                steps.append(
-                    f"{current}fade=t=out:st={start:.3f}:d={duration:.3f}[{alpha_label}]"
-                )
-            else:
-                # Non-standard fade: apply from_val statically, skip animation
-                # (colorchannelmixer doesn't support expressions, fade only does 0/1)
-                logger.warning(
-                    f"Layer {layer_idx} opacity animation (from {from_val:.2f} to {to_val:.2f}) "
-                    f"is not a standard fade-in (0→1) or fade-out (1→0). "
-                    f"Applying static opacity {from_val:.2f}. "
-                    f"Use fade-in/fade-out presets for animated opacity."
-                )
-                steps.append(
-                    f"{current}colorchannelmixer=aa={from_val:.6f}[{alpha_label}]"
-                )
-            
-            current = f"[{alpha_label}]"
-    else:
-        # No opacity animations, apply default static opacity
-        alpha_label = f"al{layer_idx}"
-        opacity_val = exprs["alpha"]
-        steps.append(
-            f"{current}colorchannelmixer=aa={opacity_val}[{alpha_label}]"
-        )
-        current = f"[{alpha_label}]"
-
-    # Final output label for this layer (used in overlay)
-    out_label = f"txt{layer_idx}"
-    steps.append(f"{current}copy[{out_label}]")
-
-    # ── Overlay position ─────────────────────────────────────────────────
-    if exprs["has_rotation"]:
-        ov_x, ov_y = "0", "0"
-    else:
-        base_ov_x = _translate_pos_expr(exprs["x_expr"], video_w, video_h, display_png_w, display_png_h, 'x')
-        base_ov_y = _translate_pos_expr(exprs["y_expr"], video_w, video_h, display_png_w, display_png_h, 'y')
-        if scale_is_static_one:
-            ov_x = base_ov_x
-            ov_y = base_ov_y
-        else:
-            # Expressions using overlay w/h, such as centered text, already
-            # account for the scaled overlay size. Fixed positions need an
-            # offset so the visual scale anchor is the original text center.
-            ov_x = (
-                base_ov_x
-                if re.search(r"\b[Ww]\b", base_ov_x)
-                else f"({base_ov_x})-({display_png_w}*(({scale_expr})-1)/2)"
-            )
-            ov_y = (
-                base_ov_y
-                if re.search(r"\b[Hh]\b", base_ov_y)
-                else f"({base_ov_y})-({display_png_h}*(({scale_expr})-1)/2)"
-            )
-
-    return steps, out_label, ov_x, ov_y
 
 
 # ---------------------------------------------------------------------------
@@ -859,20 +669,23 @@ def render_timed_json_video_template(
     fmt: str = "png"
 ) -> Path:
     """
-    Render a timed JSON video invitation template with pango/cairo multilingual text.
+    Render a timed JSON video invitation template.
 
-    Supports:
-      - animation presets (1008 schema) and explicit animations (1007 schema)
-      - global animations (dict or array format)
-      - per-layer animations
-      - top-level "opacity" shorthand per layer
+    Python per-frame compositing loop — smooth animation for all properties:
+      scale    — LANCZOS resize at render_scale resolution, no integer-grid jitter
+      opacity  — per-frame alpha multiply with full easing support
+      x / y    — per-frame position with expression support e.g. '(w-text_w)/2'
+      rotation — per-frame PIL rotate with transparent fill
+      blur     — per-frame GaussianBlur radius
 
-    Text is rendered to PNG using pango/cairo for proper multilingual/BiDi support.
-    Animations are expressed via FFmpeg filter expressions (scale, opacity, position, rotation).
-    All opacity expressions are clamped to [0,1] to prevent FFmpeg filter errors.
+    Easing curves: linear, ease_in/out, ease_in_out, *_cubic, bounce_out, elastic_out.
+
+    Composite is done at text_render_scale× resolution (default 4×).
+    A 1-pixel rounding error at render scale = 0.25px at output → imperceptible.
+    Final 4× LANCZOS downscale averages sub-pixel jitter to zero.
     """
     template = dict(template)
-    _expand_animation_presets(template)  # also calls _expand_opacity_shorthand per layer
+    _expand_animation_presets(template)
 
     data = expand_event_date({**template.get("data", {}), **input_data})
     base_video = (_resolve_path(template.get("background")) or _resolve_path(template.get("video")))
@@ -883,10 +696,14 @@ def render_timed_json_video_template(
 
     width    = int(template.get("width")    or 396)
     height   = int(template.get("height")   or 558)
-    fps      = int(template.get("fps")      or 30)
-    render_fps = max(fps, 60)
+    fps      = int(template.get("fps")      or 60)
     duration = float(template.get("duration") or 5)
     text_render_scale = max(1, int(template.get("text_render_scale") or 4))
+
+    # internal_fps renders at a higher rate then decimates — but easing is already sampled
+    # correctly at output fps, so this adds no smoothness and the fps filter can drift.
+    # Only override if the template explicitly sets it.
+    internal_fps = int(template.get("internal_fps") or fps)
     output_path = (
         _resolve_path(output_override or template.get("output"))
         or (DEFAULT_OUTPUT_DIR / "output.mp4")
@@ -894,111 +711,194 @@ def render_timed_json_video_template(
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     layers = template.get("layers") or template.get("texts", [])
+    total_frames = int(duration * internal_fps)
 
-    # ── Render each text layer to PNG ────────────────────────────────────────
-    layer_pngs: dict[int, tuple[bytes, int, int, int, int]] = {}
+    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    logger.info("▶  render start")
+    logger.info("   output    : %s", output_path)
+    logger.info("   video     : %s", base_video.name)
+    logger.info("   size      : %dx%d  fps=%d  duration=%.1fs", width, height, fps, duration)
+    logger.info("   frames    : %d  render_scale=%dx", total_frames, text_render_scale)
+    logger.info("   layers    : %d total", len(layers))
+
+    # ── Render each text layer to a HQ PIL image (once, before the frame loop) ─
+    # Rendered at text_render_scale× so every per-frame resize is a downscale → sharp.
+    layer_images: dict[int, tuple["_PILImage.Image", int, int]] = {}
 
     for idx, layer in enumerate(layers):
         text = resolve_text(layer, data)
         if should_skip_layer(layer, text, data):
+            logger.debug("  layer %d skipped (should_skip_layer)", idx)
             continue
         text = text.strip()
         if not text:
+            logger.debug("  layer %d skipped (empty text)", idx)
             continue
-
         font_family, font_path = _resolve_video_font_spec(layer, template)
         render_layer = _scale_text_render_layer(layer, text_render_scale)
         png_bytes = _render_text_to_png_bytes(text, render_layer, font_family, font_path)
-        if png_bytes:
-            try:
-                img = _PILImage.open(io.BytesIO(png_bytes))
-                display_w = max(1, int(round(img.width / text_render_scale)))
-                display_h = max(1, int(round(img.height / text_render_scale)))
-                layer_pngs[idx] = (png_bytes, img.width, img.height, display_w, display_h)
-            except:
-                pass
+        if not png_bytes:
+            logger.warning("  layer %d — text render failed for %r", idx, text[:40])
+            continue
+        img = _PILImage.open(io.BytesIO(png_bytes)).convert("RGBA")
+        display_w = max(1, int(round(img.width  / text_render_scale)))
+        display_h = max(1, int(round(img.height / text_render_scale)))
+        layer_images[idx] = (img, display_w, display_h)
+        logger.info("   layer %2d : %r  font=%s  display=%dx%d  anims=%s",
+                    idx,
+                    text[:30],
+                    font_family,
+                    display_w, display_h,
+                    sorted({b.get("property") for b in (layer.get("animations") or [])
+                            if b.get("property")}) or "none"
+                    )
 
-    # ── Build FFmpeg command ──────────────────────────────────────────────────
-    temp_files: list[Path] = []
+    # ── Pre-build per-layer animation block index (property → blocks) ────────
+    # Avoids repeated list comprehensions inside the per-frame loop.
+    layer_anim_cache: dict[int, dict[str, list]] = {}
+    for layer_idx, layer in enumerate(layers):
+        if layer_idx not in layer_images:
+            continue
+        by_prop: dict[str, list] = {}
+        for b in (layer.get("animations") or []):
+            p = b.get("property")
+            if p:
+                by_prop.setdefault(p, []).append(b)
+        layer_anim_cache[layer_idx] = by_prop
+
+    # ── Composite & output dimensions ────────────────────────────────────────
+    render_w    = width  * text_render_scale
+    render_h    = height * text_render_scale
+    frame_bytes = width  * height * 3   # bytes per RGB24 decoded frame
+    # total_frames already computed above for the startup log
+    _log_every  = max(1, total_frames // 10)  # log progress every ~10 %
+
+    # ── Decode base video ─────────────────────────────────────────────────────
+    decode = subprocess.Popen([
+        "ffmpeg", "-i", str(base_video),
+        "-vf", f"fps={internal_fps},scale={width}:{height},setsar=1",
+        "-f", "rawvideo", "-pix_fmt", "rgb24", "-",
+    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+
+    # ── Encode output with optional frame rate decimation ─────────────────────
+    # rawvideo avoids per-frame PNG compression — direct RGB bytes to ffmpeg.
+    encode_args = [
+        "ffmpeg", "-y",
+        "-f", "rawvideo", "-pix_fmt", "rgb24",
+        "-r", str(internal_fps),
+        "-video_size", f"{width}x{height}", "-i", "-",
+        "-c:v", "libx264",
+        "-preset", "medium",
+        "-crf", "18",
+        "-pix_fmt", "yuv420p",
+        "-movflags", "+faststart",
+        "-t", str(duration),
+    ]
+    if internal_fps > fps:
+        encode_args.extend(["-vf", f"fps={fps}"])
+    encode_args.append(str(output_path))
+    
+    encode = subprocess.Popen(encode_args, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+
     try:
-        cmd = ["ffmpeg", "-y", "-i", str(base_video)]
-        input_offset = 1
+        for frame_num in range(total_frames):
+            raw = decode.stdout.read(frame_bytes)
+            if len(raw) < frame_bytes:
+                break
 
-        layer_input_map: dict[int, int] = {}
-        for layer_idx, (png_bytes, png_w, png_h, display_w, display_h) in layer_pngs.items():
-            ttmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
-            ttmp.write(png_bytes)
-            ttmp.close()
-            temp_files.append(Path(ttmp.name))
-            cmd.extend([
-    "-loop", "1",
-    "-t", str(duration),   # 🔥 IMPORTANT
-    "-i", ttmp.name
-])
-            layer_input_map[layer_idx] = input_offset
-            input_offset += 1
+            # Time computed from internal_fps for smooth frame-to-frame interpolation
+            t = frame_num / internal_fps
 
-        # ── Build filter_complex ─────────────────────────────────────────
-        filter_parts: list[str] = [
-            f"[0:v]fps={render_fps},scale={width}:{height},setsar=1,format=yuv420p[base]"
-        ]
-        current_label = "base"
-
-        for layer_idx, layer in enumerate(layers):
-            if layer_idx not in layer_input_map:
-                continue
-            input_idx = layer_input_map[layer_idx]
-            png_w, png_h = layer_pngs[layer_idx][1], layer_pngs[layer_idx][2]
-            display_w, display_h = layer_pngs[layer_idx][3], layer_pngs[layer_idx][4]
-
-            steps, label, ov_x, ov_y = _build_pango_layer_filter(
-                layer_idx, input_idx, png_w, png_h, display_w, display_h, layer, template, width, height
-            )
-            filter_parts.extend(steps)
-
-            next_label = f"mix{layer_idx}"
-
-            filter_parts.append(
-                f"[{current_label}][{label}]overlay="
-                f"x='{ov_x}':y='{ov_y}':"
-                f"eval=frame:"
-                f"format=auto:"
-                f"shortest=1"
-                f"[{next_label}]"
+            # Upscale base video frame to render resolution.
+            # The final 4× downscale averages these pixels back, so any softness
+            # from upscaling is invisible in the output — only sharpness matters.
+            canvas = (
+                _PILImage.frombytes("RGB", (width, height), raw)
+                         .resize((render_w, render_h), _PILImage.Resampling.LANCZOS)
+                         .convert("RGBA")
             )
 
-            current_label = next_label
+            for layer_idx, layer in enumerate(layers):
+                if layer_idx not in layer_images:
+                    continue
 
-        # Final output: convert back to yuv420p for H.264 compatibility
-        filter_parts.append(f"[{current_label}]format=yuv420p[v]")
+                img_hq, display_w, display_h = layer_images[layer_idx]
+                by_prop = layer_anim_cache[layer_idx]
 
-        filter_complex = ";".join(filter_parts)
-        logger.debug("filter_complex:\n%s", filter_complex)
+                # ── Animation values at time t ──────────────────────────────
+                scale    = _compute_property(by_prop.get("scale",    []), 1.0, t)
+                opacity  = _compute_property(by_prop.get("opacity",  []), 1.0, t)
+                rotation = _compute_property(by_prop.get("rotation", []), 0.0, t)
+                blur_r   = _compute_property(by_prop.get("blur",     []), 0.0, t)
+                opacity  = max(0.0, min(1.0, opacity))
 
-        cmd.extend([
-            "-filter_complex", filter_complex,
-            "-map", "[v]",
-            "-map", "0:a?",
-            "-c:v", "libx264",
-            "-preset", "medium",
-            "-crf", "18",
-            "-pix_fmt", "yuv420p",
-            "-c:a", "copy",
-            "-t", str(duration),
-            str(output_path),
-        ])
+                if opacity < 0.004:
+                    continue  # fully invisible — skip compositing
 
-        logger.debug("FFmpeg command: %s", " ".join(cmd))
-        result = subprocess.run(cmd, check=False, capture_output=True, text=True)
+                # ── Scale (float before rounding to prevent cumulative jitter) ──
+                scale_hq_w = display_w * text_render_scale * scale
+                scale_hq_h = scale_hq_w * img_hq.height / img_hq.width
+                target_w = max(1, round(scale_hq_w))
+                target_h = max(1, round(scale_hq_h))
+                img = img_hq.resize((target_w, target_h), _PILImage.Resampling.LANCZOS)
 
-        if result.returncode != 0:
-            logger.error("FFmpeg stderr:\n%s", result.stderr)
-            raise RuntimeError(
-                result.stderr.strip() or "ffmpeg failed to render the invitation video."
-            )
+                # ── Blur ───────────────────────────────────────────────────
+                if blur_r > 0.1:
+                    img = img.filter(_PILFilter.GaussianBlur(radius=blur_r * text_render_scale))
+
+                # ── Rotation ───────────────────────────────────────────────
+                if abs(rotation) > 0.05:
+                    img = img.rotate(
+                        -rotation, expand=True,
+                        resample=_PILImage.Resampling.BICUBIC,
+                        fillcolor=(0, 0, 0, 0),
+                    )
+
+                # ── Opacity ────────────────────────────────────────────────
+                img = _apply_layer_opacity(img, opacity)
+
+                # ── Position ───────────────────────────────────────────────
+                # Use float-precision display size derived from scale directly — NOT
+                # from img.width/text_render_scale, which applies a second round() on
+                # top of the already-rounded target_w.  That double-rounding causes
+                # centered layers to snap by 0.5px at irregular intervals (= the jerk).
+                disp_img_w = display_w * scale
+                disp_img_h = display_h * img_hq.height / img_hq.width * scale
+
+                base_x = _eval_pos(layer.get("x", 0), width, height, disp_img_w, disp_img_h)
+                base_y = _eval_pos(layer.get("y", 0), width, height, disp_img_w, disp_img_h)
+
+                x = _compute_property(by_prop["x"], base_x, t) if "x" in by_prop else base_x
+                y = _compute_property(by_prop["y"], base_y, t) if "y" in by_prop else base_y
+
+                px = round(x * text_render_scale)
+                py = round(y * text_render_scale)
+
+                # Rotation expands the canvas; shift back so the centre stays fixed
+                if abs(rotation) > 0.05:
+                    px -= (img.width  - target_w) // 2
+                    py -= (img.height - target_h) // 2
+
+                canvas.paste(img, (px, py), img)
+
+            # Final downscale: 4× LANCZOS averaging makes sub-pixel errors invisible
+            out = canvas.resize((width, height), _PILImage.Resampling.LANCZOS).convert("RGB")
+            encode.stdin.write(out.tobytes())
+
+            if frame_num % _log_every == 0:
+                pct = frame_num / total_frames * 100
+                logger.info("   encoding  frame %4d / %d  (%.0f%%)  t=%.2fs",
+                            frame_num, total_frames, pct, t)
 
     finally:
-        for tmp in temp_files:
-            tmp.unlink(missing_ok=True)
+        decode.stdout.close()
+        decode.wait()
+        encode.stdin.close()
+        stderr = encode.stderr.read().decode()
+        if encode.wait() != 0:
+            logger.error("FFmpeg encode stderr:\n%s", stderr)
+            raise RuntimeError(stderr.strip() or "ffmpeg failed to encode video.")
 
+    logger.info("✓  render complete → %s", output_path)
+    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     return output_path
