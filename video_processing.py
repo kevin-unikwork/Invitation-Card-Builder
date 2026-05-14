@@ -550,37 +550,163 @@ def _expand_animation_presets(template: dict) -> None:
 # ---------------------------------------------------------------------------
 
 def _render_text_to_pil(text: str, layer: dict, font_family: str, font_path: Path | None) -> "_PILImage.Image | None":
-    """Render text to PIL Image using pango/cairo or Pillow."""
+    """Render text to PIL Image using pango/cairo (preferred) or Pillow fallback."""
     if not font_family:
         font_family = "Sans"
 
-    padding = int(layer.get("padding", 6))
     color = _parse_color(layer.get("color", "#000000"))
+    padding = int(layer.get("padding", 6))
 
-    measure_surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1, 1)
-    measure_ctx = cairo.Context(measure_surface)
-    measure_layout = _configure_pango_layout(measure_ctx, layer, text, font_family)
+    # Try Pango/Cairo first (superior multilingual support)
+    if _PANGO_AVAILABLE:
+        try:
+            measure_surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1, 1)
+            measure_ctx = cairo.Context(measure_surface)
+            measure_layout = _configure_pango_layout(measure_ctx, layer, text, font_family)
 
-    ink, logical = measure_layout.get_pixel_extents()
-    left   = min(logical.x, ink.x)
-    top    = min(logical.y, ink.y)
-    right  = max(logical.x + logical.width,  ink.x + ink.width)
-    bottom = max(logical.y + logical.height, ink.y + ink.height)
-    width  = max(1, right  - left + padding * 2)
-    height = max(1, bottom - top  + padding * 2)
+            ink, logical = measure_layout.get_pixel_extents()
+            left   = min(logical.x, ink.x)
+            top    = min(logical.y, ink.y)
+            right  = max(logical.x + logical.width,  ink.x + ink.width)
+            bottom = max(logical.y + logical.height, ink.y + ink.height)
+            width  = max(1, right  - left + padding * 2)
+            height = max(1, bottom - top  + padding * 2)
 
-    draw_surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
-    draw_ctx = cairo.Context(draw_surface)
-    draw_layout = _configure_pango_layout(draw_ctx, layer, text, font_family)
+            draw_surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+            draw_ctx = cairo.Context(draw_surface)
+            draw_layout = _configure_pango_layout(draw_ctx, layer, text, font_family)
 
-    draw_ctx.set_source_rgba(color[0] / 255, color[1] / 255, color[2] / 255, 1)
-    draw_ctx.move_to(padding - left, padding - top)
-    PangoCairo.show_layout(draw_ctx, draw_layout)
+            draw_ctx.set_source_rgba(color[0] / 255, color[1] / 255, color[2] / 255, 1)
+            draw_ctx.move_to(padding - left, padding - top)
+            PangoCairo.show_layout(draw_ctx, draw_layout)
 
-    return _PILImage.frombuffer(
-        "RGBA", (width, height), draw_surface.get_data(),
-        "raw", "BGRA", 0, 1,
-    )
+            logger.debug("Text rendered via Pango: %r", text[:40])
+            return _PILImage.frombuffer(
+                "RGBA", (width, height), draw_surface.get_data(),
+                "raw", "BGRA", 0, 1,
+            )
+        except Exception as e:
+            logger.warning("Pango rendering failed: %s — falling back to Pillow", e)
+
+    # Fallback: Use Pillow for basic text rendering
+    if not _PIL_AVAILABLE:
+        logger.error("Neither Pango nor Pillow available; cannot render text: %s", text[:50])
+        return None
+
+    try:
+        font_size = int(layer.get("font_size") or 18)
+        max_width = layer.get("max_width")
+        line_spacing = layer.get("line_spacing")
+        alignment = layer.get("align", "left").lower()
+
+        # Load font
+        font = None
+        if font_path and font_path.exists():
+            try:
+                font = _PILFont.truetype(str(font_path), size=font_size)
+                logger.debug("Loaded font from file: %s", font_path.name)
+            except Exception as e:
+                logger.warning("Failed to load font from %s: %s — using default", font_path.name, e)
+        
+        if not font:
+            # Try system fonts by family name
+            try:
+                font = _PILFont.truetype(f"/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", size=font_size)
+            except:
+                try:
+                    font = _PILFont.truetype(f"/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size=font_size)
+                except:
+                    font = _PILFont.load_default()  # Fallback to bitmap font
+                    logger.debug("Using default bitmap font")
+
+        # Measure text with word wrapping if max_width is set
+        if max_width:
+            lines = _wrap_text(text, font, max_width)
+        else:
+            lines = text.split('\n')
+
+        text_to_draw = "\n".join(lines)
+        line_spacing_val = int(line_spacing or 4)
+        
+        # Determine exact bounding box of the entire text block, including all descenders
+        temp_img = _PILImage.new("RGBA", (1, 1))
+        temp_draw = _PILDraw.Draw(temp_img)
+        bbox = temp_draw.multiline_textbbox((0, 0), text_to_draw, font=font, align=alignment, spacing=line_spacing_val)
+        
+        # bbox is (left, top, right, bottom)
+        text_w = bbox[2] - bbox[0]
+        text_h = bbox[3] - bbox[1]
+        
+        total_width = int(math.ceil(text_w + padding * 2))
+        total_height = int(math.ceil(text_h + padding * 2))
+        
+        # Create image with transparent background
+        img = _PILImage.new("RGBA", (total_width, total_height), (255, 255, 255, 0))
+        draw = _PILDraw.Draw(img)
+        
+        logger.info("Text rendered via Pillow fallback: %r", text[:40])
+        
+        # Draw the multiline text exactly aligned to the top-left padding, accounting for negative font metric offsets
+        draw.multiline_text(
+            (padding - bbox[0], padding - bbox[1]), 
+            text_to_draw, 
+            fill=(*color, 255), 
+            font=font, 
+            align=alignment, 
+            spacing=line_spacing_val
+        )
+
+        # Calculate discrete prefix widths for perfect typewriter effect
+        char_widths = []
+        for i in range(1, len(text_to_draw) + 1):
+            prefix = text_to_draw[:i]
+            prefix_bbox = temp_draw.multiline_textbbox((0, 0), prefix, font=font, align=alignment, spacing=line_spacing_val)
+            # The exact horizontal pixel width of the prefix, adjusted for the global bbox offset
+            char_widths.append((prefix_bbox[2] - bbox[0]) + padding)
+        
+        img.info["char_widths"] = char_widths
+
+        logger.debug("Text rendered via Pillow fallback: %r", text[:40])
+        return img
+
+    except Exception as e:
+        logger.error("Pillow text rendering failed: %s", e)
+        return None
+
+
+def _wrap_text(text: str, font, max_width: int) -> list[str]:
+    """Wrap text to fit within max_width using the given font."""
+    if not _PIL_AVAILABLE:
+        return text.split('\n')
+
+    lines = []
+    for paragraph in text.split('\n'):
+        if not paragraph:
+            lines.append('')
+            continue
+        
+        words = paragraph.split()
+        current_line = []
+        
+        for word in words:
+            test_line = ' '.join(current_line + [word])
+            try:
+                bbox = _PILDraw.Draw(_PILImage.new("RGBA", (1, 1))).textbbox((0, 0), test_line, font=font)
+                line_width = bbox[2] - bbox[0]
+            except:
+                line_width = len(test_line) * 8  # Rough estimate
+            
+            if line_width <= max_width:
+                current_line.append(word)
+            else:
+                if current_line:
+                    lines.append(' '.join(current_line))
+                current_line = [word]
+        
+        if current_line:
+            lines.append(' '.join(current_line))
+    
+    return lines if lines else ['']
 
 
 def _configure_pango_layout(ctx, layer: dict, text: str, font_family: str):
@@ -616,6 +742,7 @@ def _configure_pango_layout(ctx, layer: dict, text: str, font_family: str):
     layout.set_font_description(description)
     logger.debug("Pango requested font: %s | resolved: %s", font_family, layout.get_font_description().get_family())
 
+
     line_spacing = layer.get("line_spacing")
     if line_spacing is not None:
         layout.set_spacing(int(line_spacing) * Pango.SCALE)
@@ -629,9 +756,6 @@ def _parse_color(value: str) -> tuple[int, int, int]:
     if len(color) == 6:
         return tuple(int(color[i:i + 2], 16) for i in (0, 2, 4))  # type: ignore
     return (0, 0, 0)
-
-
-
 
 def _render_text_to_png_bytes(text: str, layer: dict, font_family: str, font_path: Path | None) -> bytes | None:
     """Render text to PNG bytes for FFmpeg input."""
@@ -669,236 +793,16 @@ def render_timed_json_video_template(
     fmt: str = "png"
 ) -> Path:
     """
-    Render a timed JSON video invitation template.
-
-    Python per-frame compositing loop — smooth animation for all properties:
-      scale    — LANCZOS resize at render_scale resolution, no integer-grid jitter
-      opacity  — per-frame alpha multiply with full easing support
-      x / y    — per-frame position with expression support e.g. '(w-text_w)/2'
-      rotation — per-frame PIL rotate with transparent fill
-      blur     — per-frame GaussianBlur radius
-
-    Easing curves: linear, ease_in/out, ease_in_out, *_cubic, bounce_out, elastic_out.
-
-    Composite is done at text_render_scale× resolution (default 4×).
-    A 1-pixel rounding error at render scale = 0.25px at output → imperceptible.
-    Final 4× LANCZOS downscale averages sub-pixel jitter to zero.
+    Render a timed JSON video invitation template using the new high-performance
+    Liquid Motion (MoviePy) engine.
     """
-    template = dict(template)
-    _expand_animation_presets(template)
-
-    data = expand_event_date({**template.get("data", {}), **input_data})
-    base_video = (_resolve_path(template.get("background")) or _resolve_path(template.get("video")))
-    if not base_video or not base_video.exists():
-        raise FileNotFoundError(
-            f"Base video not found: {template.get('background') or template.get('video')}"
-        )
-
-    width    = int(template.get("width")    or 396)
-    height   = int(template.get("height")   or 558)
-    fps      = int(template.get("fps")      or 60)
-    duration = float(template.get("duration") or 5)
-    text_render_scale = max(1, int(template.get("text_render_scale") or 4))
-
-    # internal_fps renders at a higher rate then decimates — but easing is already sampled
-    # correctly at output fps, so this adds no smoothness and the fps filter can drift.
-    # Only override if the template explicitly sets it.
-    internal_fps = int(template.get("internal_fps") or fps)
-    output_path = (
-        _resolve_path(output_override or template.get("output"))
-        or (DEFAULT_OUTPUT_DIR / "output.mp4")
-    )
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    layers = template.get("layers") or template.get("texts", [])
-    total_frames = int(duration * internal_fps)
-
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    logger.info("▶  render start")
-    logger.info("   output    : %s", output_path)
-    logger.info("   video     : %s", base_video.name)
-    logger.info("   size      : %dx%d  fps=%d  duration=%.1fs", width, height, fps, duration)
-    logger.info("   frames    : %d  render_scale=%dx", total_frames, text_render_scale)
-    logger.info("   layers    : %d total", len(layers))
-
-    # ── Render each text layer to a HQ PIL image (once, before the frame loop) ─
-    # Rendered at text_render_scale× so every per-frame resize is a downscale → sharp.
-    layer_images: dict[int, tuple["_PILImage.Image", int, int]] = {}
-
-    for idx, layer in enumerate(layers):
-        text = resolve_text(layer, data)
-        if should_skip_layer(layer, text, data):
-            logger.debug("  layer %d skipped (should_skip_layer)", idx)
-            continue
-        text = text.strip()
-        if not text:
-            logger.debug("  layer %d skipped (empty text)", idx)
-            continue
-        font_family, font_path = _resolve_video_font_spec(layer, template)
-        render_layer = _scale_text_render_layer(layer, text_render_scale)
-        png_bytes = _render_text_to_png_bytes(text, render_layer, font_family, font_path)
-        if not png_bytes:
-            logger.warning("  layer %d — text render failed for %r", idx, text[:40])
-            continue
-        img = _PILImage.open(io.BytesIO(png_bytes)).convert("RGBA")
-        display_w = max(1, int(round(img.width  / text_render_scale)))
-        display_h = max(1, int(round(img.height / text_render_scale)))
-        layer_images[idx] = (img, display_w, display_h)
-        logger.info("   layer %2d : %r  font=%s  display=%dx%d  anims=%s",
-                    idx,
-                    text[:30],
-                    font_family,
-                    display_w, display_h,
-                    sorted({b.get("property") for b in (layer.get("animations") or [])
-                            if b.get("property")}) or "none"
-                    )
-
-    # ── Pre-build per-layer animation block index (property → blocks) ────────
-    # Avoids repeated list comprehensions inside the per-frame loop.
-    layer_anim_cache: dict[int, dict[str, list]] = {}
-    for layer_idx, layer in enumerate(layers):
-        if layer_idx not in layer_images:
-            continue
-        by_prop: dict[str, list] = {}
-        for b in (layer.get("animations") or []):
-            p = b.get("property")
-            if p:
-                by_prop.setdefault(p, []).append(b)
-        layer_anim_cache[layer_idx] = by_prop
-
-    # ── Composite & output dimensions ────────────────────────────────────────
-    render_w    = width  * text_render_scale
-    render_h    = height * text_render_scale
-    frame_bytes = width  * height * 3   # bytes per RGB24 decoded frame
-    # total_frames already computed above for the startup log
-    _log_every  = max(1, total_frames // 10)  # log progress every ~10 %
-
-    # ── Decode base video ─────────────────────────────────────────────────────
-    decode = subprocess.Popen([
-        "ffmpeg", "-i", str(base_video),
-        "-vf", f"fps={internal_fps},scale={width}:{height},setsar=1",
-        "-f", "rawvideo", "-pix_fmt", "rgb24", "-",
-    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-
-    # ── Encode output with optional frame rate decimation ─────────────────────
-    # rawvideo avoids per-frame PNG compression — direct RGB bytes to ffmpeg.
-    encode_args = [
-        "ffmpeg", "-y",
-        "-f", "rawvideo", "-pix_fmt", "rgb24",
-        "-r", str(internal_fps),
-        "-video_size", f"{width}x{height}", "-i", "-",
-        "-c:v", "libx264",
-        "-preset", "medium",
-        "-crf", "18",
-        "-pix_fmt", "yuv420p",
-        "-movflags", "+faststart",
-        "-t", str(duration),
-    ]
-    if internal_fps > fps:
-        encode_args.extend(["-vf", f"fps={fps}"])
-    encode_args.append(str(output_path))
+    from moviepy_video_renderer import render_video_with_moviepy
     
-    encode = subprocess.Popen(encode_args, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-
+    logger.info("Routing render request to MoviePy (Liquid Motion) engine")
     try:
-        for frame_num in range(total_frames):
-            raw = decode.stdout.read(frame_bytes)
-            if len(raw) < frame_bytes:
-                break
+        return render_video_with_moviepy(template, input_data, output_override)
+    except Exception as e:
+        logger.error("MoviePy renderer failed: %s", e)
+        raise
 
-            # Time computed from internal_fps for smooth frame-to-frame interpolation
-            t = frame_num / internal_fps
 
-            # Upscale base video frame to render resolution.
-            # The final 4× downscale averages these pixels back, so any softness
-            # from upscaling is invisible in the output — only sharpness matters.
-            canvas = (
-                _PILImage.frombytes("RGB", (width, height), raw)
-                         .resize((render_w, render_h), _PILImage.Resampling.LANCZOS)
-                         .convert("RGBA")
-            )
-
-            for layer_idx, layer in enumerate(layers):
-                if layer_idx not in layer_images:
-                    continue
-
-                img_hq, display_w, display_h = layer_images[layer_idx]
-                by_prop = layer_anim_cache[layer_idx]
-
-                # ── Animation values at time t ──────────────────────────────
-                scale    = _compute_property(by_prop.get("scale",    []), 1.0, t)
-                opacity  = _compute_property(by_prop.get("opacity",  []), 1.0, t)
-                rotation = _compute_property(by_prop.get("rotation", []), 0.0, t)
-                blur_r   = _compute_property(by_prop.get("blur",     []), 0.0, t)
-                opacity  = max(0.0, min(1.0, opacity))
-
-                if opacity < 0.004:
-                    continue  # fully invisible — skip compositing
-
-                # ── Scale (float before rounding to prevent cumulative jitter) ──
-                scale_hq_w = display_w * text_render_scale * scale
-                scale_hq_h = scale_hq_w * img_hq.height / img_hq.width
-                target_w = max(1, round(scale_hq_w))
-                target_h = max(1, round(scale_hq_h))
-                img = img_hq.resize((target_w, target_h), _PILImage.Resampling.LANCZOS)
-
-                # ── Blur ───────────────────────────────────────────────────
-                if blur_r > 0.1:
-                    img = img.filter(_PILFilter.GaussianBlur(radius=blur_r * text_render_scale))
-
-                # ── Rotation ───────────────────────────────────────────────
-                if abs(rotation) > 0.05:
-                    img = img.rotate(
-                        -rotation, expand=True,
-                        resample=_PILImage.Resampling.BICUBIC,
-                        fillcolor=(0, 0, 0, 0),
-                    )
-
-                # ── Opacity ────────────────────────────────────────────────
-                img = _apply_layer_opacity(img, opacity)
-
-                # ── Position ───────────────────────────────────────────────
-                # Use float-precision display size derived from scale directly — NOT
-                # from img.width/text_render_scale, which applies a second round() on
-                # top of the already-rounded target_w.  That double-rounding causes
-                # centered layers to snap by 0.5px at irregular intervals (= the jerk).
-                disp_img_w = display_w * scale
-                disp_img_h = display_h * img_hq.height / img_hq.width * scale
-
-                base_x = _eval_pos(layer.get("x", 0), width, height, disp_img_w, disp_img_h)
-                base_y = _eval_pos(layer.get("y", 0), width, height, disp_img_w, disp_img_h)
-
-                x = _compute_property(by_prop["x"], base_x, t) if "x" in by_prop else base_x
-                y = _compute_property(by_prop["y"], base_y, t) if "y" in by_prop else base_y
-
-                px = round(x * text_render_scale)
-                py = round(y * text_render_scale)
-
-                # Rotation expands the canvas; shift back so the centre stays fixed
-                if abs(rotation) > 0.05:
-                    px -= (img.width  - target_w) // 2
-                    py -= (img.height - target_h) // 2
-
-                canvas.paste(img, (px, py), img)
-
-            # Final downscale: 4× LANCZOS averaging makes sub-pixel errors invisible
-            out = canvas.resize((width, height), _PILImage.Resampling.LANCZOS).convert("RGB")
-            encode.stdin.write(out.tobytes())
-
-            if frame_num % _log_every == 0:
-                pct = frame_num / total_frames * 100
-                logger.info("   encoding  frame %4d / %d  (%.0f%%)  t=%.2fs",
-                            frame_num, total_frames, pct, t)
-
-    finally:
-        decode.stdout.close()
-        decode.wait()
-        encode.stdin.close()
-        stderr = encode.stderr.read().decode()
-        if encode.wait() != 0:
-            logger.error("FFmpeg encode stderr:\n%s", stderr)
-            raise RuntimeError(stderr.strip() or "ffmpeg failed to encode video.")
-
-    logger.info("✓  render complete → %s", output_path)
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    return output_path

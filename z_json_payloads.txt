@@ -35,13 +35,13 @@
 {
   "template_id": 1007,
   "filled_data": {
-    "personName": "kavya",
-    "partnerName": "kishan",
+    "personName": "સુરત",
+    "partnerName": "મુંબઈ",
     "event_date": "2026-02-14",
     "time": "2027-02-02",
     "venue":"Shree Swaminarayan Mandir",
     "venueAddress":"Shree Swaminarayan Mandir, Kiran Chowk, Yogi chowk",
-    "phone":"080000 58503"
+    "phone":"80000 58503"
  }
 }
 
@@ -54,6 +54,28 @@
     "venue_address": "શ્રી સ્વામિનારાયણ મંદિર, સુરત"
   }
 }
+
+{
+  "template_id": 1010,
+  "filled_data": {
+    "bride_name": "કાવ્યા",
+    "groom_name": "જય",
+    "wedding_date": "2026-02-14",
+    "venue_address": "શ્રી સ્વામિનારાયણ મંદિર, સુરત"
+  }
+}
+
+{
+  "template_id": 1011,
+  "filled_data": {
+    "bride_name": "Virat",
+    "groom_name": "Anushka",
+    "event_date": "2025-06-06",
+    "venue_address": "Royal Palace Banquet Hall,\nSurat, 395010",
+    "phone_number": "+0123456789"
+  }
+}
+
 
 
 Functions responsible for scale animation, in execution order:

@@ -1,0 +1,315 @@
+{
+  "format": "video",
+  "background": "static/template_media/Back_Green and Pink Illustrated Ring Ceremony Mobile Video.mp4",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 12.05,
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "modern": "static/fonts/Montserrat-Regular.ttf",
+      "light": "static/fonts/Montserrat-Light.ttf",
+      "sans": "static/fonts/NotoSansGujarati-VariableFont_wdth,wght.ttf"
+    }
+  },
+  "animation_presets": {
+    "typewriter_bounce_smooth": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 0,
+        "duration": 0.01,
+        "start": 0
+      },
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.4,
+        "easing": "easeOutCubic",
+        "start": 0
+      },
+      {
+        "property": "typewriter_bounce",
+        "duration": 1.2,
+        "easing": "easeOutBack",
+        "start": 0
+      }
+    ],
+    "fade_in": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 0,
+        "duration": 0.01,
+        "start": 0
+      },
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.8,
+        "easing": "easeOutCubic",
+        "start": 0
+      }
+    ],
+    "slide_down_fade": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 0,
+        "duration": 0.01,
+        "start": 0
+      },
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.50,
+        "easing": "easeOutCubic",
+        "start": 0
+      },
+      {
+        "property": "slide_y",
+        "from": -40,
+        "to": 0,
+        "duration": 0.50,
+        "easing": "easeOutCubic",
+        "start": 0
+      }
+    ],
+    "slide_up_fade": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 0,
+        "duration": 0.01,
+        "start": 0
+      },
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.90,
+        "easing": "easeOutCubic",
+        "start": 0
+      },
+      {
+        "property": "slide_y",
+        "from": 50,
+        "to": 0,
+        "duration": 0.90,
+        "easing": "easeOutCubic",
+        "start": 0
+      }
+    ],
+    "fade_out": {
+      "property": "opacity",
+      "from": 1,
+      "to": 0,
+      "duration": 0.70,
+      "easing": "easeInCubic"
+    }
+  },
+  "global_animations": [
+    {
+      "preset": "fade_out",
+      "start": 11.30,
+      "targets": "all"
+    }
+  ],
+  "layers": [
+    {
+      "id": "bride_name_1",
+      "type": "text",
+      "key": "bride_name",
+      "font": "script",
+      "font_size": 110,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 520,
+      "animations": [
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 0.50
+        },
+        {
+          "preset": "fade_out",
+          "start": 4.50
+        }
+      ]
+    },
+    {
+      "id": "groom_name_1",
+      "type": "text",
+      "key": "groom_name",
+      "font": "script",
+      "font_size": 110,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 750,
+      "animations": [
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 1.00
+        },
+        {
+          "preset": "fade_out",
+          "start": 4.50
+        }
+      ]
+    },
+    {
+      "id": "invite_line1",
+      "type": "text",
+      "value": "We cordially invite you to the",
+      "font": "modern",
+      "font_size": 36,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 350,
+      "animations": [
+        {
+          "preset": "slide_down_fade",
+          "start": 5.50
+        }
+      ]
+    },
+    {
+      "id": "invite_line2",
+      "type": "text",
+      "value": "Ring Ceremony of",
+      "font": "modern",
+      "font_size": 36,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 420,
+      "animations": [
+        {
+          "preset": "slide_down_fade",
+          "start": 5.70
+        }
+      ]
+    },
+    {
+      "id": "bride_name_2",
+      "type": "text",
+      "key": "bride_name",
+      "font": "script",
+      "font_size": 110,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 500,
+      "animations": [
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 6.00
+        }
+      ]
+    },
+    {
+      "id": "ampersand_2",
+      "type": "text",
+      "value": "&",
+      "font": "script",
+      "font_size": 80,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 625,
+      "animations": [
+        {
+          "preset": "fade_in",
+          "start": 6.30
+        }
+      ]
+    },
+    {
+      "id": "groom_name_2",
+      "type": "text",
+      "key": "groom_name",
+      "font": "script",
+      "font_size": 110,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 700,
+      "animations": [
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 6.60
+        }
+      ]
+    },
+    {
+      "id": "event_date",
+      "type": "text",
+      "key": "event_date",
+      "format": {
+        "type": "date",
+        "pattern": "EEEE, dd MMMM, yyyy"
+      },
+      "font": "modern",
+      "font_size": 36,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 860,
+      "animations": [
+        {
+          "preset": "fade_in",
+          "start": 7.50
+        },
+        {
+          "property": "slide_x",
+          "from": -40,
+          "to": 0,
+          "start": 7.50,
+          "duration": 1.20,
+          "easing": "easeOutCubic"
+        }
+      ]
+    },
+    {
+      "id": "venue_address",
+      "type": "text",
+      "key": "venue_address",
+      "font": "serif",
+      "font_size": 36,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 940,
+      "animations": [
+        {
+          "preset": "slide_up_fade",
+          "start": 8.30
+        }
+      ]
+    },
+    {
+      "id": "phone_number",
+      "type": "text",
+      "key": "phone_number",
+      "font": "modern",
+      "font_size": 36,
+      "color": "#765c27",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1070,
+      "animations": [
+        {
+          "preset": "slide_up_fade",
+          "start": 8.80
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 env/
-__pycache__
-.codex
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# Media and Output
+static/output/*
+!static/output/.gitkeep
+# Large template media (Optional: keep them if you want templates to work out of the box)
+# static/template_media/*.mp4
+
+# Environment and Secrets
+.env
+.flaskenv
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

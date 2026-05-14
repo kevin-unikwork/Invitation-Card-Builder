@@ -1,0 +1,128 @@
+{
+  "format": "video",
+  "background": "white",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 40.0,
+  "assets": {
+    "fonts": {
+      "modern": "static/fonts/Montserrat-Regular.ttf"
+    }
+  },
+  "layers": [
+    {
+      "id": "l1", "type": "text", "value": "1. Linear reveal", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 100,
+      "animations": [{ "property": "opacity", "from": 0, "to": 1, "start": 0.5, "duration": 0.8 }]
+    },
+    {
+      "id": "l2", "type": "text", "value": "2. easeOutBack pop", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 180,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 1.5, "duration": 0.3 },
+        { "property": "scale", "from": 0, "to": 1, "start": 1.5, "duration": 0.8, "easing": "easeOutBack" }
+      ]
+    },
+    {
+      "id": "l3", "type": "text", "value": "3. easeOutBounce gravity", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 260,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 2.5, "duration": 0.3 },
+        { "property": "slide_y", "from": -100, "to": 0, "start": 2.5, "duration": 1.2, "easing": "easeOutBounce" }
+      ]
+    },
+    {
+      "id": "l4", "type": "text", "value": "4. easeOutExpo slide", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 340,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 4.0, "duration": 0.3 },
+        { "property": "slide_x", "from": -300, "to": 0, "start": 4.0, "duration": 0.8, "easing": "easeOutExpo" }
+      ]
+    },
+    {
+      "id": "l5", "type": "text", "value": "5. Typewriter reveal", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 420,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 5.0, "duration": 0.1 },
+        { "property": "typewriter", "from": 0, "to": 1, "start": 5.0, "duration": 1.2 }
+      ]
+    },
+    {
+      "id": "l6", "type": "text", "value": "6. Typewriter bounce", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 500,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 6.5, "duration": 0.1 },
+        { "property": "typewriter_bounce", "start": 6.5, "duration": 1.5 }
+      ]
+    },
+    {
+      "id": "l7", "type": "text", "value": "7. Blur reveal", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 580,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 8.5, "duration": 1.0 },
+        { "property": "blur", "from": 15, "to": 0, "start": 8.5, "duration": 1.0 }
+      ]
+    },
+    {
+      "id": "l8", "type": "text", "value": "8. Rotation pop", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 660,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 10.0, "duration": 0.5 },
+        { "property": "rotation", "from": -60, "to": 0, "start": 10.0, "duration": 0.8, "easing": "easeOutBack" }
+      ]
+    },
+    {
+      "id": "l9", "type": "text", "value": "9. Skew motion", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 740,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 11.5, "duration": 0.5 },
+        { "property": "skew_x", "from": 0.8, "to": 0, "start": 11.5, "duration": 0.8 }
+      ]
+    },
+    {
+      "id": "l10", "type": "text", "value": "10. Pulse loop", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 820,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 13.0, "duration": 0.5 },
+        { "property": "scale", "from": 1, "to": 1.1, "start": 14.0, "duration": 0.4, "easing": "easeInOutSine" },
+        { "property": "scale", "from": 1.1, "to": 1, "start": 14.4, "duration": 0.4, "easing": "easeInOutSine" },
+        { "property": "scale", "from": 1, "to": 1.1, "start": 14.8, "duration": 0.4, "easing": "easeInOutSine" },
+        { "property": "scale", "from": 1.1, "to": 1, "start": 15.2, "duration": 0.4, "easing": "easeInOutSine" }
+      ]
+    },
+    {
+      "id": "l11", "type": "text", "value": "11. Rubber Band stretch", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 900,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 16.5, "duration": 0.3 },
+        { "property": "scale_x", "from": 1.5, "to": 1, "start": 16.5, "duration": 1.2, "easing": "easeOutBack" },
+        { "property": "scale_y", "from": 0.5, "to": 1, "start": 16.5, "duration": 1.2, "easing": "easeOutBack" }
+      ]
+    },
+    {
+      "id": "l12", "type": "text", "value": "12. Floating loop", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 980,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 18.5, "duration": 0.5 },
+        { "property": "slide_y", "from": 0, "to": -15, "start": 19.5, "duration": 0.8, "easing": "easeInOutSine" },
+        { "property": "slide_y", "from": -15, "to": 0, "start": 20.3, "duration": 0.8, "easing": "easeInOutSine" },
+        { "property": "slide_y", "from": 0, "to": -15, "start": 21.1, "duration": 0.8, "easing": "easeInOutSine" },
+        { "property": "slide_y", "from": -15, "to": 0, "start": 21.9, "duration": 0.8, "easing": "easeInOutSine" }
+      ]
+    },
+    {
+      "id": "l13", "type": "text", "value": "13. Swing motion", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 1060,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 23.5, "duration": 0.5 },
+        { "property": "rotation", "from": -15, "to": 15, "start": 24.5, "duration": 1.0, "easing": "easeInOutSine" },
+        { "property": "rotation", "from": 15, "to": -15, "start": 25.5, "duration": 1.0, "easing": "easeInOutSine" },
+        { "property": "rotation", "from": -15, "to": 0, "start": 26.5, "duration": 0.5, "easing": "easeInOutSine" }
+      ]
+    },
+    {
+      "id": "l14", "type": "text", "value": "14. Glitch jitter", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 1140,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 27.5, "duration": 0.3 },
+        { "property": "slide_x", "from": 10, "to": -10, "start": 28.0, "duration": 0.05 },
+        { "property": "slide_x", "from": -10, "to": 15, "start": 28.05, "duration": 0.05 },
+        { "property": "slide_x", "from": 15, "to": 0, "start": 28.10, "duration": 0.05 }
+      ]
+    },
+    {
+      "id": "l15", "type": "text", "value": "15. Flash Reveal", "font": "modern", "font_size": 36, "color": "#1a1a1a", "x": 100, "y": 1220,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "start": 29.5, "duration": 0.5 },
+        { "property": "brightness", "from": 5, "to": 1, "start": 29.5, "duration": 1.0, "easing": "easeOutExpo" }
+      ]
+    }
+  ]
+}

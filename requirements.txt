@@ -17,4 +17,6 @@ uharfbuzz==0.53.6
 uvicorn==0.44.0
 fontTools==4.62.1
 ipykernel==7.2.0
+playwright>=1.40.0
 
+moviepy>=1.0.3

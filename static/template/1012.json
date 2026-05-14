@@ -1,0 +1,440 @@
+{
+  "format": "video",
+  "background": "static/template_media/Back_Pink Elegant Floral Arrangement Wedding Invitation Mobile Video.mp4",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 21.9,
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "modern": "static/fonts/Montserrat-Regular.ttf",
+      "light": "static/fonts/Montserrat-Light.ttf",
+      "bold": "static/fonts/Montserrat-Bold.ttf"
+    }
+  },
+  "animation_presets": {
+    "typewriter_bounce_smooth": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 0,
+        "duration": 0.01,
+        "start": 0
+      },
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.4,
+        "easing": "easeOutCubic",
+        "start": 0
+      },
+      {
+        "property": "typewriter_bounce",
+        "duration": 1.2,
+        "easing": "easeOutBack",
+        "start": 0
+      }
+    ],
+    "rubber_band": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.3
+      },
+      {
+        "property": "scale_x",
+        "from": 1.4,
+        "to": 1,
+        "duration": 1.0,
+        "easing": "easeOutBack"
+      },
+      {
+        "property": "scale_y",
+        "from": 0.6,
+        "to": 1,
+        "duration": 1.0,
+        "easing": "easeOutBack"
+      }
+    ],
+    "swing_pop": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.5
+      },
+      {
+        "property": "scale",
+        "from": 0,
+        "to": 1,
+        "duration": 0.8,
+        "easing": "easeOutBack"
+      },
+      {
+        "property": "rotation",
+        "from": -15,
+        "to": 0,
+        "duration": 1.0,
+        "easing": "easeOutBack"
+      }
+    ],
+    "exit_slide_left": [
+      {
+        "property": "slide_x",
+        "from": 0,
+        "to": -1200,
+        "duration": 0.8,
+        "easing": "easeInExpo"
+      },
+      {
+        "property": "opacity",
+        "from": 1,
+        "to": 0,
+        "duration": 0.8
+      }
+    ],
+    "slide_up_fade": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.7,
+        "easing": "easeOutCubic"
+      },
+      {
+        "property": "slide_y",
+        "from": 60,
+        "to": 0,
+        "duration": 0.7,
+        "easing": "easeOutCubic"
+      }
+    ],
+    "typewriter_reveal": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.1
+      },
+      {
+        "property": "typewriter",
+        "from": 0,
+        "to": 1,
+        "duration": 1.5
+      }
+    ]
+  },
+  "layers": [
+    {
+      "id": "s1_bride_name",
+      "type": "text",
+      "key": "bride_name",
+      "font": "script",
+      "font_size": 110,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 700,
+      "animations": [
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 0.4
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 4.5
+        }
+      ]
+    },
+    {
+      "id": "s1_ampersand",
+      "type": "text",
+      "value": "&",
+      "font": "script",
+      "font_size": 100,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 850,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "start": 0.8,
+          "duration": 0.5
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 4.5
+        }
+      ]
+    },
+    {
+      "id": "s1_groom_name",
+      "type": "text",
+      "key": "groom_name",
+      "font": "script",
+      "font_size": 110,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1000,
+      "animations": [
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 1.0
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 4.5
+        }
+      ]
+    },
+    {
+      "id": "s1_save_the_date",
+      "type": "text",
+      "value": "save the date",
+      "font": "script",
+      "font_size": 100,
+      "color": "#2c3a5e",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1400,
+      "animations": [
+        {
+          "preset": "swing_pop",
+          "start": 1.5
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 4.5
+        }
+      ]
+    },
+    {
+      "id": "s3_names",
+      "type": "text",
+      "value": "{bride_name}",
+      "font": "script",
+      "font_size": 90,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 820,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 10.2
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s3_names",
+      "type": "text",
+      "value": "&",
+      "font": "script",
+      "font_size": 90,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 920,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 10.2
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s3_names",
+      "type": "text",
+      "value": "{groom_name}",
+      "font": "script",
+      "font_size": 90,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1020,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "typewriter_bounce_smooth",
+          "start": 10.2
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s3_date_group",
+      "type": "text",
+      "value": "{wedding_day}, {wedding_date}",
+      "font": "modern",
+      "font_size": 38,
+      "color": "#2c3a5e",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1200,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "slide_up_fade",
+          "start": 10.8
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s3_time",
+      "type": "text",
+      "key": "wedding_time",
+      "font": "modern",
+      "font_size": 38,
+      "color": "#2c3a5e",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1270,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "slide_up_fade",
+          "start": 11.2
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s3_venue",
+      "type": "text",
+      "value": "{venue_line1}",
+      "font": "bold",
+      "font_size": 36,
+      "color": "#2c3a5e",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1370,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "slide_up_fade",
+          "start": 11.8
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s3_venue2",
+      "type": "text",
+      "value": "{venue_line2}",
+      "font": "modern",
+      "font_size": 36,
+      "color": "#2c3a5e",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 1440,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "slide_up_fade",
+          "start": 12.2
+        },
+        {
+          "preset": "exit_slide_left",
+          "start": 16.5
+        }
+      ]
+    },
+    {
+      "id": "s4_message",
+      "type": "text",
+      "key": "screen4_line1",
+      "font": "script",
+      "font_size": 130,
+      "color": "#b05474",
+      "align": "center",
+      "x": "(w-text_w)/2",
+      "y": 790,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 0,
+          "start": 0,
+          "duration": 0.1
+        },
+        {
+          "preset": "typewriter_reveal",
+          "start": 17.5
+        }
+      ]
+    }
+  ]
+}

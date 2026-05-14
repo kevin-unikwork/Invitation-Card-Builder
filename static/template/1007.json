@@ -6,21 +6,21 @@
   "height": 558,
   "fps": 60,
   "duration": 5,
-
   "assets": {
     "fonts": {
       "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "names": "static/fonts/Cinzel-Regular.ttf",
       "script": "static/fonts/GreatVibes-Regular.ttf",
-      "gujarati": "static/fonts/NotoSansGujarati-VariableFont_wdth,wght.ttf"
+      "sans": "static/fonts/NotoSansGujarati-VariableFont_wdth,wght.ttf"
     }
   },
   "animation_presets": {
-    "fade_in": {
-      "property": "opacity",
-      "from": 0,
-      "to": 1,
-      "duration": 0.45,
-      "easing": "ease-out"
+    "zoom_in": {
+      "property": "scale",
+      "from": 0.0,
+      "to": 1.2,
+      "duration": 0.8,
+      "easing": "easeOutCubic"
     },
     "fade_out": {
       "property": "opacity",
@@ -28,249 +28,492 @@
       "to": 0,
       "duration": 0.5,
       "easing": "ease-in"
-    },
-      "scale_in": {
-        "property": "scale",
-        "from": 0.90,
-        "to": 1.1,
-        "duration": 3.5,
-        "easing": "easeOutCubic"
-      }
+    }
   },
-
   "global_animations": [
     {
       "preset": "fade_out",
-      "start": 4,
+      "start": 4.5,
       "targets": "all"
     }
   ],
-
   "layers": [
-
     {
       "type": "text",
       "value": "TOGETHER",
       "font": "serif",
-      "font_size": 8,
-      "color": "#444444",
+      "font_size": 15,
+      "color": "#2A2A2A",
       "x": "(w-text_w)/2",
-      "y": 90,
+      "y": 250,
       "animations": [
-        { "preset": "fade_in", "start": 0.5 },
-        { "preset": "scale_in", "start": 0.32 }
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.48,
+          "easing": "easeInOutCubic",
+          "start": 0.25
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "value": "WITH OUR FAMILIES",
       "font": "serif",
-      "font_size": 8,
-      "color": "#444444",
+      "font_size": 15,
+      "color": "#2A2A2A",
       "x": "(w-text_w)/2",
-      "y": 112,
-     "animations": [
-        { "preset": "fade_in", "start": 0.5 }
+      "y": 350,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.48,
+          "easing": "easeInOutCubic",
+          "start": 0.35
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "key": "personName",
       "required": true,
-      "font": "gujarati",
-      "font_size": 25,
-      "color": "#5f84a2",
+      "font": "script",
+      "font_size": 32,
+      "color": "#7A6855",
       "x": "(w-text_w)/2",
-      "y": 150,
-          "animations": [
-        { "preset": "fade_in", "start": 0.55 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 500,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.4
+        },
+        {
+          "property": "slide_y",
+          "from": 20,
+          "to": 0,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.4
+        },
+        {
+          "property": "scale",
+          "from": 0.95,
+          "to": 1.0,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.4
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.3,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "value": "&",
       "font": "script",
-      "font_size": 25,
-      "color": "#5f84a2",
+      "font_size": 32,
+      "color": "#7A6855",
       "x": "(w-text_w)/2",
-      "y": 195,
-           "animations": [
-        { "preset": "fade_in", "start": 0.55 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 650,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.55
+        },
+        {
+          "property": "slide_y",
+          "from": 20,
+          "to": 0,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.55
+        },
+        {
+          "property": "scale",
+          "from": 0.95,
+          "to": 1.0,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.55
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "key": "partnerName",
       "required": true,
-      "font": "gujarati",
-      "font_size": 25,
-      "color": "#5f84a2",
+      "font": "script",
+      "font_size": 32,
+      "color": "#7A6855",
       "x": "(w-text_w)/2",
-      "y": 245,
-           "animations": [
-        { "preset": "fade_in", "start": 0.55 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 780,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.7
+        },
+        {
+          "property": "slide_y",
+          "from": 20,
+          "to": 0,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.7
+        },
+        {
+          "property": "scale",
+          "from": 0.95,
+          "to": 1.0,
+          "duration": 0.8,
+          "easing": "easeOutCubic",
+          "start": 0.7
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.3,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "value": "INVITE YOU TO OUR WEDDING",
       "font": "serif",
-      "font_size": 8,
-      "color": "#444444",
+      "font_size": 11,
+      "color": "#2A2A2A",
       "x": "(w-text_w)/2",
-      "y": 300,
-           "animations": [
-        { "preset": "fade_in", "start": 0.60 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1000,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.64,
+          "easing": "easeOutCubic",
+          "start": 0.9
+        },
+        {
+          "property": "slide_y",
+          "from": 15,
+          "to": 0,
+          "duration": 0.64,
+          "easing": "easeOutCubic",
+          "start": 0.9
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "value": "CELEBRATION",
       "font": "serif",
-      "font_size": 8,
-      "color": "#444444",
+      "font_size": 11,
+      "color": "#2A2A2A",
       "x": "(w-text_w)/2",
-      "y": 315,
-           "animations": [
-        { "preset": "fade_in", "start": 0.60 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1100,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.64,
+          "easing": "easeOutCubic",
+          "start": 1.0
+        },
+        {
+          "property": "slide_y",
+          "from": 15,
+          "to": 0,
+          "duration": 0.64,
+          "easing": "easeOutCubic",
+          "start": 1.0
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "key": "event_date",
-      "format": { "type": "date", "pattern": "MMMM" },
+      "format": {
+        "type": "date",
+        "pattern": "MMMM dd, yyyy"
+      },
       "required": true,
       "font": "serif",
-      "font_size": 10,
-      "color": "#333333",
+      "font_size": 13,
+      "color": "#2A2A2A",
       "x": "(w-text_w)/2",
-      "y": 335,
-          "animations": [
-        { "preset": "fade_in", "start": 0.65},
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1150,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.1
+        },
+        {
+          "property": "slide_y",
+          "from": 10,
+          "to": 0,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.1
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
-    {
-      "type": "text",
-      "key": "event_date",
-      "format": { "type": "date", "pattern": "dd" },
-      "required": true,
-      "font": "serif",
-      "font_size": 10,
-      "color": "#333333",
-      "x": "(w-text_w)/2",
-      "y": 353,
-          "animations": [
-        { "preset": "fade_in", "start": 0.65 },
-         { "preset": "scale_in", "start": 0.39 }
-      ]
-    },
-
     {
       "type": "text",
       "key": "time",
       "required": true,
       "font": "serif",
-      "font_size": 10,
-      "color": "#333333",
+      "font_size": 13,
+      "color": "#2A2A2A",
       "x": "(w-text_w)/2",
-      "y": 375,
-          "animations": [
-        { "preset": "fade_in", "start": 0.65 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1200,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.48,
+          "easing": "easeOutCubic",
+          "start": 1.2
+        },
+        {
+          "property": "slide_y",
+          "from": 10,
+          "to": 0,
+          "duration": 0.48,
+          "easing": "easeOutCubic",
+          "start": 1.2
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
-    {
-      "type": "text",
-      "key": "event_date",
-      "format": { "type": "date", "pattern": "yyyy" },
-      "required": true,
-      "font": "serif",
-      "font_size": 10,
-      "color": "#333333",
-      "x": "(w-text_w)/2",
-      "y": 400,
-          "animations": [
-        { "preset": "fade_in", "start": 0.65 },
-         { "preset": "scale_in", "start": 0.39 }
-      ]
-    },
-
     {
       "type": "text",
       "key": "venue",
       "required": false,
       "skip_if_empty": true,
-      "font": "gujarati",
-      "font_size": 8,
-      "color": "#333333",
+      "font": "serif",
+      "font_size": 13,
+      "color": "#3B3B3B",
       "x": "(w-text_w)/2",
-      "y": 430,
-           "animations": [
-        { "preset": "fade_in", "start": 0.7 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1300,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.4
+        },
+        {
+          "property": "slide_y",
+          "from": 10,
+          "to": 0,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.4
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "key": "venueAddress",
       "required": false,
       "skip_if_empty": true,
-      "font": "gujarati",
-      "font_size": 8,
-      "color": "#333333",
+      "font": "serif",
+      "font_size": 13,
+      "color": "#3B3B3B",
       "x": "(w-text_w)/2",
-      "y": 450,
-          "animations": [
-        { "preset": "fade_in", "start": 0.7 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1350,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.5
+        },
+        {
+          "property": "slide_y",
+          "from": 10,
+          "to": 0,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.5
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "value": "RSVP",
       "font": "serif",
-      "font_size": 10,
-      "color": "#333333",
+      "font_size": 13,
+      "color": "#3B3B3B",
       "x": "(w-text_w)/2",
-      "y": 476,
-           "animations": [
-        { "preset": "fade_in", "start": 0.75 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1450,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.6
+        },
+        {
+          "property": "slide_y",
+          "from": 10,
+          "to": 0,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.6
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     },
-
     {
       "type": "text",
       "key": "phone",
       "required": false,
       "skip_if_empty": true,
       "font": "serif",
-      "font_size": 10,
-      "color": "#333333",
+      "font_size": 13,
+      "color": "#3B3B3B",
       "x": "(w-text_w)/2",
-      "y": 490,
-          "animations": [
-        { "preset": "fade_in", "start": 0.75 },
-         { "preset": "scale_in", "start": 0.39 }
+      "y": 1500,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.7
+        },
+        {
+          "property": "slide_y",
+          "from": 10,
+          "to": 0,
+          "duration": 0.56,
+          "easing": "easeOutCubic",
+          "start": 1.7
+        },
+        {
+          "property": "scale",
+          "from": 1.0,
+          "to": 1.08,
+          "duration": 2.74,
+          "easing": "linear",
+          "start": 2.26
+        }
       ]
     }
-
   ]
 }

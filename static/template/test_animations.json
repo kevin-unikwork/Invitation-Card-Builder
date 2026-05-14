@@ -1,0 +1,109 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "duration": 10,
+  "background": "_White Watercolor Elegant Wedding Invitation Video.mp4",
+  "layers": [
+    {
+      "type": "text",
+      "value": "Animation Test Bench",
+      "font": "serif",
+      "font_size": 40,
+      "color": "#2A2A2A",
+      "x": "(w-text_w)/2",
+      "y": 100,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 1, "start": 0 }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Fade In (Opacity)",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 250,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 1, "start": 1 }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Zoom In (Scale)",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 350,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.5, "start": 2 },
+        { "property": "scale", "from": 0, "to": 1, "duration": 1, "start": 2, "easing": "easeOutBack" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Slide Up (Y)",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 450,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.5, "start": 3 },
+        { "property": "y", "from": 50, "to": 0, "duration": 1, "start": 3, "easing": "easeOutCubic" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Slide Right (X)",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 550,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.5, "start": 4 },
+        { "property": "x", "from": -100, "to": 0, "duration": 1, "start": 4, "easing": "easeOutCubic" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Spin (Rotation)",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 650,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.5, "start": 5 },
+        { "property": "rotation", "from": -180, "to": 0, "duration": 1.5, "start": 5, "easing": "easeOutBack" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Word Bounce Reveal",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 750,
+      "animations": [
+        { "property": "word_bounce", "start": 6, "duration": 1.5, "easing": "easeOutBack" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Typewriter Bounce",
+      "font": "sans",
+      "font_size": 30,
+      "color": "#4A4A4A",
+      "x": 100,
+      "y": 850,
+      "animations": [
+        { "property": "typewriter_bounce", "start": 7.5, "duration": 1.5 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "format": "video",
+  "background": "static/template_media/Back_Olive Green Floral Wedding Invitation Mobile Video.mp4",
+  "width": 396,
+  "height": 558,
+  "fps": 30,
+  "duration": 8.8,
+  "assets": {
+    "fonts": {
+      "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+      "script": "static/fonts/GreatVibes-Regular.ttf",
+      "modern": "static/fonts/Montserrat-Regular.ttf",
+      "light": "static/fonts/Montserrat-Light.ttf"
+    }
+  },
+  "_measurement_notes": {
+    "source_video": "Olive_Green_Floral_Wedding_Invitation_Mobile_Video.mp4",
+    "source_size": "1080x1920 @ 30fps, 8.8s (264 frames)",
+    "canvas_size": "396x558 (scale_x=0.3667, scale_y=0.2906)",
+    "method": "per-frame pixel diff (full minus bg), top-row + rightmost-col tracking",
+    "you_are_invited": "pure opacity fade-in, no slide. start=1.73s, dur=0.27s. easeOutQuad",
+    "THE_WEDDING_OF": "pure opacity fade-in, no slide. start=2.40s, dur=0.20s. easeOutQuad",
+    "bride_name": "opacity fade-in only. start=3.30s, dur=0.60s. easeOutCubic",
+    "ampersand": "opacity fade-in, slight lag. start=3.37s, dur=0.45s. easeOutCubic",
+    "groom_name": "opacity fade-in + slide_x reveal (left-to-right). start=4.77s, dur=0.90s. easeOutCubic",
+    "date": "slide_x left-to-right reveal (typewriter feel). start=5.13s, dur=2.50s. linear",
+    "global_fade_out": "all layers fade out. start=8.0s, dur=0.7s"
+  },
+  "animation_presets": {
+    "fade_in_fast": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.27,
+        "easing": "easeOutQuad"
+      }
+    ],
+    "fade_in_medium": [
+      {
+        "property": "opacity",
+        "from": 0,
+        "to": 1,
+        "duration": 0.60,
+        "easing": "easeOutCubic"
+      }
+    ],
+    "fade_out": {
+      "property": "opacity",
+      "from": 1,
+      "to": 0,
+      "duration": 0.70,
+      "easing": "easeInCubic"
+    }
+  },
+  "global_animations": [
+    {
+      "preset": "fade_out",
+      "start": 8.0,
+      "targets": "all"
+    }
+  ],
+  "layers": [
+    {
+      "id": "you_are_invited",
+      "type": "text",
+      "value": "you are invited to",
+      "font": "light",
+      "font_size": 13,
+      "color": "#717468",
+      "x": "(w-text_w)/2",
+      "y": 450,
+      "animations": [
+        {
+          "preset": "fade_in_fast",
+          "start": 1.73
+        }
+      ]
+    },
+    {
+      "id": "the_wedding_of",
+      "type": "text",
+      "value": "THE WEDDING OF",
+      "font": "modern",
+      "font_size": 14,
+      "letter_spacing": 3,
+      "color": "#a07c4e",
+      "x": "(w-text_w)/2",
+      "y": 550,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.20,
+          "easing": "easeOutQuad",
+          "start": 2.40
+        }
+      ]
+    },
+    {
+      "id": "bride_name",
+      "type": "text",
+      "key": "bride_name",
+      "font": "script",
+      "font_size": 50,
+      "color": "#5b5e3c",
+      "x": "(w-text_w)/2",
+      "y": 700,
+      "animations": [
+        {
+          "property": "typewriter_bounce",
+          "from": 0,
+          "to": 1,
+          "duration": 0.8,
+          "easing": "easeOutBack",
+          "start": 3.30
+        }
+      ]
+    },
+    {
+      "id": "ampersand",
+      "type": "text",
+      "value": "&",
+      "font": "script",
+      "font_size": 48,
+      "color": "#5b5e3c",
+      "x": "(w-text_w)/2",
+      "y": 850,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 0.45,
+          "easing": "easeOutCubic",
+          "start": 4.00
+        }
+      ]
+    },
+    {
+      "id": "groom_name",
+      "type": "text",
+      "key": "groom_name",
+      "font": "script",
+      "font_size": 50,
+      "color": "#5b5e3c",
+      "x": "(w-text_w)/2",
+      "y": 1000,
+      "animations": [
+        {
+          "property": "typewriter_bounce",
+          "from": 0,
+          "to": 1,
+          "duration": 0.8,
+          "easing": "easeOutBack",
+          "start": 4.77
+        }
+      ]
+    },
+    {
+      "id": "wedding_date",
+      "type": "text",
+      "key": "wedding_date",
+      "format": {
+        "type": "date",
+        "pattern": "dd.MM.yyyy"
+      },
+      "font": "modern",
+      "font_size": 14,
+      "letter_spacing": 2,
+      "color": "#717468",
+      "x": "(w-text_w)/2",
+      "y": 1200,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 1.20,
+          "easing": "easeOutCubic",
+          "start": 5.13
+        },
+        {
+          "property": "slide_x",
+          "from": -20,
+          "to": 0,
+          "duration": 1.20,
+          "easing": "easeOutCubic",
+          "start": 5.13
+        }
+      ]
+    },
+    {
+      "id": "place",
+      "type": "text",
+      "key": "venue_address",
+      "font": "light",
+      "font_size": 12,
+      "color": "#717468",
+      "x": "(w-text_w)/2",
+      "y": 1300,
+      "animations": [
+        {
+          "property": "opacity",
+          "from": 0,
+          "to": 1,
+          "duration": 1.0,
+          "easing": "easeOutCubic",
+          "start": 5.60
+        },
+        {
+          "property": "slide_y",
+          "from": 15,
+          "to": 0,
+          "duration": 1.0,
+          "easing": "easeOutCubic",
+          "start": 5.60
+        }
+      ]
+    }
+  ]
+}

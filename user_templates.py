@@ -60,12 +60,12 @@ def submit_template_data(
     )
 
     fmt = template.get("format", "png")  # "png", "jpeg", or "pdf"  or "video"
+    file_url = None
     
     if is_video_template:
         try:
             # Render video
-            output_path = video_processing.render_timed_json_video_template(template, filled_data,fmt=fmt
-)
+            output_path = video_processing.render_timed_json_video_template(template, filled_data, fmt=fmt)
 
             # Read generated file
             with open(output_path, 'rb') as f:
@@ -90,7 +90,6 @@ def submit_template_data(
             file_url = f"/static/output/{filename}"
 
         except Exception as e:
-         
             raise HTTPException(status_code=500, detail=str(e))
 
     return {

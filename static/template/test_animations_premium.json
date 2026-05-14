@@ -1,0 +1,87 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "duration": 10,
+  "background": "_White Watercolor Elegant Wedding Invitation Video.mp4",
+  "layers": [
+    {
+      "type": "text",
+      "value": "Advanced Motion Engine",
+      "font": "serif",
+      "font_size": 42,
+      "color": "#000000",
+      "x": "(w-text_w)/2",
+      "y": 150,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 1, "start": 0 }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Cinematic Blur Reveal",
+      "font": "sans",
+      "font_size": 32,
+      "color": "#1A1A1A",
+      "x": "(w-text_w)/2",
+      "y": 350,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 1, "start": 1 },
+        { "property": "blur", "from": 20, "to": 0, "duration": 1.5, "start": 1, "easing": "easeOutCubic" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Dynamic Brightness Flash",
+      "font": "sans",
+      "font_size": 32,
+      "color": "#1A1A1A",
+      "x": "(w-text_w)/2",
+      "y": 500,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.5, "start": 2.5 },
+        { "property": "brightness", "from": 5, "to": 1, "duration": 1.5, "start": 2.5, "easing": "easeOutCubic" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Vintage Grayscale Transition",
+      "font": "sans",
+      "font_size": 32,
+      "color": "#C41E3A",
+      "x": "(w-text_w)/2",
+      "y": 650,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.5, "start": 4 },
+        { "property": "grayscale", "from": 1, "to": 0, "duration": 2, "start": 4.5, "easing": "easeInOutCubic" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Dreamy Scale + Blur",
+      "font": "sans",
+      "font_size": 32,
+      "color": "#1A1A1A",
+      "x": "(w-text_w)/2",
+      "y": 800,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 1, "start": 6 },
+        { "property": "scale", "from": 0.8, "to": 1, "duration": 2, "start": 6, "easing": "easeOutCubic" },
+        { "property": "blur", "from": 10, "to": 0, "duration": 2, "start": 6, "easing": "easeOutCubic" }
+      ]
+    },
+    {
+      "type": "text",
+      "value": "Elegant Staggered Hold",
+      "font": "sans",
+      "font_size": 32,
+      "color": "#1A1A1A",
+      "x": "(w-text_w)/2",
+      "y": 950,
+      "animations": [
+        { "property": "opacity", "from": 0, "to": 1, "duration": 0.8, "start": 8 },
+        { "property": "y", "from": 20, "to": 0, "duration": 1, "start": 8, "easing": "easeOutCubic" }
+      ]
+    }
+  ]
+}
