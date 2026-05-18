@@ -34,12 +34,86 @@ def _to_float(val, default=0.0):
     except: return default
 
 def _get_easing(name):
+    # --- Back ---
     if name == "easeOutBack":
         return lambda t: 1 + 2.70158 * pow(t - 1, 3) + 1.70158 * pow(t - 1, 2)
+    if name == "easeInBack":
+        c1 = 1.70158
+        return lambda t: (c1 + 1) * t * t * t - c1 * t * t
+    if name == "easeInOutBack":
+        c2 = 1.70158 * 1.525
+        return lambda t: (pow(2 * t, 2) * ((c2 + 1) * 2 * t - c2)) / 2 if t < 0.5 else (pow(2 * t - 2, 2) * ((c2 + 1) * (t * 2 - 2) + c2) + 2) / 2
+    # --- Cubic ---
+    if name == "easeInCubic":
+        return lambda t: t * t * t
     if name == "easeOutCubic":
         return lambda t: 1 - pow(1 - t, 3)
     if name == "easeInOutCubic":
         return lambda t: 4 * t * t * t if t < 0.5 else 1 - pow(-2 * t + 2, 3) / 2
+    # --- Quad ---
+    if name == "easeInQuad":
+        return lambda t: t * t
+    if name == "easeOutQuad":
+        return lambda t: 1 - (1 - t) * (1 - t)
+    if name == "easeInOutQuad":
+        return lambda t: 2 * t * t if t < 0.5 else 1 - pow(-2 * t + 2, 2) / 2
+    # --- Quart ---
+    if name == "easeInQuart":
+        return lambda t: t * t * t * t
+    if name == "easeOutQuart":
+        return lambda t: 1 - pow(1 - t, 4)
+    if name == "easeInOutQuart":
+        return lambda t: 8 * t * t * t * t if t < 0.5 else 1 - pow(-2 * t + 2, 4) / 2
+    # --- Quint ---
+    if name == "easeInQuint":
+        return lambda t: t * t * t * t * t
+    if name == "easeOutQuint":
+        return lambda t: 1 - pow(1 - t, 5)
+    if name == "easeInOutQuint":
+        return lambda t: 16 * t * t * t * t * t if t < 0.5 else 1 - pow(-2 * t + 2, 5) / 2
+    # --- Expo ---
+    if name == "easeInExpo":
+        return lambda t: 0 if t == 0 else pow(2, 10 * t - 10)
+    if name == "easeOutExpo":
+        return lambda t: 1 if t == 1 else 1 - pow(2, -10 * t)
+    if name == "easeInOutExpo":
+        return lambda t: 0 if t == 0 else (1 if t == 1 else (pow(2, 20 * t - 10) / 2 if t < 0.5 else (2 - pow(2, -20 * t + 10)) / 2))
+    # --- Sine ---
+    if name == "easeInSine":
+        return lambda t: 1 - math.cos((t * math.pi) / 2)
+    if name == "easeOutSine":
+        return lambda t: math.sin((t * math.pi) / 2)
+    if name == "easeInOutSine":
+        return lambda t: -(math.cos(math.pi * t) - 1) / 2
+    # --- Circ ---
+    if name == "easeInCirc":
+        return lambda t: 1 - math.sqrt(1 - pow(t, 2))
+    if name == "easeOutCirc":
+        return lambda t: math.sqrt(1 - pow(t - 1, 2))
+    if name == "easeInOutCirc":
+        return lambda t: (1 - math.sqrt(1 - pow(2 * t, 2))) / 2 if t < 0.5 else (math.sqrt(1 - pow(-2 * t + 2, 2)) + 1) / 2
+    # --- Elastic ---
+    if name == "easeOutElastic":
+        c4 = (2 * math.pi) / 3
+        return lambda t: 0 if t == 0 else (1 if t == 1 else pow(2, -10 * t) * math.sin((t * 10 - 0.75) * c4) + 1)
+    if name == "easeInElastic":
+        c4 = (2 * math.pi) / 3
+        return lambda t: 0 if t == 0 else (1 if t == 1 else -pow(2, 10 * t - 10) * math.sin((t * 10 - 10.75) * c4))
+    if name == "easeInOutElastic":
+        c5 = (2 * math.pi) / 4.5
+        return lambda t: 0 if t == 0 else (1 if t == 1 else (-(pow(2, 20 * t - 10) * math.sin((20 * t - 11.125) * c5)) / 2 if t < 0.5 else (pow(2, -20 * t + 10) * math.sin((20 * t - 11.125) * c5)) / 2 + 1))
+    # --- Bounce ---
+    if name in ["easeOutBounce", "easeInBounce", "easeInOutBounce"]:
+        def bounce_out(t):
+            n1, d1 = 7.5625, 2.75
+            if t < 1 / d1: return n1 * t * t
+            elif t < 2 / d1: t -= 1.5 / d1; return n1 * t * t + 0.75
+            elif t < 2.5 / d1: t -= 2.25 / d1; return n1 * t * t + 0.9375
+            else: t -= 2.625 / d1; return n1 * t * t + 0.984375
+        if name == "easeOutBounce": return bounce_out
+        if name == "easeInBounce": return lambda t: 1 - bounce_out(1 - t)
+        return lambda t: (1 - bounce_out(1 - 2 * t)) / 2 if t < 0.5 else (1 + bounce_out(2 * t - 1)) / 2
+    # --- Default: linear ---
     return lambda t: t
 
 from video_processing import _render_text_to_pil
@@ -167,7 +241,17 @@ def render_video_with_moviepy(template, data, output_override=None):
             "cw": pil_img.info.get("char_widths", []),
             "anims": anims,
             "layer_raw": layer,
-            "s_fac": s_fac
+            "s_fac": s_fac,
+            # New animation properties
+            "blur": make_filter("blur", 0.0),
+            "flip_x": make_filter("flip_x", 0.0),
+            "flip_y": make_filter("flip_y", 0.0),
+            "glow": make_filter("glow", 0.0),
+            "shadow_grow": make_filter("shadow_grow", 0.0),
+            "bounce_y": make_filter("bounce_y", 0.0),
+            "wave": make_filter("wave", 0.0),
+            "scale_x": make_filter("scale_x", 1.0),
+            "scale_y": make_filter("scale_y", 1.0),
         })
 
     skia_info = skia.ImageInfo.Make(width, height, skia.ColorType.kRGBA_8888_ColorType, skia.AlphaType.kPremul_AlphaType)
@@ -265,14 +349,113 @@ def render_video_with_moviepy(template, data, output_override=None):
                             canvas.restore()
                         continue
                 
-                # Default render
+                # ===== NEW ANIMATION: Wave (per-character vertical wave) =====
+                wave_list = [b for b in L["anims"] if b.get("property") == "wave"]
+                if wave_list and L["cw"]:
+                    b = wave_list[0]
+                    ws, wdur = _to_float(b.get("start"), 0), _to_float(b.get("duration"), 2)
+                    amp = _to_float(b.get("amplitude"), 15) * L["s_fac"]
+                    freq = _to_float(b.get("frequency"), 0.3)
+                    if t >= ws:
+                        chars = list(L["text"])
+                        for i, char in enumerate(chars):
+                            p_w = L["cw"][i]
+                            p_start = L["cw"][i-1] if i > 0 else 0
+                            char_w = p_w - p_start
+                            if char_w <= 0: continue
+                            wave_offset = amp * math.sin(2 * math.pi * freq * (t - ws) + i * 0.5)
+                            canvas.save()
+                            canvas.translate(0, wave_offset)
+                            canvas.clipRect(skia.Rect.MakeXYWH(fx + p_start, fy - abs(amp), char_w, L["h"] + 2 * abs(amp)))
+                            canvas.drawImage(L["img"], fx, fy, sampling, paint)
+                            canvas.restore()
+                        continue
+
+                # ===== NEW ANIMATION: Elastic entrance (scale overshoot + settle) =====
+                elastic_list = [b for b in L["anims"] if b.get("property") == "elastic"]
+                if elastic_list:
+                    b = elastic_list[0]
+                    es, edur = _to_float(b.get("start"), 0), _to_float(b.get("duration"), 1)
+                    if t >= es:
+                        ease_el = _get_easing("easeOutElastic")
+                        progress = min((t - es) / edur, 1.0)
+                        el_sc = ease_el(progress)
+                        canvas.save()
+                        canvas.translate(cx, cy)
+                        canvas.scale(el_sc * sc, el_sc * sc)
+                        canvas.rotate(rot)
+                        canvas.translate(-cx, -cy)
+                        canvas.drawImage(L["img"], fx, fy, sampling, paint)
+                        canvas.restore()
+                        continue
+                    else:
+                        continue  # Hidden before elastic starts
+
+                # ===== NEW ANIMATION: Bounce entrance =====
+                bounce_list = [b for b in L["anims"] if b.get("property") == "bounce_in"]
+                if bounce_list:
+                    b = bounce_list[0]
+                    bs, bdur = _to_float(b.get("start"), 0), _to_float(b.get("duration"), 1)
+                    if t >= bs:
+                        ease_b = _get_easing("easeOutBounce")
+                        progress = min((t - bs) / bdur, 1.0)
+                        b_sc = ease_b(progress)
+                        canvas.save()
+                        canvas.translate(cx, cy)
+                        canvas.scale(b_sc * sc, b_sc * sc)
+                        canvas.translate(-cx, -cy)
+                        canvas.drawImage(L["img"], fx, fy, sampling, paint)
+                        canvas.restore()
+                        continue
+                    else:
+                        continue
+
+                # Default render (enhanced with new properties)
                 canvas.save()
                 canvas.translate(cx, cy)
-                canvas.scale(sc, sc)
+                
+                # Apply per-axis scaling if defined, otherwise use uniform scale
+                sx_val, sy_val = L["scale_x"](t), L["scale_y"](t)
+                if sx_val != 1.0 or sy_val != 1.0:
+                    canvas.scale(sx_val * sc, sy_val * sc)
+                else:
+                    canvas.scale(sc, sc)
+                
+                # Apply rotation
                 canvas.rotate(rot)
+                
+                # Apply flip transforms
+                flip_x_val = L["flip_x"](t)
+                flip_y_val = L["flip_y"](t)
+                if flip_x_val > 0:
+                    angle = flip_x_val * 180  # 0->0°, 1->180°
+                    perspective = math.cos(math.radians(angle))
+                    canvas.scale(perspective, 1.0)
+                if flip_y_val > 0:
+                    angle = flip_y_val * 180
+                    perspective = math.cos(math.radians(angle))
+                    canvas.scale(1.0, perspective)
+                
                 canvas.skew(sx, sy)
                 canvas.translate(-cx, -cy)
-                canvas.drawImage(L["img"], fx, fy, sampling, paint)
+                
+                # Apply blur effect
+                blur_val = L["blur"](t)
+                if blur_val > 0.1:
+                    blur_filter = skia.ImageFilters.Blur(blur_val, blur_val)
+                    blur_paint = skia.Paint(AntiAlias=True, Alphaf=op, ImageFilter=blur_filter)
+                    canvas.drawImage(L["img"], fx, fy, sampling, blur_paint)
+                # Apply glow effect
+                elif L["glow"](t) > 0:
+                    glow_val = L["glow"](t)
+                    glow_sigma = glow_val * 8
+                    glow_filter = skia.ImageFilters.Blur(glow_sigma, glow_sigma)
+                    glow_paint = skia.Paint(AntiAlias=True, Alphaf=op * 0.4, ImageFilter=glow_filter)
+                    canvas.drawImage(L["img"], fx, fy, sampling, glow_paint)
+                    canvas.drawImage(L["img"], fx, fy, sampling, paint)
+                else:
+                    canvas.drawImage(L["img"], fx, fy, sampling, paint)
+                
                 canvas.restore()
         
         return frame_arr[:, :, :3]

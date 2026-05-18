@@ -1,0 +1,1143 @@
+{
+    "format": "video",
+    "background": "static/template_media/Back_Pink Wedding Invitation Mobile Video.mp4",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration": 26.07,
+    "assets": {
+        "fonts": {
+            "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+            "script": "static/fonts/GreatVibes-Regular.ttf",
+            "modern": "static/fonts/Montserrat-Regular.ttf",
+            "light": "static/fonts/Montserrat-Light.ttf",
+            "bold": "static/fonts/Montserrat-Bold.ttf"
+        }
+    },
+    "animation_presets": {
+        "typewriter_bounce_smooth": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.4,
+                "easing": "easeOutCubic",
+                "start": 0
+            },
+            {
+                "property": "typewriter_bounce",
+                "duration": 1.4,
+                "easing": "easeOutBack",
+                "start": 0
+            }
+        ],
+        "swing_pop": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.4,
+                "easing": "easeOutQuad"
+            },
+            {
+                "property": "scale",
+                "from": 0,
+                "to": 1,
+                "duration": 0.9,
+                "easing": "easeOutBack"
+            },
+            {
+                "property": "rotation",
+                "from": -12,
+                "to": 0,
+                "duration": 1.0,
+                "easing": "easeOutBack"
+            }
+        ],
+        "elastic_pop": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.3
+            },
+            {
+                "property": "elastic",
+                "from": 0,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutElastic",
+                "start": 0
+            }
+        ],
+        "bounce_drop": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.3
+            },
+            {
+                "property": "bounce_in",
+                "from": 0,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutBounce",
+                "start": 0
+            }
+        ],
+        "slide_down_fade": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.6,
+                "easing": "easeOutCubic",
+                "start": 0
+            },
+            {
+                "property": "slide_y",
+                "from": -50,
+                "to": 0,
+                "duration": 0.6,
+                "easing": "easeOutCubic",
+                "start": 0
+            }
+        ],
+        "slide_up_fade": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.7,
+                "easing": "easeOutCubic",
+                "start": 0
+            },
+            {
+                "property": "slide_y",
+                "from": 55,
+                "to": 0,
+                "duration": 0.7,
+                "easing": "easeOutCubic",
+                "start": 0
+            }
+        ],
+        "slide_left_fade": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.7,
+                "easing": "easeOutCubic"
+            },
+            {
+                "property": "slide_x",
+                "from": -80,
+                "to": 0,
+                "duration": 0.7,
+                "easing": "easeOutCubic"
+            }
+        ],
+        "slide_right_fade": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.7,
+                "easing": "easeOutCubic"
+            },
+            {
+                "property": "slide_x",
+                "from": 80,
+                "to": 0,
+                "duration": 0.7,
+                "easing": "easeOutCubic"
+            }
+        ],
+        "fade_in_slow": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutCubic",
+                "start": 0
+            }
+        ],
+        "fade_in": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.7,
+                "easing": "easeOutCubic",
+                "start": 0
+            }
+        ],
+        "rubber_band_in": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.3
+            },
+            {
+                "property": "scale_x",
+                "from": 1.4,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutBack"
+            },
+            {
+                "property": "scale_y",
+                "from": 0.6,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutBack"
+            }
+        ],
+        "glow_in": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.8,
+                "easing": "easeOutCubic"
+            },
+            {
+                "property": "glow",
+                "from": 1,
+                "to": 0,
+                "duration": 1.2,
+                "easing": "easeOutCubic"
+            }
+        ],
+        "exit_fade_out": [
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "duration": 0.6,
+                "easing": "easeInCubic"
+            }
+        ],
+        "exit_slide_left": [
+            {
+                "property": "slide_x",
+                "from": 0,
+                "to": -1200,
+                "duration": 0.7,
+                "easing": "easeInExpo"
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "duration": 0.7
+            }
+        ],
+        "fade_out": {
+            "property": "opacity",
+            "from": 1,
+            "to": 0,
+            "duration": 0.8,
+            "easing": "easeInCubic"
+        },
+        "cinematic_typewriter": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.4,
+                "start": 0
+            },
+            {
+                "property": "typewriter_bounce",
+                "duration": 1.4,
+                "easing": "easeOutBack",
+                "start": 0
+            },
+            {
+                "property": "glow",
+                "from": 3,
+                "to": 0,
+                "duration": 1.5,
+                "easing": "easeOutQuad",
+                "start": 0.2
+            }
+        ],
+        "blur_in_slide_up": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.8,
+                "easing": "easeOutCubic",
+                "start": 0
+            },
+            {
+                "property": "slide_y",
+                "from": 40,
+                "to": 0,
+                "duration": 0.8,
+                "easing": "easeOutCubic",
+                "start": 0
+            },
+            {
+                "property": "blur",
+                "from": 12,
+                "to": 0,
+                "duration": 0.8,
+                "easing": "easeOutCubic",
+                "start": 0
+            }
+        ],
+        "blur_zoom_in": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutQuint",
+                "start": 0
+            },
+            {
+                "property": "scale",
+                "from": 0.85,
+                "to": 1,
+                "duration": 1.2,
+                "easing": "easeOutQuint",
+                "start": 0
+            },
+            {
+                "property": "blur",
+                "from": 15,
+                "to": 0,
+                "duration": 1.0,
+                "easing": "easeOutQuint",
+                "start": 0
+            }
+        ],
+        "elegant_glow_in": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 0,
+                "duration": 0.01,
+                "start": 0
+            },
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 1.5,
+                "easing": "easeOutSine",
+                "start": 0
+            },
+            {
+                "property": "glow",
+                "from": 4,
+                "to": 0,
+                "duration": 1.5,
+                "easing": "easeOutSine",
+                "start": 0
+            }
+        ],
+        "glow_swing_pop": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.4
+            },
+            {
+                "property": "scale",
+                "from": 0,
+                "to": 1,
+                "duration": 0.9,
+                "easing": "easeOutBack"
+            },
+            {
+                "property": "rotation",
+                "from": -15,
+                "to": 0,
+                "duration": 1.0,
+                "easing": "easeOutElastic"
+            },
+            {
+                "property": "glow",
+                "from": 3,
+                "to": 0,
+                "duration": 1.0
+            }
+        ],
+        "wave_in": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.5
+            },
+            {
+                "property": "wave",
+                "from": 0,
+                "to": 1,
+                "duration": 1.5,
+                "easing": "easeOutQuad"
+            },
+            {
+                "property": "glow",
+                "from": 2,
+                "to": 0,
+                "duration": 1.0
+            }
+        ],
+        "elastic_blur": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "duration": 0.3
+            },
+            {
+                "property": "elastic",
+                "from": 0,
+                "to": 1,
+                "duration": 1.0,
+                "easing": "easeOutElastic"
+            },
+            {
+                "property": "blur",
+                "from": 10,
+                "to": 0,
+                "duration": 0.8
+            }
+        ]
+    },
+    "global_animations": [
+        {
+            "preset": "fade_out",
+            "start": 25.4,
+            "targets": "all"
+        }
+    ],
+    "layers": [
+        {
+            "id": "s1_wedding",
+            "type": "text",
+            "value": "Wedding",
+            "font": "script",
+            "font_size": 150,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 650,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 1.0
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 3.4
+                }
+            ]
+        },
+        {
+            "id": "s1_invitation",
+            "type": "text",
+            "value": "Invitation",
+            "font": "script",
+            "font_size": 150,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 850,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 1.6
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 3.4
+                }
+            ]
+        },
+        {
+            "id": "s1_subtitle",
+            "type": "text",
+            "value": "Join us as we celebrate love",
+            "font": "serif",
+            "font_size": 45,
+            "color": "#9b3054",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1140,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 2.7
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 3.4
+                }
+            ]
+        },
+        {
+            "id": "s2_together_line",
+            "type": "text",
+            "value": "Together With Their Families",
+            "font": "serif",
+            "font_size": 36,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 500,
+            "animations": [
+                {
+                    "preset": "blur_zoom_in",
+                    "start": 4.8
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s2_bride_name",
+            "type": "text",
+            "key": "bride_name",
+            "font": "script",
+            "font_size": 115,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 670,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 5.5
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s2_ampersand",
+            "type": "text",
+            "value": "&",
+            "font": "script",
+            "font_size": 90,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 840,
+            "animations": [
+                {
+                    "preset": "glow_swing_pop",
+                    "start": 6.2
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s2_groom_name",
+            "type": "text",
+            "key": "groom_name",
+            "font": "script",
+            "font_size": 115,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 970,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 6.5
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s2_request_line1",
+            "type": "text",
+            "value": "Request the pleasure",
+            "font": "serif",
+            "font_size": 36,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1180,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 7.2
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s2_request_line2",
+            "type": "text",
+            "value": "of your company",
+            "font": "serif",
+            "font_size": 36,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1260,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 7.5
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s2_event_date",
+            "type": "text",
+            "key": "event_date",
+            "font": "serif",
+            "font_size": 42,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1410,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 7.8
+                },
+                {
+                    "preset": "exit_slide_left",
+                    "start": 9.4
+                }
+            ]
+        },
+        {
+            "id": "s3_invited_banner",
+            "type": "text",
+            "value": "• YOU ARE INVITED •",
+            "font": "serif",
+            "font_size": 34,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 420,
+            "animations": [
+                {
+                    "preset": "blur_zoom_in",
+                    "start": 10.5
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_joy_line1",
+            "type": "text",
+            "value": "WITH GREAT JOY, WE INVITE YOU",
+            "font": "serif",
+            "font_size": 30,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 510,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 10.8
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_joy_line2",
+            "type": "text",
+            "value": "TO CELEBRATE THE WEDDING OF",
+            "font": "serif",
+            "font_size": 30,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 560,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 11.0
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_bride_name",
+            "type": "text",
+            "key": "bride_name",
+            "font": "script",
+            "font_size": 112,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 660,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 11.3
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_and_text",
+            "type": "text",
+            "value": "— & —",
+            "font": "serif",
+            "font_size": 60,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 830,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 12.0
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_groom_name",
+            "type": "text",
+            "key": "groom_name",
+            "font": "script",
+            "font_size": 112,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 910,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 12.3
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_event_date",
+            "type": "text",
+            "key": "event_date",
+            "font": "serif",
+            "font_size": 42,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1110,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 13.2,
+                    "duration": 1.0,
+                    "easing": "easeOutQuint"
+                },
+                {
+                    "property": "slide_x",
+                    "from": -80,
+                    "to": 0,
+                    "start": 13.2,
+                    "duration": 1.0,
+                    "easing": "easeOutQuint"
+                },
+                {
+                    "property": "blur",
+                    "from": 12,
+                    "to": 0,
+                    "start": 13.2,
+                    "duration": 1.0,
+                    "easing": "easeOutQuint"
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_day_time",
+            "type": "text",
+            "value": "{event_day}  •  {event_time}",
+            "font": "serif",
+            "font_size": 36,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1200,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 13.5
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_venue_name",
+            "type": "text",
+            "key": "venue_name",
+            "font": "serif",
+            "font_size": 40,
+            "color": "#ffffff",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1310,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 13.8
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_venue_address",
+            "type": "text",
+            "key": "venue_address",
+            "font": "serif",
+            "font_size": 34,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1380,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 14.1
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s3_rsvp_line",
+            "type": "text",
+            "value": "Your presence is our greatest gift",
+            "font": "serif",
+            "font_size": 37,
+            "color": "#f7dde6",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1500,
+            "animations": [
+                {
+                    "preset": "elegant_glow_in",
+                    "start": 14.5
+                },
+                {
+                    "preset": "exit_fade_out",
+                    "start": 17.4
+                }
+            ]
+        },
+        {
+            "id": "s4_with_love",
+            "type": "text",
+            "value": "With Love",
+            "font": "script",
+            "font_size": 100,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 460,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 19.0
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.12,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_with_love",
+            "type": "text",
+            "value": "&",
+            "font": "script",
+            "font_size": 100,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 620,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 19.2
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.12,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_gratitude",
+            "type": "text",
+            "value": "Gratitude",
+            "font": "script",
+            "font_size": 100,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 780,
+            "animations": [
+                {
+                    "preset": "cinematic_typewriter",
+                    "start": 19.5
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.12,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_thank_you",
+            "type": "text",
+            "value": "Thank You",
+            "font": "serif",
+            "font_size": 70,
+            "color": "#9b3054",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 980,
+            "animations": [
+                {
+                    "preset": "elastic_blur",
+                    "start": 20.0
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.15,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_message_line1",
+            "type": "text",
+            "value": "for being a beautiful part of",
+            "font": "serif",
+            "font_size": 34,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1160,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 20.8
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.2,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_message_line2",
+            "type": "text",
+            "value": "our love story",
+            "font": "serif",
+            "font_size": 34,
+            "color": "#7a1c3f",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1240,
+            "animations": [
+                {
+                    "preset": "blur_in_slide_up",
+                    "start": 21.05
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.15,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_closing_line1",
+            "type": "text",
+            "value": "We look forward to celebrating",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#9b3054",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1360,
+            "animations": [
+                {
+                    "preset": "fade_in",
+                    "start": 21.5
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.15,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        },
+        {
+            "id": "s4_closing_line2",
+            "type": "text",
+            "value": "this special moment with you",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#9b3054",
+            "align": "center",
+            "x": "(w-text_w)/2",
+            "y": 1440,
+            "animations": [
+                {
+                    "preset": "fade_in",
+                    "start": 21.75
+                },
+                {
+                    "property": "scale",
+                    "from": 1.0,
+                    "to": 1.15,
+                    "start": 22.0,
+                    "duration": 3.4,
+                    "easing": "linear"
+                }
+            ]
+        }
+    ]
+}
