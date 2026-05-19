@@ -14,7 +14,7 @@
 }
 
 1004
-
+ 
 {
   "template_id": 1004,
   "filled_data": {
@@ -56,13 +56,26 @@
 }
 
 {
+  "template_id": "1009",
+  "filled_data": {
+    "bride_name": "Ayesha",
+    "groom_name": "Rahul",
+    "event_date": "2026-02-14",
+    "event_day": "Saturday",
+    "event_time": "7:00 PM onwards",
+    "venue_name": "The Royal Palace",
+    "venue_address": "Lake View, Udaipur"
+  }
+}
+
+{
   "template_id": 1010,
   "filled_data": {
     "bride_name": "કાવ્યા",
     "groom_name": "જય",
     "wedding_date": "2026-02-14",
     "venue_address": "શ્રી સ્વામિનારાયણ મંદિર, સુરત"
-  }
+  },
 }
 
 {
@@ -76,6 +89,39 @@
   }
 }
 
+{
+  "template_id": "1012",
+  "filled_data": {
+    "bride_name": "Ayesha",
+    "groom_name": "Rahul",
+    "wedding_date": "December 25, 2026",
+    "wedding_day": "Friday",
+    "wedding_time": "7:00 PM onwards",
+    "venue_line1": "The Royal Palace",
+    "venue_line2": "Lake View, Udaipur",
+    "screen4_line1": "Join us to celebrate!"
+  }
+}
+
+{
+  "template_id": "1014",
+  "data": {
+    "bride_name": "Priya",
+    "groom_name": "Ranveer",
+    "date": "Saturday, October 24th, 2026",
+    "time": "at 4:00 PM in the afternoon",
+    "venue_name": "The Grand Hotel",
+    "venue_address": "123 Elegance Boulevard, Paris",
+    "poojan_date": "Oct 22nd, 2026 - 10:00 AM",
+    "poojan_venue": "Bride's Residence",
+    "ring_date": "Oct 22nd, 2026 - 7:00 PM",
+    "ring_venue": "The Starlight Lounge",
+    "haldi_date": "Oct 23rd, 2026 - 9:00 AM",
+    "haldi_venue": "Sunshine Courtyard",
+    "wedding_date": "Oct 24th, 2026 - 5:00 PM",
+    "wedding_venue": "The Grand Hotel, Paris"
+  }
+}
 
 
 Functions responsible for scale animation, in execution order:

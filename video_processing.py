@@ -555,6 +555,9 @@ def _render_text_to_pil(text: str, layer: dict, font_family: str, font_path: Pat
         font_family = "Sans"
 
     color = _parse_color(layer.get("color", "#000000"))
+    # Group 6: Shimmer — render white text so gradient can be applied as color source
+    if layer.get("_shimmer_active"):
+        color = (255, 255, 255)
     padding = int(layer.get("padding", 6))
 
     # Try Pango/Cairo first (superior multilingual support)

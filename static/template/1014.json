@@ -1,0 +1,701 @@
+{
+    "format": "video",
+    "background": "static/template_media/Back_AI_Invitation.mp4",
+    "width": 941,
+    "height": 1672,
+    "fps": 30,
+    "duration": 46.0,
+    "assets": {
+        "fonts": {
+            "serif": "static/fonts/PlayfairDisplay-Regular.ttf",
+            "script": "static/fonts/GreatVibes-Regular.ttf",
+            "modern": "static/fonts/Montserrat-Regular.ttf",
+            "light": "static/fonts/Montserrat-Light.ttf",
+            "bold": "static/fonts/Montserrat-Bold.ttf"
+        }
+    },
+    "animation_presets": {
+        "typewriter_in_out_s2": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 14.5,
+                "duration": 0.5
+            },
+            {
+                "property": "typewriter_bounce",
+                "start": 14.5,
+                "duration": 1.5
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "start": 21.0,
+                "duration": 0.5
+            }
+        ],
+        "slide_up_in_out_s2": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 15.5,
+                "duration": 0.5
+            },
+            {
+                "property": "slide_y",
+                "from": 50,
+                "to": 0,
+                "start": 15.5,
+                "duration": 0.8,
+                "easing": "easeOutCubic"
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "start": 21.0,
+                "duration": 0.5
+            }
+        ],
+        "typewriter_in_out_s3": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 22.5,
+                "duration": 0.5
+            },
+            {
+                "property": "typewriter_bounce",
+                "start": 22.5,
+                "duration": 1.5
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "start": 29.0,
+                "duration": 0.5
+            }
+        ],
+        "slide_up_in_out_s3": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 23.5,
+                "duration": 0.5
+            },
+            {
+                "property": "slide_y",
+                "from": 50,
+                "to": 0,
+                "start": 23.5,
+                "duration": 0.8,
+                "easing": "easeOutCubic"
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "start": 29.0,
+                "duration": 0.5
+            }
+        ],
+        "typewriter_in_out_s4": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 30.5,
+                "duration": 0.5
+            },
+            {
+                "property": "typewriter_bounce",
+                "start": 30.5,
+                "duration": 1.5
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "start": 37.0,
+                "duration": 0.5
+            }
+        ],
+        "slide_up_in_out_s4": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 31.5,
+                "duration": 0.5
+            },
+            {
+                "property": "slide_y",
+                "from": 50,
+                "to": 0,
+                "start": 31.5,
+                "duration": 0.8,
+                "easing": "easeOutCubic"
+            },
+            {
+                "property": "opacity",
+                "from": 1,
+                "to": 0,
+                "start": 37.0,
+                "duration": 0.5
+            }
+        ],
+        "typewriter_in_s5": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 38.5,
+                "duration": 0.5
+            },
+            {
+                "property": "typewriter_bounce",
+                "start": 38.5,
+                "duration": 1.5
+            }
+        ],
+        "slide_up_in_s5": [
+            {
+                "property": "opacity",
+                "from": 0,
+                "to": 1,
+                "start": 39.5,
+                "duration": 0.5
+            },
+            {
+                "property": "slide_y",
+                "from": 50,
+                "to": 0,
+                "start": 39.5,
+                "duration": 0.8,
+                "easing": "easeOutCubic"
+            }
+        ]
+    },
+    "layers": [
+        {
+            "id": "intro",
+            "type": "text",
+            "value": "Wedding Invitations",
+            "font": "script",
+            "font_size": 45,
+            "color": "#FFF8DC",
+            "x": "(w-text_w)/2",
+            "y": 530,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 8.0,
+                    "duration": 1.0,
+                    "easing": "easeInOutSine"
+                },
+                {
+                    "property": "slide_y",
+                    "from": -20,
+                    "to": 0,
+                    "start": 8.0,
+                    "duration": 1.0,
+                    "easing": "easeOutQuad"
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "bride",
+            "type": "text",
+            "value": "{bride_name}",
+            "font": "script",
+            "font_size": 90,
+            "x": "(w-text_w)/2",
+            "y": 620,
+            "shadow_color": "#000000",
+            "shimmer": {
+                "colors": [
+                    "#B8860B",
+                    "#FFD700",
+                    "#FFF8DC",
+                    "#B8860B"
+                ],
+                "speed": 1.2,
+                "angle": 0
+            },
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 8.3,
+                    "duration": 0.5
+                },
+                {
+                    "property": "typewriter_bounce",
+                    "start": 8.3,
+                    "duration": 1.5
+                },
+                {
+                    "property": "shadow_opacity",
+                    "from": 0,
+                    "to": 0.4,
+                    "start": 8.8,
+                    "duration": 1.0
+                },
+                {
+                    "property": "shadow_y",
+                    "from": 0,
+                    "to": 6,
+                    "start": 8.3,
+                    "duration": 0.1
+                },
+                {
+                    "property": "shadow_blur",
+                    "from": 0,
+                    "to": 10,
+                    "start": 8.3,
+                    "duration": 0.1
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "ampersand",
+            "type": "text",
+            "value": "&",
+            "font": "serif",
+            "font_size": 60,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 780,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 8.6,
+                    "duration": 0.3
+                },
+                {
+                    "property": "elastic",
+                    "start": 8.6,
+                    "duration": 1.5
+                },
+                {
+                    "property": "rotation",
+                    "from": -180,
+                    "to": 0,
+                    "start": 8.6,
+                    "duration": 1.0,
+                    "easing": "easeOutBack"
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "groom",
+            "type": "text",
+            "value": "{groom_name}",
+            "font": "script",
+            "font_size": 90,
+            "x": "(w-text_w)/2",
+            "y": 850,
+            "shadow_color": "#000000",
+            "shimmer": {
+                "colors": [
+                    "#B8860B",
+                    "#FFD700",
+                    "#FFF8DC",
+                    "#B8860B"
+                ],
+                "speed": 1.2,
+                "angle": 0
+            },
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 8.9,
+                    "duration": 0.5
+                },
+                {
+                    "property": "typewriter_bounce",
+                    "start": 8.9,
+                    "duration": 1.5
+                },
+                {
+                    "property": "shadow_opacity",
+                    "from": 0,
+                    "to": 0.4,
+                    "start": 9.4,
+                    "duration": 1.0
+                },
+                {
+                    "property": "shadow_y",
+                    "from": 0,
+                    "to": 6,
+                    "start": 8.9,
+                    "duration": 0.1
+                },
+                {
+                    "property": "shadow_blur",
+                    "from": 0,
+                    "to": 10,
+                    "start": 8.9,
+                    "duration": 0.1
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "date",
+            "type": "text",
+            "value": "{date}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#FFD700",
+            "x": "(w-text_w)/2",
+            "y": 1050,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 9.5,
+                    "duration": 0.8
+                },
+                {
+                    "property": "slide_y",
+                    "from": 30,
+                    "to": 0,
+                    "start": 9.5,
+                    "duration": 0.8,
+                    "easing": "easeOutCubic"
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "time",
+            "type": "text",
+            "value": "{time}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 1100,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 9.8,
+                    "duration": 0.8
+                },
+                {
+                    "property": "slide_y",
+                    "from": 30,
+                    "to": 0,
+                    "start": 9.8,
+                    "duration": 0.8,
+                    "easing": "easeOutCubic"
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "venue",
+            "type": "text",
+            "value": "{venue_name}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#FFD700",
+            "x": "(w-text_w)/2",
+            "y": 1200,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 10.1,
+                    "duration": 0.8
+                },
+                {
+                    "property": "slide_y",
+                    "from": 30,
+                    "to": 0,
+                    "start": 10.1,
+                    "duration": 0.8,
+                    "easing": "easeOutCubic"
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "address",
+            "type": "text",
+            "value": "{venue_address}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#E0E0E0",
+            "x": "(w-text_w)/2",
+            "y": 1250,
+            "animations": [
+                {
+                    "property": "opacity",
+                    "from": 0,
+                    "to": 1,
+                    "start": 10.4,
+                    "duration": 0.8
+                },
+                {
+                    "property": "slide_y",
+                    "from": 30,
+                    "to": 0,
+                    "start": 10.4,
+                    "duration": 0.8,
+                    "easing": "easeOutCubic"
+                },
+                {
+                    "property": "opacity",
+                    "from": 1,
+                    "to": 0,
+                    "start": 13.0,
+                    "duration": 0.5
+                }
+            ]
+        },
+        {
+            "id": "s2_heading",
+            "type": "text",
+            "value": "Mata Poojan",
+            "font": "script",
+            "font_size": 80,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 290,
+            "animations": [
+                {
+                    "preset": "typewriter_in_out_s2"
+                }
+            ]
+        },
+        {
+            "id": "s2_date",
+            "type": "text",
+            "value": "{poojan_date}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 420,
+            "animations": [
+                {
+                    "preset": "slide_up_in_out_s2"
+                }
+            ]
+        },
+        {
+            "id": "s2_venue",
+            "type": "text",
+            "value": "{poojan_venue}",
+            "font": "modern",
+            "font_size": 28,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 480,
+            "animations": [
+                {
+                    "preset": "slide_up_in_out_s2"
+                }
+            ]
+        },
+        {
+            "id": "s3_heading",
+            "type": "text",
+            "value": "Ring Ceremony",
+            "font": "script",
+            "font_size": 80,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 450,
+            "animations": [
+                {
+                    "preset": "typewriter_in_out_s3"
+                }
+            ]
+        },
+        {
+            "id": "s3_date",
+            "type": "text",
+            "value": "{ring_date}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 600,
+            "animations": [
+                {
+                    "preset": "slide_up_in_out_s3"
+                }
+            ]
+        },
+        {
+            "id": "s3_venue",
+            "type": "text",
+            "value": "{ring_venue}",
+            "font": "modern",
+            "font_size": 28,
+            "color": "#FFFFFF",
+            "x": "(w-text_w)/2",
+            "y": 660,
+            "animations": [
+                {
+                    "preset": "slide_up_in_out_s3"
+                }
+            ]
+        },
+        {
+            "id": "s4_heading",
+            "type": "text",
+            "value": "Haldi Event",
+            "font": "script",
+            "font_size": 80,
+            "color": "#5E2C04",
+            "x": "(w-text_w)/2",
+            "y": 300,
+            "animations": [
+                {
+                    "preset": "typewriter_in_out_s4"
+                }
+            ]
+        },
+        {
+            "id": "s4_date",
+            "type": "text",
+            "value": "{haldi_date}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#5E2C04",
+            "x": "(w-text_w)/2",
+            "y": 460,
+            "animations": [
+                {
+                    "preset": "slide_up_in_out_s4"
+                }
+            ]
+        },
+        {
+            "id": "s4_venue",
+            "type": "text",
+            "value": "{haldi_venue}",
+            "font": "modern",
+            "font_size": 28,
+            "color": "#8B4513",
+            "x": "(w-text_w)/2",
+            "y": 520,
+            "animations": [
+                {
+                    "preset": "slide_up_in_out_s4"
+                }
+            ]
+        },
+        {
+            "id": "s5_heading",
+            "type": "text",
+            "value": "Wedding",
+            "font": "script",
+            "font_size": 80,
+            "color": "#5E2C04",
+            "x": "(w-text_w)/2",
+            "y": 320,
+            "animations": [
+                {
+                    "preset": "typewriter_in_s5"
+                }
+            ]
+        },
+        {
+            "id": "s5_date",
+            "type": "text",
+            "value": "{wedding_date}",
+            "font": "serif",
+            "font_size": 32,
+            "color": "#5E2C04",
+            "x": "(w-text_w)/2",
+            "y": 500,
+            "animations": [
+                {
+                    "preset": "slide_up_in_s5"
+                }
+            ]
+        },
+        {
+            "id": "s5_venue",
+            "type": "text",
+            "value": "{wedding_venue}",
+            "font": "modern",
+            "font_size": 28,
+            "color": "#8B4513",
+            "x": "(w-text_w)/2",
+            "y": 560,
+            "animations": [
+                {
+                    "preset": "slide_up_in_s5"
+                }
+            ]
+        }
+    ]
+}

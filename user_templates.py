@@ -18,13 +18,18 @@ def submit_template_data(
 ):
     template_id = payload.get("template_id")
     filled_data = payload.get("filled_data") or {}
+    
+    data_block = payload.get("data")
+    if isinstance(data_block, dict):
+        filled_data = {**filled_data, **data_block}
+
     if not isinstance(filled_data, dict):
         raise HTTPException(status_code=400, detail="filled_data must be an object")
 
     extra_data = {
         key: value
         for key, value in payload.items()
-        if key not in {"template_id", "filled_data"}
+        if key not in {"template_id", "filled_data", "data"}
     }
     if extra_data:
         filled_data = {**filled_data, **extra_data}
@@ -55,8 +60,10 @@ def submit_template_data(
     
     # Check if it's a video template
     background_path = str(template.get("background") or "").lower()
-    is_video_template = bool(template.get("video")) or background_path.endswith(
-        (".mp4", ".mov", ".mkv", ".webm", ".avi")
+    is_video_template = (
+        bool(template.get("video")) 
+        or template.get("format") == "video"
+        or background_path.endswith((".mp4", ".mov", ".mkv", ".webm", ".avi"))
     )
 
     fmt = template.get("format", "png")  # "png", "jpeg", or "pdf"  or "video"
